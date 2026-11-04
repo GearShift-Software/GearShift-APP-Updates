@@ -21,7 +21,7 @@ Windows tuning for gamers: only tweaks with a measured gain, each explained in p
 ## Four rules
 - **Proven only:** tweaks with no measured gain stay hidden unless you ask to see them.
 - **Reversible:** a restore point is made first, and every change has its own undo.
-- **Security stays on:** GearShift never turns off Defender, the firewall, Windows Update or other protections.
+- **Security stays on:** GearShift never turns off Defender, the firewall, Windows Update or other protections, unless you want to "wink, wink".
 - **Private:** no account and no tracking. Sharing anonymous hardware and performance data is opt-in.
 
 ## Free
