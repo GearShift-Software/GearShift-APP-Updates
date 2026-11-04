@@ -57,4 +57,4 @@ This repo hosts the downloads and the game and hardware lists the app reads (`li
 ## Legal
 [Privacy](https://yourdomain.com/privacy.html) · [Terms](https://yourdomain.com/terms.html)
 GearShift is not affiliated with Microsoft, NVIDIA, AMD or Intel.
-© 2026 YOUR COMPANY LLC
+© 2026 GearShift Software LLC
