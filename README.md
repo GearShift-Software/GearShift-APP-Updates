@@ -10,7 +10,7 @@ Windows tuning for gamers: only tweaks with a measured gain, each explained in p
 <p align="center">
   <a href="https://github.com/GearShift-Software/GearShift-APP-Updates/releases/latest/download/GearShift-Setup.exe"><b>⬇ Download GearShift</b></a> ·
   <a href="https://gearshiftcomplex.win">Website</a> ·
-  <a href="https://gearshiftcomplex.win/#pricing">Get Pro</a> ·
+  <a href="https://gearshiftcomplex.win/pricing">Get Pro</a> ·
   <a href="https://github.com/GearShift-Software/GearShift-APP-Updates/releases">All releases</a>
 </p>
 
