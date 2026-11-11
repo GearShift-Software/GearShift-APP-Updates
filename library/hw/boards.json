@@ -1,0 +1,225 @@
+{
+ "schema": 1,
+ "version": 20261102,
+ "updated": "2026-11-02",
+ "kind": "board",
+ "about": "Motherboard database: chipset families (matched on the board model), vendors (BIOS menu names), and specific models.",
+ "families": [
+  {
+   "id": "z890",
+   "name": "Intel Z890",
+   "match": [
+    "Z890"
+   ],
+   "cpuOc": true,
+   "memOc": true,
+   "tips": [
+    "Core Ultra 200S K chips: Intel 200S Boost profile is available here (latest BIOS)."
+   ],
+   "checked": "2026-11-02"
+  },
+  {
+   "id": "b860",
+   "name": "Intel B860 / H810",
+   "match": [
+    "B860|H810"
+   ],
+   "cpuOc": false,
+   "memOc": true,
+   "tips": [
+    "Memory overclocking (XMP) is supported on B860; CPU ratio overclocking is not."
+   ],
+   "checked": "2026-11-02"
+  },
+  {
+   "id": "z790",
+   "name": "Intel Z790 / Z690",
+   "match": [
+    "Z[67]90"
+   ],
+   "cpuOc": true,
+   "memOc": true,
+   "tips": [
+    "13th/14th gen: install a BIOS with microcode 0x12B or newer and choose Intel Default Settings."
+   ],
+   "checked": "2026-11-02"
+  },
+  {
+   "id": "b760",
+   "name": "Intel B760 / B660 / H770 / H670",
+   "match": [
+    "B[67]60|H[67]70"
+   ],
+   "cpuOc": false,
+   "memOc": true,
+   "tips": [
+    "XMP works; CPU ratio overclocking does not.",
+    "13th/14th gen: install a BIOS with microcode 0x12B or newer."
+   ],
+   "checked": "2026-11-02"
+  },
+  {
+   "id": "h610",
+   "name": "Intel H610",
+   "match": [
+    "H610"
+   ],
+   "cpuOc": false,
+   "memOc": false,
+   "tips": [
+    "H610 runs memory at JEDEC speed only: a faster kit will not help here."
+   ],
+   "checked": "2026-11-02"
+  },
+  {
+   "id": "intel500",
+   "name": "Intel 500 / 400 series",
+   "match": [
+    "[ZBH][45][16]0|H[45]10"
+   ],
+   "cpuOc": null,
+   "memOc": null,
+   "tips": [
+    "Z: full overclocking. B560: memory OC allowed. B460/H-series: memory capped by the CPU (2666/2933)."
+   ],
+   "checked": "2026-11-02"
+  },
+  {
+   "id": "intel300",
+   "name": "Intel 300 series",
+   "match": [
+    "[ZBH]3[0-9]0"
+   ],
+   "cpuOc": null,
+   "memOc": null,
+   "tips": [
+    "Z370/Z390: full overclocking; B360/H310: memory capped at 2666."
+   ],
+   "checked": "2026-11-02"
+  },
+  {
+   "id": "am5",
+   "name": "AMD AM5 (X870 / B850 / X670 / B650 / A620)",
+   "match": [
+    "X870|B8[45]0|X670|B650|A620"
+   ],
+   "cpuOc": null,
+   "memOc": true,
+   "tips": [
+    "Keep the BIOS updated: newer AGESA improves memory, X3D support and caps SoC voltage at 1.3 V.",
+    "Enable EXPO and 'Memory Context Restore' for fast boots.",
+    "A620 / B840: limited or no CPU overclocking; EXPO still works."
+   ],
+   "checked": "2026-11-02"
+  },
+  {
+   "id": "am4",
+   "name": "AMD AM4 (X570 / B550 / A520 / X470 / B450 / X370 / B350 / A320)",
+   "match": [
+    "X570|B550|A520|X470|B450|X370|B350|A320"
+   ],
+   "cpuOc": null,
+   "memOc": true,
+   "tips": [
+    "Ryzen 5000 on 300/400 boards needs a BIOS update first (check the CPU support list).",
+    "A320/A520: no CPU overclocking; memory profiles still work."
+   ],
+   "checked": "2026-11-02"
+  }
+ ],
+ "vendors": [
+  {
+   "id": "asus",
+   "name": "ASUS",
+   "match": [
+    "ASUS"
+   ],
+   "menus": {
+    "xmp": "Ai Tweaker > Ai Overclock Tuner > XMP / EXPO",
+    "rebar": "Advanced > PCI Subsystem Settings > Above 4G Decoding + Re-Size BAR",
+    "pbo": "Advanced > AMD Overclocking > Precision Boost Overdrive",
+    "fans": "Monitor > Q-Fan Configuration"
+   }
+  },
+  {
+   "id": "msi",
+   "name": "MSI",
+   "match": [
+    "Micro-Star|MSI"
+   ],
+   "menus": {
+    "xmp": "OC > Extreme Memory Profile (XMP/EXPO), or EZ Mode button",
+    "rebar": "Settings > Advanced > PCIe/PCI Sub-system Settings > Re-Size BAR Support",
+    "pbo": "OC > Advanced CPU Configuration > AMD Overclocking > PBO (X3D: Kombo Strike)",
+    "fans": "Hardware Monitor"
+   }
+  },
+  {
+   "id": "gigabyte",
+   "name": "Gigabyte / AORUS",
+   "match": [
+    "Gigabyte"
+   ],
+   "menus": {
+    "xmp": "Tweaker > Extreme Memory Profile (X.M.P.) / EXPO",
+    "rebar": "Settings > IO Ports > Above 4G Decoding + Re-Size BAR Support",
+    "pbo": "Tweaker > Advanced CPU Settings > Precision Boost Overdrive",
+    "fans": "Smart Fan 6"
+   }
+  },
+  {
+   "id": "asrock",
+   "name": "ASRock",
+   "match": [
+    "ASRock"
+   ],
+   "menus": {
+    "xmp": "OC Tweaker > DRAM Configuration > Load XMP / EXPO Setting",
+    "rebar": "Advanced > Chipset Configuration > Above 4G Decoding + Re-Size BAR Support",
+    "pbo": "Advanced > AMD Overclocking > Precision Boost Overdrive",
+    "fans": "H/W Monitor > FAN-Tastic Tuning"
+   }
+  },
+  {
+   "id": "biostar",
+   "name": "Biostar",
+   "match": [
+    "BIOSTAR"
+   ],
+   "menus": {
+    "xmp": "O.N.E. > Memory Profile",
+    "rebar": "Chipset > Above 4G Decoding / Re-Size BAR",
+    "pbo": "O.N.E. > AMD Overclocking",
+    "fans": "Smart Fan"
+   }
+  },
+  {
+   "id": "oem",
+   "name": "Prebuilt (Dell / HP / Lenovo / Acer)",
+   "match": [
+    "Dell|Hewlett|HP\\b|LENOVO|Acer"
+   ],
+   "menus": {
+    "xmp": "Often not offered: prebuilt BIOSes usually lock memory speed",
+    "rebar": "Usually on by default in recent models",
+    "pbo": "Not offered",
+    "fans": "Vendor app (Alienware Command Center, OMEN Gaming Hub, Lenovo Vantage)"
+   }
+  }
+ ],
+ "models": [
+  {
+   "id": "b760mprors",
+   "name": "ASRock B760M Pro RS",
+   "family": "b760",
+   "match": [
+    "B760M\\s*Pro\\s*RS"
+   ],
+   "notes": [
+    "This board does not report memory voltage to Windows sensors; GearShift reads it from the BIOS tables instead.",
+    "Get BIOS updates from ASRock's support page; 13th/14th gen need the 0x12B+ microcode versions."
+   ],
+   "checked": "2026-11-02"
+  }
+ ]
+}

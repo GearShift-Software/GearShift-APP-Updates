@@ -1,0 +1,55 @@
+{
+ "schema": 1,
+ "version": 20261102,
+ "updated": "2026-11-02",
+ "kind": "memory",
+ "about": "Memory database by type (from SMBIOS). The CPU entry adds the platform's sweet-spot speed.",
+ "families": [
+  {
+   "id": "ddr5",
+   "name": "DDR5",
+   "match": [
+    "DDR5"
+   ],
+   "tips": [
+    "Turn on XMP (Intel) or EXPO (AMD) in the BIOS: DDR5 runs at 4800-5600 without it.",
+    "First boot after enabling it can show a black screen for 1-3 minutes while memory trains: that is normal.",
+    "Two sticks run faster and more reliably than four.",
+    "On AM5, 'Memory Context Restore' shortens later boot times."
+   ],
+   "issues": [
+    "Four DDR5 sticks often cannot reach the kit's rated speed: lower it one step if the PC will not boot."
+   ],
+   "checked": "2026-11-02"
+  },
+  {
+   "id": "ddr4",
+   "name": "DDR4",
+   "match": [
+    "DDR4"
+   ],
+   "tips": [
+    "Turn on XMP / DOCP / A-XMP: DDR4 runs at 2133-2666 without it.",
+    "Two sticks in slots A2 + B2 (see the board manual) for dual channel.",
+    "AMD Ryzen: keep FCLK at half the RAM speed (1800 for DDR4-3600)."
+   ],
+   "issues": [],
+   "checked": "2026-11-02"
+  },
+  {
+   "id": "ddr3",
+   "name": "DDR3",
+   "match": [
+    "DDR3"
+   ],
+   "tips": [
+    "Enable XMP if the board offers it; DDR3 systems gain most from dual channel."
+   ],
+   "issues": [
+    "DDR3 platforms are too old for Windows 11 support."
+   ],
+   "checked": "2026-11-02"
+  }
+ ],
+ "models": []
+}

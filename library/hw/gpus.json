@@ -1,0 +1,6430 @@
+{
+ "schema": 1,
+ "version": 20261108,
+ "updated": "2026-11-08",
+ "kind": "gpu",
+ "about": "GPU tuning database. 'families' are the fallback for any card of that generation; 'models' override a family for one card. match = regular expressions tested against the Windows GPU name. Values are starting points from the linked public tests.",
+ "families": [
+  {
+   "id": "rdna4",
+   "name": "Radeon RX 9000 (RDNA 4)",
+   "vendor": "AMD",
+   "match": [
+    "RX\\s*90[5-9]0"
+   ],
+   "tool": "AMD Software: Adrenalin Edition",
+   "where": "Adrenalin > Performance > Tuning > Custom: turn on GPU, VRAM, Power and Fan Tuning.",
+   "profiles": [
+    {
+     "N": "Silent",
+     "D": "Much less heat and noise, tiny FPS loss",
+     "L": [
+      "Voltage offset: -70 mV",
+      "Power limit: -20%",
+      "VRAM: stock"
+     ],
+     "Pw": -20,
+     "Pf": -2,
+     "Nz": 1,
+     "Fan": "Silent"
+    },
+    {
+     "N": "Balanced",
+     "D": "Stock FPS, cooler and quieter",
+     "L": [
+      "Voltage offset: -50 to -75 mV",
+      "Power limit: -10%",
+      "VRAM: Fast Timings on"
+     ],
+     "Pw": -12,
+     "Pf": 0,
+     "Nz": 2,
+     "Fan": "Balanced"
+    },
+    {
+     "N": "Performance",
+     "D": "More FPS at stock power",
+     "L": [
+      "Voltage offset: -75 to -100 mV",
+      "Power limit: 0%",
+      "VRAM: Fast Timings + 2700 MHz"
+     ],
+     "Pw": 0,
+     "Pf": 4,
+     "Nz": 2,
+     "Fan": "Balanced"
+    },
+    {
+     "N": "Max OC",
+     "D": "Highest clocks, good cooler needed",
+     "L": [
+      "Voltage offset: lowest stable",
+      "Power limit: max slider",
+      "VRAM: Fast Timings + 2700-2800 MHz"
+     ],
+     "Pw": 10,
+     "Pf": 8,
+     "Nz": 3,
+     "Fan": "Performance"
+    }
+   ],
+   "safe": [
+    [
+     "Voltage offset",
+     "-30 mV",
+     "-50 to -100 mV",
+     "Crash or driver reset: +10-15 mV back"
+    ],
+    [
+     "Power limit",
+     "0%",
+     "-30% to max slider",
+     "Hotspot above 100 C"
+    ],
+    [
+     "VRAM",
+     "Fast Timings on",
+     "2700 MHz",
+     "FPS drops while stable = too far"
+    ],
+    [
+     "Fan curve",
+     "Adrenalin default",
+     "hotspot under 95 C",
+     "Too loud: lower power limit instead"
+    ]
+   ],
+   "src": [
+    {
+     "T": "A Red Devil RX 9070 XT gained about 10% FPS with -170 mV and a 110% power target (premium card; most stop well before).",
+     "S": "der8auer via Tom's Hardware",
+     "U": "https://www.tomshardware.com/pc-components/gpus/undervolted-rx-9070-xt-beats-rtx-5080-rx-9070-and-9070-xt-models-with-heavy-coolers-have-massive-oc-headroom"
+    },
+    {
+     "T": "An RX 9070 at 100 mV below stock: up to 30% better efficiency, small performance loss.",
+     "S": "Igor's Lab",
+     "U": "https://www.igorslab.de/en/?p=276010"
+    },
+    {
+     "T": "-75 mV with -15% power kept 100% of stock Steel Nomad at ~258 W instead of 304 W; -125 mV passed benchmarks but crashed in long sessions.",
+     "S": "r/radeon owners",
+     "U": "https://lr.us.psf.lt/r/radeon/comments/1j5roap/rx_9070_xt_underclock_outstanding_efficiency"
+    }
+   ],
+   "tips": [
+    "The offset moves the whole voltage curve: with power unchanged the card simply clocks higher.",
+    "Undervolt first with power at 0%, then decide: lower power for quiet, raise it for speed.",
+    "Validate with long game sessions: benchmark-stable offsets often crash in hours-long play."
+   ],
+   "checked": "2026-11-02"
+  },
+  {
+   "id": "rdna3",
+   "name": "Radeon RX 7000 (RDNA 3)",
+   "vendor": "AMD",
+   "match": [
+    "RX\\s*7[6-9][05]0"
+   ],
+   "tool": "AMD Software: Adrenalin Edition",
+   "where": "Adrenalin > Performance > Tuning > Custom. On RX 7000 the Voltage slider is the MAXIMUM voltage in mV (lower it), not an offset.",
+   "profiles": [
+    {
+     "N": "Silent",
+     "D": "Quieter, small FPS loss",
+     "L": [
+      "Max voltage: stock - 70 mV",
+      "Power limit: -10%",
+      "VRAM: stock"
+     ],
+     "Pw": -18,
+     "Pf": -2,
+     "Nz": 1,
+     "Fan": "Silent"
+    },
+    {
+     "N": "Balanced",
+     "D": "Stock FPS, less power",
+     "L": [
+      "Max voltage: stock - 50 mV",
+      "Power limit: 0%",
+      "VRAM: stock"
+     ],
+     "Pw": -12,
+     "Pf": 0,
+     "Nz": 2,
+     "Fan": "Balanced"
+    },
+    {
+     "N": "Performance",
+     "D": "Faster at the same heat",
+     "L": [
+      "Max voltage: stock - 50 to -80 mV",
+      "Power limit: +15%",
+      "VRAM: +100 MHz, standard timings"
+     ],
+     "Pw": 5,
+     "Pf": 4,
+     "Nz": 2,
+     "Fan": "Balanced"
+    },
+    {
+     "N": "Max OC",
+     "D": "Highest clocks",
+     "L": [
+      "Max voltage: lowest stable",
+      "Power limit: +15%",
+      "Max clock +100-150 MHz, VRAM 2600-2700 MHz"
+     ],
+     "Pw": 15,
+     "Pf": 7,
+     "Nz": 3,
+     "Fan": "Performance"
+    }
+   ],
+   "safe": [
+    [
+     "Max voltage",
+     "stock - 25 mV",
+     "stock - 50 to -100 mV",
+     "Crash or black screen: +10-15 mV"
+    ],
+    [
+     "Power limit",
+     "0%",
+     "-10% to +15%",
+     "Junction above 100-105 C"
+    ],
+    [
+     "VRAM clock",
+     "stock",
+     "2600-2700 MHz",
+     "FPS drops while stable = too far"
+    ],
+    [
+     "Max frequency",
+     "stock",
+     "+100 to +150 MHz",
+     "Artifacts or crashes: back to stock"
+    ]
+   ],
+   "src": [
+    {
+     "T": "RX 7900 XTX daily game-stable: 1065 mV, +15% power, 2700 MHz memory, max clock 3050 MHz.",
+     "S": "r/Amd owner",
+     "U": "https://redlib.reallyaweso.me/r/Amd/comments/zn0jh5/rx_7900_xtx_reference_overclock_results/j0ee0ep/?context=3"
+    },
+    {
+     "T": "RX 7900 XT stable at 1075 mV: peak power in Helldivers 2 dropped from about 310 W to 260 W.",
+     "S": "Evetech",
+     "U": "https://evezone.evetech.co.za/deep-dives/rx-7900-xt-undervolt-no-fps-loss"
+    },
+    {
+     "T": "RX 7900 XTX at 1100 mV with +15% power: stock performance at lower voltage; raise 10-15 mV after a crash.",
+     "S": "TechFuelHQ undervolt database",
+     "U": "https://techfuelhq.com/articles/gpu-undervolt-settings-database/"
+    }
+   ],
+   "tips": [
+    "Undervolt stability on RDNA 3 varies by game: test several, especially Unreal Engine titles.",
+    "Junction (hotspot) temperature matters more than edge temperature on these cards."
+   ],
+   "checked": "2026-11-02"
+  },
+  {
+   "id": "rdna2",
+   "name": "Radeon RX 6000 (RDNA 2)",
+   "vendor": "AMD",
+   "match": [
+    "RX\\s*6[4-9][05]0"
+   ],
+   "tool": "AMD Software: Adrenalin Edition",
+   "where": "Adrenalin > Performance > Tuning > Manual: Max Voltage (mV) and Max Frequency. Lowering max voltage is the undervolt.",
+   "profiles": [
+    {
+     "N": "Silent",
+     "D": "Much cooler, small FPS loss",
+     "L": [
+      "Max voltage: 1000 mV",
+      "Max frequency: -5%",
+      "Power limit: -10%"
+     ],
+     "Pw": -25,
+     "Pf": -3,
+     "Nz": 1,
+     "Fan": "Silent"
+    },
+    {
+     "N": "Balanced",
+     "D": "Stock FPS, about 45 W less",
+     "L": [
+      "Max voltage: 1025-1050 mV",
+      "Max frequency: stock",
+      "Power limit: 0%"
+     ],
+     "Pw": -18,
+     "Pf": 1,
+     "Nz": 2,
+     "Fan": "Balanced"
+    },
+    {
+     "N": "Performance",
+     "D": "A little faster",
+     "L": [
+      "Max voltage: 1050 mV",
+      "Power limit: +15%",
+      "VRAM: 2100 MHz + Fast Timings"
+     ],
+     "Pw": 5,
+     "Pf": 4,
+     "Nz": 2,
+     "Fan": "Balanced"
+    },
+    {
+     "N": "Max OC",
+     "D": "Highest clocks",
+     "L": [
+      "Max voltage: stock",
+      "Max frequency: +100-200 MHz",
+      "Power limit +15%, VRAM 2100 MHz+"
+     ],
+     "Pw": 15,
+     "Pf": 7,
+     "Nz": 3,
+     "Fan": "Performance"
+    }
+   ],
+   "safe": [
+    [
+     "Max voltage",
+     "stock - 50 mV",
+     "1000-1050 mV",
+     "Driver timeout: +25 mV"
+    ],
+    [
+     "Max frequency",
+     "stock",
+     "+100-200 MHz",
+     "Artifacts: -50 MHz"
+    ],
+    [
+     "VRAM",
+     "Fast Timings on",
+     "2100 MHz",
+     "Lower score while stable = too far"
+    ],
+    [
+     "Power limit",
+     "0%",
+     "+15%",
+     "Junction above 105 C"
+    ]
+   ],
+   "src": [
+    {
+     "T": "RX 6800 XT max voltage lowered from 1.15 V to 1.025 V: about 45 W less and slightly higher FPS; the core also overclocked by 209 MHz.",
+     "S": "ComputerBase",
+     "U": "https://www.computerbase.de/2020-11/amd-radeon-rx-6800-xt-oc-uv/"
+    },
+    {
+     "T": "Owners commonly run RX 6800 XT/6900 XT at about 1050 mV daily; very low voltage profiles can be stable in one game and not another.",
+     "S": "ComputerBase forum",
+     "U": "https://www.computerbase.de/forum/threads/big-navi-rx-6700xt-6800-xt-6900xt-overclocking-undervolting.1983202/page-25"
+    }
+   ],
+   "tips": [
+    "RX 6700/6600 cards often take less undervolt (some barely -25 mV): go in small steps.",
+    "If Adrenalin ignores your voltage, raise Min Frequency slightly or update the driver."
+   ],
+   "checked": "2026-11-02"
+  },
+  {
+   "id": "rdna1",
+   "name": "Radeon RX 5000 (RDNA 1)",
+   "vendor": "AMD",
+   "match": [
+    "RX\\s*5[5-7]00"
+   ],
+   "tool": "AMD Software: Adrenalin Edition",
+   "where": "Adrenalin > Performance > Tuning > Manual: the top voltage/frequency point.",
+   "profiles": [
+    {
+     "N": "Silent",
+     "D": "Cooler, much quieter",
+     "L": [
+      "Top point: 1850 MHz @ 1000 mV",
+      "Power limit: 0%",
+      "Fan: custom curve"
+     ],
+     "Pw": -25,
+     "Pf": -4,
+     "Nz": 1,
+     "Fan": "Silent"
+    },
+    {
+     "N": "Balanced",
+     "D": "Stock FPS, less heat",
+     "L": [
+      "Top point: stock clock @ 1100 mV",
+      "Power limit: 0%",
+      "VRAM: stock"
+     ],
+     "Pw": -12,
+     "Pf": 0,
+     "Nz": 2,
+     "Fan": "Balanced"
+    },
+    {
+     "N": "Performance",
+     "D": "Small gain",
+     "L": [
+      "Top point: stock clock @ 1100 mV",
+      "Power limit: +20%",
+      "VRAM: +50 MHz"
+     ],
+     "Pw": 5,
+     "Pf": 3,
+     "Nz": 2,
+     "Fan": "Balanced"
+    },
+    {
+     "N": "Max OC",
+     "D": "Needs a strong cooler",
+     "L": [
+      "Top point: +50 MHz @ stock voltage",
+      "Power limit: max",
+      "Watch hotspot closely"
+     ],
+     "Pw": 15,
+     "Pf": 5,
+     "Nz": 3,
+     "Fan": "Performance"
+    }
+   ],
+   "safe": [
+    [
+     "Top voltage",
+     "1150 mV",
+     "1050-1100 mV",
+     "Crash: +25 mV"
+    ],
+    [
+     "Power limit",
+     "0%",
+     "+20%",
+     "Hotspot above 105 C"
+    ],
+    [
+     "Core clock",
+     "stock",
+     "+50 MHz",
+     "Artifacts: stock"
+    ]
+   ],
+   "src": [
+    {
+     "T": "Overclocking the RX 5700 XT gains nothing unless the power limit is raised to the max first.",
+     "S": "TechPowerUp review",
+     "U": "https://techpowerup.com/review/amd-radeon-rx-5700-xt/33.html"
+    }
+   ],
+   "tips": [
+    "RX 5700 XT hotspot often runs near 100 C at stock: an undervolt is the biggest comfort win."
+   ],
+   "checked": "2026-11-02"
+  },
+  {
+   "id": "gcn",
+   "name": "Radeon RX 400/500/Vega",
+   "vendor": "AMD",
+   "match": [
+    "RX\\s*(4[6-8]0|5[5-9]0)\\b",
+    "Vega\\s*(56|64)",
+    "Radeon\\s*VII\\b"
+   ],
+   "tool": "AMD Software: Adrenalin Edition",
+   "where": "Adrenalin > Performance > Tuning > Manual: lower the voltage of the top states.",
+   "profiles": [
+    {
+     "N": "Silent",
+     "D": "Cooler and quieter",
+     "L": [
+      "Top state voltage: -75 mV",
+      "Power limit: -10%",
+      "VRAM: stock"
+     ],
+     "Pw": -20,
+     "Pf": -3,
+     "Nz": 1,
+     "Fan": "Silent"
+    },
+    {
+     "N": "Balanced",
+     "D": "Same FPS, less heat",
+     "L": [
+      "Top state voltage: -50 mV",
+      "Power limit: 0%",
+      "VRAM: stock"
+     ],
+     "Pw": -12,
+     "Pf": 0,
+     "Nz": 2,
+     "Fan": "Balanced"
+    },
+    {
+     "N": "Performance",
+     "D": "Small gain",
+     "L": [
+      "Top state voltage: -50 mV",
+      "Power limit: +20%",
+      "VRAM: +50 MHz"
+     ],
+     "Pw": 5,
+     "Pf": 3,
+     "Nz": 2,
+     "Fan": "Balanced"
+    },
+    {
+     "N": "Max OC",
+     "D": "Older cards gain little",
+     "L": [
+      "Power limit: +50%",
+      "Core: +50 MHz",
+      "VRAM: +100 MHz"
+     ],
+     "Pw": 20,
+     "Pf": 5,
+     "Nz": 3,
+     "Fan": "Performance"
+    }
+   ],
+   "safe": [
+    [
+     "Top state voltage",
+     "-25 mV",
+     "-50 to -100 mV",
+     "Crash: +25 mV"
+    ],
+    [
+     "Power limit",
+     "0%",
+     "+20% to +50%",
+     "Temperature above 85 C"
+    ]
+   ],
+   "src": [],
+   "tips": [
+    "These cards are old enough that a fresh thermal paste often helps more than any setting."
+   ],
+   "checked": "2026-11-02"
+  },
+  {
+   "id": "blackwell",
+   "name": "GeForce RTX 50 (Blackwell)",
+   "vendor": "NVIDIA",
+   "match": [
+    "RTX\\s*50[5-9]0"
+   ],
+   "tool": "MSI Afterburner (free, any brand of card)",
+   "where": "Afterburner: Ctrl+F opens the voltage/frequency curve. NVIDIA App > Performance has a one-click auto-tuner.",
+   "profiles": [
+    {
+     "N": "Silent",
+     "D": "Big power savings, small FPS loss",
+     "L": [
+      "Curve: flat at 0.875 V",
+      "Power limit: 80%",
+      "Memory: stock"
+     ],
+     "Pw": -25,
+     "Pf": -4,
+     "Nz": 1,
+     "Fan": "Silent"
+    },
+    {
+     "N": "Balanced",
+     "D": "Stock FPS at far less power",
+     "L": [
+      "Curve: flat at 0.900-0.925 V, stock boost",
+      "Power limit: 100%",
+      "Memory: +500 MHz"
+     ],
+     "Pw": -18,
+     "Pf": 2,
+     "Nz": 2,
+     "Fan": "Balanced"
+    },
+    {
+     "N": "Performance",
+     "D": "Faster and still efficient",
+     "L": [
+      "Curve: flat at 0.950 V, boost +100 MHz",
+      "Power limit: 100%",
+      "Memory: +1000 MHz"
+     ],
+     "Pw": -5,
+     "Pf": 5,
+     "Nz": 2,
+     "Fan": "Balanced"
+    },
+    {
+     "N": "Max OC",
+     "D": "Highest clocks, more heat",
+     "L": [
+      "Core: +150 MHz",
+      "Power limit: max slider",
+      "Memory: +1500 to +2000 MHz"
+     ],
+     "Pw": 10,
+     "Pf": 8,
+     "Nz": 3,
+     "Fan": "Performance"
+    }
+   ],
+   "safe": [
+    [
+     "Curve voltage point",
+     "0.950 V",
+     "0.875-0.950 V",
+     "Crash: -15 MHz or +1 voltage step"
+    ],
+    [
+     "Core clock offset",
+     "+50 MHz",
+     "+100 to +150 MHz",
+     "+165 MHz often crashes"
+    ],
+    [
+     "Memory offset",
+     "+500 MHz",
+     "+1000 to +2000 MHz",
+     "FPS drops while stable = too far"
+    ],
+    [
+     "Power limit",
+     "100%",
+     "100% to max",
+     "Core above ~80 C"
+    ]
+   ],
+   "src": [
+    {
+     "T": "An undervolted RTX 5070 Ti ran about 4% faster than stock with 50-70 W less; memory took +1000 to +2000 MHz.",
+     "S": "Esports Tales",
+     "U": "https://esportstales.com/tech-tips/how-to-undervolt-the-5070-ti-with-msi-afterburner"
+    },
+    {
+     "T": "Simplest route: lower the power limit; best result: flatten the voltage/frequency curve.",
+     "S": "MSI",
+     "U": "https://www.msi.com/blog/rtx-5070-5060ti-overclocking-undervolting-guide-with-msi-afterburner-part-2"
+    },
+    {
+     "T": "RTX 50 tuners often hit a wall around +150 MHz; +165 MHz crashed sooner or later.",
+     "S": "Hardwareluxx",
+     "U": "https://www.hardwareluxx.de/community/posts/31166039/"
+    }
+   ],
+   "tips": [
+    "Use the 12V-2x6 cable fully seated; undervolting also lowers connector current."
+   ],
+   "checked": "2026-11-02"
+  },
+  {
+   "id": "ada",
+   "name": "GeForce RTX 40 (Ada)",
+   "vendor": "NVIDIA",
+   "match": [
+    "RTX\\s*40[5-9]0"
+   ],
+   "tool": "MSI Afterburner (free, any brand of card)",
+   "where": "Afterburner: Ctrl+F opens the voltage/frequency curve. NVIDIA App > Performance has a one-click auto-tuner.",
+   "profiles": [
+    {
+     "N": "Silent",
+     "D": "Much quieter, small FPS loss",
+     "L": [
+      "Curve: flat at 0.875 V",
+      "Power limit: 80%",
+      "Memory: stock"
+     ],
+     "Pw": -30,
+     "Pf": -5,
+     "Nz": 1,
+     "Fan": "Silent"
+    },
+    {
+     "N": "Balanced",
+     "D": "Stock FPS, 10-15% less power",
+     "L": [
+      "Curve: flat at 0.925-0.950 V at stock boost",
+      "Power limit: 100%",
+      "Memory: stock"
+     ],
+     "Pw": -12,
+     "Pf": -1,
+     "Nz": 2,
+     "Fan": "Balanced"
+    },
+    {
+     "N": "Performance",
+     "D": "A bit faster",
+     "L": [
+      "Curve: flat at 0.950-1.000 V, boost +100 MHz",
+      "Power limit: 100%",
+      "Memory: +1000 MHz"
+     ],
+     "Pw": -3,
+     "Pf": 3,
+     "Nz": 2,
+     "Fan": "Balanced"
+    },
+    {
+     "N": "Max OC",
+     "D": "Highest clocks",
+     "L": [
+      "Core: +150 to +200 MHz",
+      "Power limit: max slider",
+      "Memory: +1000 to +1500 MHz"
+     ],
+     "Pw": 10,
+     "Pf": 6,
+     "Nz": 3,
+     "Fan": "Performance"
+    }
+   ],
+   "safe": [
+    [
+     "Curve voltage point",
+     "0.950 V",
+     "0.900-0.950 V",
+     "Crash: -15 MHz"
+    ],
+    [
+     "Core clock offset",
+     "+75 MHz",
+     "+150 to +200 MHz",
+     "Artifacts: -15 to -30 MHz"
+    ],
+    [
+     "Memory offset",
+     "+500 MHz",
+     "+1000 to +1500 MHz",
+     "FPS drops while stable"
+    ],
+    [
+     "Power limit",
+     "100%",
+     "70% to max",
+     "Core above ~80 C"
+    ]
+   ],
+   "src": [
+    {
+     "T": "RTX 4090 from 1.0 V to 0.95 V: 323 W down to 289 W for about 1% less performance.",
+     "S": "QuasarZone via Hardware.com.br",
+     "U": "https://www.hardware.com.br/noticias/teste-revela-como-undervolting-reduz-consideravelmente-consumo-rtx-4090-sem-sacrificar-demais-o-desempenho/"
+    },
+    {
+     "T": "RTX 4090 at about half its power limit (270 W) lost only around 8% at 4K.",
+     "S": "QuasarZone via TechPowerUp",
+     "U": "https://www.techpowerup.com/forums/posts/4892815"
+    },
+    {
+     "T": "Flatten the curve at your card's stock boost (method 2): effective clocks stay much closer to target than a plain offset.",
+     "S": "r/nvidia",
+     "U": "https://lr.in.psf.lt/r/nvidia/comments/ybxa3c/there_are_two_methods_people_follow_when/iwiqh73/?context=3"
+    }
+   ],
+   "tips": [
+    "Most RTX 40 cards hold their stock boost at 0.925-0.950 V."
+   ],
+   "checked": "2026-11-02"
+  },
+  {
+   "id": "ampere",
+   "name": "GeForce RTX 30 (Ampere)",
+   "vendor": "NVIDIA",
+   "match": [
+    "RTX\\s*30[5-9]0"
+   ],
+   "tool": "MSI Afterburner (free, any brand of card)",
+   "where": "Afterburner: Ctrl+F opens the voltage/frequency curve. NVIDIA App > Performance has a one-click auto-tuner.",
+   "profiles": [
+    {
+     "N": "Silent",
+     "D": "Cool and quiet",
+     "L": [
+      "Curve: 1800 MHz @ 0.800 V",
+      "Power limit: 80%",
+      "Memory: stock"
+     ],
+     "Pw": -35,
+     "Pf": -5,
+     "Nz": 1,
+     "Fan": "Silent"
+    },
+    {
+     "N": "Balanced",
+     "D": "Stock FPS, about 90-150 W less (3080)",
+     "L": [
+      "Curve: 1900 MHz @ 0.850 V",
+      "Power limit: 100%",
+      "Memory: stock"
+     ],
+     "Pw": -25,
+     "Pf": 0,
+     "Nz": 2,
+     "Fan": "Balanced"
+    },
+    {
+     "N": "Performance",
+     "D": "A bit faster than stock",
+     "L": [
+      "Curve: 1950-1980 MHz @ 0.900 V",
+      "Power limit: 100%",
+      "Memory: +500 MHz"
+     ],
+     "Pw": -10,
+     "Pf": 3,
+     "Nz": 2,
+     "Fan": "Balanced"
+    },
+    {
+     "N": "Max OC",
+     "D": "Highest clocks, hot memory",
+     "L": [
+      "Core: +100 to +150 MHz",
+      "Power limit: max slider",
+      "Memory: +500 to +1000 MHz (check FPS)"
+     ],
+     "Pw": 8,
+     "Pf": 5,
+     "Nz": 3,
+     "Fan": "Performance"
+    }
+   ],
+   "safe": [
+    [
+     "Curve point",
+     "1900 MHz @ 0.875 V",
+     "1850-1950 MHz @ 0.850-0.900 V",
+     "Crash: -15 MHz"
+    ],
+    [
+     "Memory offset",
+     "+250 MHz",
+     "+500 to +1000 MHz",
+     "GDDR6X: FPS can drop past +250 on some cards"
+    ],
+    [
+     "Power limit",
+     "100%",
+     "80% to max",
+     "Memory junction above 100 C"
+    ]
+   ],
+   "src": [
+    {
+     "T": "RTX 3080 at 0.85 V @ 1920 MHz scored higher than stock in Time Spy and Port Royal, quieter and cooler.",
+     "S": "TechPowerUp forum",
+     "U": "https://techpowerup.com/forums/threads/rtx-3080-undervolt-0-85v-1920mhz-results.274877"
+    },
+    {
+     "T": "RTX 3070: 1850-1900 MHz at 0.85 V with +1000 memory is a common stable setting.",
+     "S": "r/nvidia guide",
+     "U": "https://axebps-redlib.hf.space/r/nvidia/comments/jn878f/small_beginners_undervolting_guide_for_rtx_3070_fe"
+    },
+    {
+     "T": "On GDDR6X cards memory past +250 MHz can lower FPS (error correction).",
+     "S": "Overclockers UK",
+     "U": "https://forums.overclockers.co.uk/threads/3080-undervolting.18936805/"
+    }
+   ],
+   "tips": [
+    "GDDR6X (3080/3090) memory runs hot: watch Memory Junction in HWiNFO, keep it under 100 C."
+   ],
+   "checked": "2026-11-02"
+  },
+  {
+   "id": "turing",
+   "name": "GeForce RTX 20 (Turing)",
+   "vendor": "NVIDIA",
+   "match": [
+    "RTX\\s*20[5-9]0"
+   ],
+   "tool": "MSI Afterburner (free, any brand of card)",
+   "where": "Afterburner: Ctrl+F opens the voltage/frequency curve. NVIDIA App > Performance has a one-click auto-tuner.",
+   "profiles": [
+    {
+     "N": "Silent",
+     "D": "Cooler, small loss",
+     "L": [
+      "Curve: 1800 MHz @ 0.850 V",
+      "Power limit: 85%",
+      "Memory: stock"
+     ],
+     "Pw": -25,
+     "Pf": -4,
+     "Nz": 1,
+     "Fan": "Silent"
+    },
+    {
+     "N": "Balanced",
+     "D": "Stock FPS, cooler",
+     "L": [
+      "Curve: 1900-1950 MHz @ 0.900 V",
+      "Power limit: 100%",
+      "Memory: stock"
+     ],
+     "Pw": -15,
+     "Pf": 0,
+     "Nz": 2,
+     "Fan": "Balanced"
+    },
+    {
+     "N": "Performance",
+     "D": "Small gain",
+     "L": [
+      "Curve: 1980-2010 MHz @ 0.950 V",
+      "Power limit: 100%",
+      "Memory: +500 MHz"
+     ],
+     "Pw": -3,
+     "Pf": 3,
+     "Nz": 2,
+     "Fan": "Balanced"
+    },
+    {
+     "N": "Max OC",
+     "D": "Highest clocks",
+     "L": [
+      "Core: +100 to +125 MHz",
+      "Power limit: max",
+      "Memory: +700 to +800 MHz"
+     ],
+     "Pw": 10,
+     "Pf": 5,
+     "Nz": 3,
+     "Fan": "Performance"
+    }
+   ],
+   "safe": [
+    [
+     "Curve point",
+     "1900 MHz @ 0.925 V",
+     "1900-1950 MHz @ 0.900 V",
+     "Flicker or artifacts: -15 MHz or +25 mV"
+    ],
+    [
+     "Memory offset",
+     "+400 MHz",
+     "+500 to +800 MHz",
+     "Artifacts: -100 MHz"
+    ],
+    [
+     "Power limit",
+     "100%",
+     "max",
+     "Core above 80 C"
+    ]
+   ],
+   "src": [
+    {
+     "T": "RTX 2070 Super owners run about 1950 MHz at 0.900 V; stock boost uses 1.05 V.",
+     "S": "Tom's Hardware forum",
+     "U": "https://forums.tomshardware.com/threads/core-clock-keeps-changing-when-i-apply-my-undervolt-on-my-gpu-with-msi-afterburner.3625036"
+    },
+    {
+     "T": "Turing cards run 1.05 V at their highest clocks at stock.",
+     "S": "AnandTech",
+     "U": "https://www.anandtech.com/show/14663/the-nvidia-geforce-rtx-2080-super-review/15"
+    }
+   ],
+   "tips": [],
+   "checked": "2026-11-02"
+  },
+  {
+   "id": "turing16",
+   "name": "GeForce GTX 16 (Turing)",
+   "vendor": "NVIDIA",
+   "match": [
+    "GTX\\s*16[5-6]0"
+   ],
+   "tool": "MSI Afterburner (free, any brand of card)",
+   "where": "Afterburner: Ctrl+F opens the voltage/frequency curve. NVIDIA App > Performance has a one-click auto-tuner.",
+   "profiles": [
+    {
+     "N": "Silent",
+     "D": "Cooler, small loss",
+     "L": [
+      "Curve: 1750 MHz @ 0.850 V",
+      "Power limit: 90%",
+      "Memory: stock"
+     ],
+     "Pw": -20,
+     "Pf": -3,
+     "Nz": 1,
+     "Fan": "Silent"
+    },
+    {
+     "N": "Balanced",
+     "D": "Stock FPS, cooler",
+     "L": [
+      "Curve: stock boost @ 0.925 V",
+      "Power limit: 100%",
+      "Memory: +400 MHz"
+     ],
+     "Pw": -10,
+     "Pf": 1,
+     "Nz": 2,
+     "Fan": "Balanced"
+    },
+    {
+     "N": "Performance",
+     "D": "About 4% faster",
+     "L": [
+      "Core: +100 MHz",
+      "Power limit: max",
+      "Memory: +700 MHz"
+     ],
+     "Pw": 5,
+     "Pf": 4,
+     "Nz": 2,
+     "Fan": "Balanced"
+    },
+    {
+     "N": "Max OC",
+     "D": "Limit of most cards",
+     "L": [
+      "Core: +100 to +125 MHz",
+      "Power limit: max",
+      "Memory: +725 to +800 MHz"
+     ],
+     "Pw": 10,
+     "Pf": 5,
+     "Nz": 3,
+     "Fan": "Performance"
+    }
+   ],
+   "safe": [
+    [
+     "Core offset",
+     "+50 MHz",
+     "+100 MHz",
+     "Crash: -15 MHz"
+    ],
+    [
+     "Memory offset",
+     "+400 MHz",
+     "+700 MHz",
+     "Artifacts or lockups: -100 MHz"
+    ]
+   ],
+   "src": [
+    {
+     "T": "GTX 1660 Super best result: +105 MHz core, +725 MHz memory; +750 artifacted, +800 locked up.",
+     "S": "KitGuru",
+     "U": "https://www.kitguru.net/components/graphic-cards/dominic-moass/gigabyte-gtx-1660-super-gaming-oc-6g-review/20"
+    },
+    {
+     "T": "The GTX 1660 Super overclock gave about 4% more performance.",
+     "S": "TechPowerUp",
+     "U": "https://techpowerup.com/review/gigabyte-geforce-gtx-1660-super-gaming-pro-oc/37.html"
+    }
+   ],
+   "tips": [],
+   "checked": "2026-11-02"
+  },
+  {
+   "id": "pascal",
+   "name": "GeForce GTX 10 (Pascal)",
+   "vendor": "NVIDIA",
+   "match": [
+    "GTX\\s*10[5-8]0"
+   ],
+   "tool": "MSI Afterburner (free, any brand of card)",
+   "where": "Afterburner: Ctrl+F opens the voltage/frequency curve. NVIDIA App > Performance has a one-click auto-tuner.",
+   "profiles": [
+    {
+     "N": "Silent",
+     "D": "Cooler, small loss",
+     "L": [
+      "Curve: 1800 MHz @ 0.900 V",
+      "Power limit: 90%",
+      "Memory: stock"
+     ],
+     "Pw": -20,
+     "Pf": -3,
+     "Nz": 1,
+     "Fan": "Silent"
+    },
+    {
+     "N": "Balanced",
+     "D": "Stock FPS, cooler",
+     "L": [
+      "Curve: 1900 MHz @ 0.950 V",
+      "Power limit: 100%",
+      "Memory: +300 MHz"
+     ],
+     "Pw": -10,
+     "Pf": 1,
+     "Nz": 2,
+     "Fan": "Balanced"
+    },
+    {
+     "N": "Performance",
+     "D": "Small gain",
+     "L": [
+      "Core: +100 MHz",
+      "Power limit: max",
+      "Memory: +400 MHz"
+     ],
+     "Pw": 5,
+     "Pf": 4,
+     "Nz": 2,
+     "Fan": "Balanced"
+    },
+    {
+     "N": "Max OC",
+     "D": "Good chips",
+     "L": [
+      "Core: +150 to +200 MHz",
+      "Power limit: max",
+      "Memory: +500 MHz"
+     ],
+     "Pw": 10,
+     "Pf": 6,
+     "Nz": 3,
+     "Fan": "Performance"
+    }
+   ],
+   "safe": [
+    [
+     "Core offset",
+     "+75 MHz",
+     "+150 to +200 MHz",
+     "Crash: -25 MHz"
+    ],
+    [
+     "Memory offset",
+     "+300 MHz",
+     "+400 to +500 MHz",
+     "Artifacts: -100 MHz"
+    ]
+   ],
+   "src": [
+    {
+     "T": "GTX 1080 Founders Edition owners report +200 core and +500 memory (about 2100 MHz boost).",
+     "S": "Hexus forum",
+     "U": "https://forums.hexus.net/hexus-reviews/358724-evga-geforce-gtx-1080-win.html"
+    }
+   ],
+   "tips": [
+    "Pascal cards are old: dust and dried thermal paste often cost more FPS than any tuning gains."
+   ],
+   "checked": "2026-11-02"
+  },
+  {
+   "id": "maxwell",
+   "name": "GeForce GTX 900 (Maxwell)",
+   "vendor": "NVIDIA",
+   "match": [
+    "GTX\\s*9[5-8]0"
+   ],
+   "tool": "MSI Afterburner (free, any brand of card)",
+   "where": "Afterburner main window: Core Clock, Memory Clock and Power Limit sliders. Maxwell has no voltage curve (Ctrl+F), so there is no undervolt.",
+   "profiles": [
+    {
+     "N": "Silent",
+     "D": "Cooler and quieter, small loss",
+     "L": [
+      "Power limit: 85%",
+      "Core: stock",
+      "Memory: stock"
+     ],
+     "Pw": -15,
+     "Pf": -3,
+     "Nz": 1,
+     "Fan": "Silent"
+    },
+    {
+     "N": "Balanced",
+     "D": "Stock FPS",
+     "L": [
+      "Power limit: 100%",
+      "Core: +75 MHz",
+      "Memory: +200 MHz"
+     ],
+     "Pw": 0,
+     "Pf": 2,
+     "Nz": 2,
+     "Fan": "Balanced"
+    },
+    {
+     "N": "Performance",
+     "D": "Small gain",
+     "L": [
+      "Power limit: max",
+      "Core: +125 MHz",
+      "Memory: +300 MHz"
+     ],
+     "Pw": 8,
+     "Pf": 5,
+     "Nz": 2,
+     "Fan": "Balanced"
+    },
+    {
+     "N": "Max OC",
+     "D": "Good chips and coolers",
+     "L": [
+      "Power limit: max",
+      "Core: +150 to +200 MHz",
+      "Memory: +400 MHz"
+     ],
+     "Pw": 12,
+     "Pf": 8,
+     "Nz": 3,
+     "Fan": "Performance"
+    }
+   ],
+   "safe": [
+    [
+     "Core offset",
+     "+75 MHz",
+     "+125 to +200 MHz",
+     "Crash: -25 MHz"
+    ],
+    [
+     "Memory offset",
+     "+200 MHz",
+     "+300 to +400 MHz",
+     "Artifacts: -100 MHz"
+    ],
+    [
+     "Power limit",
+     "100%",
+     "max slider",
+     "GPU above 83 C: lower it again"
+    ]
+   ],
+   "src": [
+    {
+     "T": "Maxwell reviews reached about +200 MHz core on reference GTX 970/980 coolers, with the power limit raised.",
+     "S": "AnandTech",
+     "U": "https://www.anandtech.com/show/8526/nvidia-geforce-gtx-980-review"
+    }
+   ],
+   "tips": [
+    "Cards from 2014-2015: fresh thermal paste and clean fans usually help more than any setting."
+   ],
+   "checked": "2026-11-04"
+  },
+  {
+   "id": "battlemage",
+   "name": "Intel Arc B-series (Battlemage)",
+   "vendor": "Intel",
+   "match": [
+    "Arc.*B\\d{3}"
+   ],
+   "tool": "Intel Graphics Software (Arc Control on older drivers)",
+   "where": "Intel Graphics Software > Performance > Tuning. Turn on Resizable BAR in the BIOS first.",
+   "profiles": [
+    {
+     "N": "Silent",
+     "D": "Lower heat and noise",
+     "L": [
+      "Power limit: 90%",
+      "Frequency offset: 0",
+      "Voltage limit: 0"
+     ],
+     "Pw": -10,
+     "Pf": -1,
+     "Nz": 1,
+     "Fan": "Silent"
+    },
+    {
+     "N": "Balanced",
+     "D": "Free performance first",
+     "L": [
+      "Power limit: max slider",
+      "Frequency offset: +75 to +100",
+      "Voltage limit: 0"
+     ],
+     "Pw": 5,
+     "Pf": 3,
+     "Nz": 2,
+     "Fan": "Balanced"
+    },
+    {
+     "N": "Performance",
+     "D": "More clock with a little voltage",
+     "L": [
+      "Power limit: max slider",
+      "Frequency offset: +100 to +150",
+      "Voltage limit: +30 to +50, memory 20 Gbps"
+     ],
+     "Pw": 10,
+     "Pf": 6,
+     "Nz": 2,
+     "Fan": "Balanced"
+    },
+    {
+     "N": "Max OC",
+     "D": "Limit of most cards",
+     "L": [
+      "Power limit: max slider",
+      "Frequency offset: +150 to +175",
+      "Voltage limit: +50, memory 20-21 Gbps"
+     ],
+     "Pw": 15,
+     "Pf": 7,
+     "Nz": 3,
+     "Fan": "Performance"
+    }
+   ],
+   "safe": [
+    [
+     "Power limit",
+     "100%",
+     "max slider",
+     "Temperature above ~85 C"
+    ],
+    [
+     "Frequency offset",
+     "+50",
+     "+75 to +175",
+     "Crash or artifacts: -25"
+    ],
+    [
+     "Memory speed",
+     "stock",
+     "20 Gbps",
+     "21+ Gbps often crashes"
+    ],
+    [
+     "Resizable BAR",
+     "ON (required)",
+     "-",
+     "Off costs Arc a lot of FPS"
+    ]
+   ],
+   "src": [
+    {
+     "T": "Arc B580 full overclock gained about 7%; more voltage alone gave nothing; memory past 21 Gbps crashed.",
+     "S": "TechPowerUp review",
+     "U": "https://techpowerup.com/review/intel-arc-b580/40.html"
+    },
+    {
+     "T": "B580 cards rarely reach their power limit in games; frequency offset and voltage do the work.",
+     "S": "Intel Community",
+     "U": "https://community.intel.com/t5/Intel-ARC-Graphics/Wattage-questions-B580/m-p/1683062"
+    },
+    {
+     "T": "Common stable owner settings: power 110-114, offset +75 to +175, memory 20 Gbps.",
+     "S": "r/IntelArc owners",
+     "U": "https://libreddit.winscloud.net/r/IntelArc/comments/1oiyem0/need_help_understanding_intel_graphics_software"
+    }
+   ],
+   "tips": [
+    "Resizable BAR (Re-Size BAR + Above 4G Decoding in the BIOS) is required for full speed."
+   ],
+   "checked": "2026-11-02"
+  },
+  {
+   "id": "alchemist",
+   "name": "Intel Arc A-series (Alchemist)",
+   "vendor": "Intel",
+   "match": [
+    "Arc.*A\\d{3}"
+   ],
+   "tool": "Intel Graphics Software (Arc Control on older drivers)",
+   "where": "Intel Graphics Software / Arc Control > Performance > Tuning: GPU Performance Boost, Voltage Offset, Power Limit.",
+   "profiles": [
+    {
+     "N": "Silent",
+     "D": "Lower heat and noise",
+     "L": [
+      "Power limit: 90%",
+      "Performance boost: 0",
+      "Voltage offset: 0"
+     ],
+     "Pw": -10,
+     "Pf": -1,
+     "Nz": 1,
+     "Fan": "Silent"
+    },
+    {
+     "N": "Balanced",
+     "D": "Free performance first",
+     "L": [
+      "Power limit: max slider",
+      "Performance boost: +10 to +15",
+      "Voltage offset: 0"
+     ],
+     "Pw": 5,
+     "Pf": 3,
+     "Nz": 2,
+     "Fan": "Balanced"
+    },
+    {
+     "N": "Performance",
+     "D": "About 7-10% faster",
+     "L": [
+      "Power limit: max (228 W on A770)",
+      "Performance boost: +15 to +20",
+      "Voltage offset: +40 to +60 mV"
+     ],
+     "Pw": 12,
+     "Pf": 8,
+     "Nz": 2,
+     "Fan": "Balanced"
+    },
+    {
+     "N": "Max OC",
+     "D": "Strong cooling only",
+     "L": [
+      "Power limit: max",
+      "Performance boost: +25 to +35",
+      "Voltage offset: +100 to +160 mV"
+     ],
+     "Pw": 20,
+     "Pf": 10,
+     "Nz": 3,
+     "Fan": "Performance"
+    }
+   ],
+   "safe": [
+    [
+     "Power limit",
+     "max",
+     "max",
+     "-"
+    ],
+    [
+     "Performance boost",
+     "+10",
+     "+15 to +35",
+     "Crash or lock-up: -5"
+    ],
+    [
+     "Voltage offset",
+     "0",
+     "+40 to +60 mV",
+     "Intel warns overvoltage can shorten GPU life"
+    ],
+    [
+     "Resizable BAR",
+     "ON (required)",
+     "-",
+     "Off costs Arc a lot of FPS"
+    ]
+   ],
+   "src": [
+    {
+     "T": "Arc A770 at max 228 W, +55 mV and performance boost 16: about +10% Time Spy, +7% in Resident Evil Village.",
+     "S": "KitGuru",
+     "U": "https://www.kitguru.net/components/graphic-cards/dominic-moass/intel-arc-a770-limited-edition-review/33"
+    },
+    {
+     "T": "A770 voltage tops out at 1.2 V; offset beyond about +180 does nothing more.",
+     "S": "SkatterBencher",
+     "U": "https://skatterbencher.com/2023/07/29/skatterbencher-64-intel-arc-a770-overclocked-to-2795-mhz/"
+    },
+    {
+     "T": "Intel's own overclocking guide for the Performance Tuning sliders.",
+     "S": "Intel",
+     "U": "https://game.intel.com/stories/intel-arc-graphics-overclocking-101/"
+    }
+   ],
+   "tips": [
+    "Resizable BAR is required for full speed on Arc."
+   ],
+   "checked": "2026-11-02"
+  },
+  {
+   "id": "igpu",
+   "name": "Integrated graphics",
+   "vendor": "Any",
+   "match": [
+    "UHD Graphics|Iris|Radeon\\(TM\\) Graphics|Radeon Graphics|Vega \\d+ Graphics|Radeon \\d{3}M"
+   ],
+   "tool": "Nothing to tune on the graphics itself",
+   "where": "BIOS: turn on XMP/EXPO for your RAM and use two sticks (dual channel): integrated graphics share system memory.",
+   "profiles": [],
+   "safe": [],
+   "src": [],
+   "tips": [
+    "Two RAM sticks (dual channel) and XMP/EXPO can raise integrated graphics FPS a lot.",
+    "Give the iGPU more shared memory (UMA frame buffer) in the BIOS if games complain about VRAM."
+   ],
+   "checked": "2026-11-02"
+  }
+ ],
+ "models": [
+  {
+   "id": "rx9070xt",
+   "name": "Radeon RX 9070 XT",
+   "family": "rdna4",
+   "match": [
+    "RX\\s*9070\\s*XT"
+   ],
+   "stock": "304 W reference board power (partner cards up to ~340 W).",
+   "notes": [
+    "Power-limited by design: lowering voltage raises sustained clocks.",
+    "Owners commonly settle at -70 to -100 mV; -125 mV often fails long sessions.",
+    "Safest values use this card's reference clock and a conservative voltage: about stock FPS, less heat and noise. Test 30-60 minutes in your heaviest game before going further."
+   ],
+   "checked": "2026-11-04",
+   "safe": [
+    [
+     "Owner-proven undervolt",
+     "-75 mV, power 0%",
+     "-50 to -100 mV",
+     "Errors after hours of play: +25 mV"
+    ],
+    [
+     "Safest undervolt",
+     "-50 mV offset",
+     "-50 to -100 mV",
+     "Crash or driver timeout: +10 mV"
+    ],
+    [
+     "Max frequency",
+     "2970 MHz (stock)",
+     "stock to +50 MHz",
+     "Crash: back to stock"
+    ],
+    [
+     "VRAM",
+     "2512 MHz + Fast Timing",
+     "2512 to 2612 MHz",
+     "Lower FPS while stable: too far"
+    ],
+    [
+     "Power limit",
+     "0%",
+     "-10% to max slider",
+     "Hotspot above 100 C"
+    ]
+   ],
+   "src": [
+    {
+     "T": "A Red Devil RX 9070 XT gained about 10% FPS with -170 mV and a 110% power target (premium card; most stop well before).",
+     "S": "der8auer via Tom's Hardware",
+     "U": "https://www.tomshardware.com/pc-components/gpus/undervolted-rx-9070-xt-beats-rtx-5080-rx-9070-and-9070-xt-models-with-heavy-coolers-have-massive-oc-headroom"
+    },
+    {
+     "T": "An RX 9070 at 100 mV below stock: up to 30% better efficiency, small performance loss.",
+     "S": "Igor's Lab",
+     "U": "https://www.igorslab.de/en/?p=276010"
+    },
+    {
+     "T": "-75 mV with -15% power kept 100% of stock Steel Nomad at ~258 W instead of 304 W; -125 mV passed benchmarks but crashed in long sessions.",
+     "S": "r/radeon owners",
+     "U": "https://lr.us.psf.lt/r/radeon/comments/1j5roap/rx_9070_xt_underclock_outstanding_efficiency"
+    },
+    {
+     "T": "Reference boost clock, memory and board power from the official specifications.",
+     "S": "TechPowerUp GPU Database",
+     "U": "https://www.techpowerup.com/gpu-specs/"
+    }
+   ],
+   "proven": [
+    {
+     "C": "-100 mV, power limit 85%",
+     "R": "Scored higher than stock while peaks fell from 375 W to 324 W.",
+     "S": "Reddit r/radeon",
+     "U": "https://www.reddit.com/r/radeon/comments/1j5roap/"
+    },
+    {
+     "C": "-75 mV",
+     "R": "-100 mV crashed quickly on an ASRock Steel Legend; -75 mV stayed stable.",
+     "S": "Reddit r/radeon",
+     "U": "https://www.reddit.com/r/radeon/comments/1j5roap/"
+    },
+    {
+     "C": "Undervolt + higher power limit",
+     "R": "Clocks rose past 3 GHz for ~10% more FPS; memory overclocking often made it slower.",
+     "S": "TechSpot (der8auer)",
+     "U": "https://www.techspot.com/news/107110-undervolted-radeon-rx-9070-xt-beats-rtx-5080.html"
+    }
+   ]
+  },
+  {
+   "id": "rx9070",
+   "name": "Radeon RX 9070",
+   "family": "rdna4",
+   "match": [
+    "RX\\s*9070(?!\\s*XT)"
+   ],
+   "stock": "220 W reference board power.",
+   "notes": [
+    "Stock voltage is about 850-900 mV; -100 mV cut it to about 770-780 mV stable (Igor's Lab).",
+    "Safest values use this card's reference clock and a conservative voltage: about stock FPS, less heat and noise. Test 30-60 minutes in your heaviest game before going further."
+   ],
+   "checked": "2026-11-04",
+   "safe": [
+    [
+     "Owner-proven undervolt",
+     "-80 mV, power 0%",
+     "-50 to -100 mV",
+     "Errors after hours of play: +25 mV"
+    ],
+    [
+     "Safest undervolt",
+     "-50 mV offset",
+     "-50 to -100 mV",
+     "Crash or driver timeout: +10 mV"
+    ],
+    [
+     "Max frequency",
+     "2520 MHz (stock)",
+     "stock to +50 MHz",
+     "Crash: back to stock"
+    ],
+    [
+     "VRAM",
+     "2512 MHz + Fast Timing",
+     "2512 to 2612 MHz",
+     "Lower FPS while stable: too far"
+    ],
+    [
+     "Power limit",
+     "0%",
+     "-10% to max slider",
+     "Hotspot above 100 C"
+    ]
+   ],
+   "src": [
+    {
+     "T": "A Red Devil RX 9070 XT gained about 10% FPS with -170 mV and a 110% power target (premium card; most stop well before).",
+     "S": "der8auer via Tom's Hardware",
+     "U": "https://www.tomshardware.com/pc-components/gpus/undervolted-rx-9070-xt-beats-rtx-5080-rx-9070-and-9070-xt-models-with-heavy-coolers-have-massive-oc-headroom"
+    },
+    {
+     "T": "An RX 9070 at 100 mV below stock: up to 30% better efficiency, small performance loss.",
+     "S": "Igor's Lab",
+     "U": "https://www.igorslab.de/en/?p=276010"
+    },
+    {
+     "T": "-75 mV with -15% power kept 100% of stock Steel Nomad at ~258 W instead of 304 W; -125 mV passed benchmarks but crashed in long sessions.",
+     "S": "r/radeon owners",
+     "U": "https://lr.us.psf.lt/r/radeon/comments/1j5roap/rx_9070_xt_underclock_outstanding_efficiency"
+    },
+    {
+     "T": "Reference boost clock, memory and board power from the official specifications.",
+     "S": "TechPowerUp GPU Database",
+     "U": "https://www.techpowerup.com/gpu-specs/"
+    }
+   ],
+   "proven": [
+    {
+     "C": "-100 mV",
+     "R": "Cyberpunk 54 to 50 FPS with ~30% less power (ASRock Steel Legend).",
+     "S": "Igor's Lab",
+     "U": "https://www.igorslab.de/en/amd-radeon-rx-9070-less-power-same-performance-undervolting-pays-off/"
+    },
+    {
+     "C": "-80 mV",
+     "R": "Owner reports it fairly happy there; deeper offsets only for benchmarks.",
+     "S": "TechPowerUp forum",
+     "U": "https://www.techpowerup.com/forums/goto/post?id=5523039"
+    }
+   ]
+  },
+  {
+   "id": "rx9060xt",
+   "name": "Radeon RX 9060 XT",
+   "family": "rdna4",
+   "match": [
+    "RX\\s*9060"
+   ],
+   "notes": [
+    "Smaller chip: start with -50 mV and test before going lower.",
+    "Safest values use this card's reference clock and a conservative voltage: about stock FPS, less heat and noise. Test 30-60 minutes in your heaviest game before going further."
+   ],
+   "checked": "2026-11-02",
+   "safe": [
+    [
+     "Safest undervolt",
+     "-50 mV offset",
+     "-50 to -100 mV",
+     "Crash or driver timeout: +10 mV"
+    ],
+    [
+     "Max frequency",
+     "3130 MHz (stock)",
+     "stock to +50 MHz",
+     "Crash: back to stock"
+    ],
+    [
+     "VRAM",
+     "2500 MHz + Fast Timing",
+     "2500 to 2600 MHz",
+     "Lower FPS while stable: too far"
+    ],
+    [
+     "Power limit",
+     "0%",
+     "-10% to max slider",
+     "Hotspot above 100 C"
+    ]
+   ],
+   "stock": "160 W reference board power, 3130 MHz boost (partner cards often run higher).",
+   "src": [
+    {
+     "T": "A Red Devil RX 9070 XT gained about 10% FPS with -170 mV and a 110% power target (premium card; most stop well before).",
+     "S": "der8auer via Tom's Hardware",
+     "U": "https://www.tomshardware.com/pc-components/gpus/undervolted-rx-9070-xt-beats-rtx-5080-rx-9070-and-9070-xt-models-with-heavy-coolers-have-massive-oc-headroom"
+    },
+    {
+     "T": "An RX 9070 at 100 mV below stock: up to 30% better efficiency, small performance loss.",
+     "S": "Igor's Lab",
+     "U": "https://www.igorslab.de/en/?p=276010"
+    },
+    {
+     "T": "-75 mV with -15% power kept 100% of stock Steel Nomad at ~258 W instead of 304 W; -125 mV passed benchmarks but crashed in long sessions.",
+     "S": "r/radeon owners",
+     "U": "https://lr.us.psf.lt/r/radeon/comments/1j5roap/rx_9070_xt_underclock_outstanding_efficiency"
+    },
+    {
+     "T": "Reference boost clock, memory and board power from the official specifications.",
+     "S": "TechPowerUp GPU Database",
+     "U": "https://www.techpowerup.com/gpu-specs/"
+    }
+   ]
+  },
+  {
+   "id": "rx7900xtx",
+   "name": "Radeon RX 7900 XTX",
+   "family": "rdna3",
+   "match": [
+    "RX\\s*7900\\s*XTX"
+   ],
+   "stock": "355 W reference board power; ~1150 mV max voltage.",
+   "notes": [
+    "Daily-stable owner settings cluster at 1065-1100 mV with +15% power.",
+    "Some games (Horizon Zero Dawn) need +30-40 mV more than others.",
+    "Safest values use this card's reference clock and a conservative voltage: about stock FPS, less heat and noise. Test 30-60 minutes in your heaviest game before going further."
+   ],
+   "checked": "2026-11-04",
+   "safe": [
+    [
+     "Owner-proven undervolt",
+     "1100 mV, power +15%",
+     "1050-1100 mV",
+     "Errors after hours of play: +25 mV"
+    ],
+    [
+     "Safest undervolt",
+     "-50 mV from what Adrenalin shows",
+     "-50 to -100 mV",
+     "Crash or driver timeout: +10 mV"
+    ],
+    [
+     "Max frequency",
+     "2499 MHz (stock)",
+     "stock to +50 MHz",
+     "Crash: back to stock"
+    ],
+    [
+     "VRAM",
+     "2500 MHz + Fast Timing",
+     "2500 to 2600 MHz",
+     "Lower FPS while stable: too far"
+    ],
+    [
+     "Power limit",
+     "0%",
+     "-10% to max slider",
+     "Hotspot above 100 C"
+    ]
+   ],
+   "src": [
+    {
+     "T": "RX 7900 XTX daily game-stable: 1065 mV, +15% power, 2700 MHz memory, max clock 3050 MHz.",
+     "S": "r/Amd owner",
+     "U": "https://redlib.reallyaweso.me/r/Amd/comments/zn0jh5/rx_7900_xtx_reference_overclock_results/j0ee0ep/?context=3"
+    },
+    {
+     "T": "RX 7900 XT stable at 1075 mV: peak power in Helldivers 2 dropped from about 310 W to 260 W.",
+     "S": "Evetech",
+     "U": "https://evezone.evetech.co.za/deep-dives/rx-7900-xt-undervolt-no-fps-loss"
+    },
+    {
+     "T": "RX 7900 XTX at 1100 mV with +15% power: stock performance at lower voltage; raise 10-15 mV after a crash.",
+     "S": "TechFuelHQ undervolt database",
+     "U": "https://techfuelhq.com/articles/gpu-undervolt-settings-database/"
+    },
+    {
+     "T": "Reference boost clock, memory and board power from the official specifications.",
+     "S": "TechPowerUp GPU Database",
+     "U": "https://www.techpowerup.com/gpu-specs/"
+    }
+   ],
+   "proven": [
+    {
+     "C": "1065 mV, 500-3050 MHz, power +15%, VRAM 2700",
+     "R": "Daily game-stable on a reference card; another owner needed 1070 mV for Horizon Zero Dawn though 1030 mV passed other games.",
+     "S": "Reddit r/Amd",
+     "U": "https://www.reddit.com/r/Amd/comments/zn0jh5/"
+    },
+    {
+     "C": "1050 mV, 2900 MHz, power +5%",
+     "R": "Stable on a Red Devil once the VRAM overclock was removed.",
+     "S": "TechPowerUp forum",
+     "U": "https://techpowerup.com/forums/goto/post?id=5220395"
+    }
+   ]
+  },
+  {
+   "id": "rx7900xt",
+   "name": "Radeon RX 7900 XT",
+   "family": "rdna3",
+   "match": [
+    "RX\\s*7900\\s*XT(?!X)"
+   ],
+   "stock": "315 W reference board power.",
+   "notes": [
+    "1075 mV stable cut peak power from about 310 W to 260 W in Helldivers 2 (Evetech).",
+    "Safest values use this card's reference clock and a conservative voltage: about stock FPS, less heat and noise. Test 30-60 minutes in your heaviest game before going further."
+   ],
+   "checked": "2026-11-02",
+   "safe": [
+    [
+     "Safest undervolt",
+     "-50 mV from what Adrenalin shows",
+     "-50 to -100 mV",
+     "Crash or driver timeout: +10 mV"
+    ],
+    [
+     "Max frequency",
+     "2394 MHz (stock)",
+     "stock to +50 MHz",
+     "Crash: back to stock"
+    ],
+    [
+     "VRAM",
+     "2500 MHz + Fast Timing",
+     "2500 to 2600 MHz",
+     "Lower FPS while stable: too far"
+    ],
+    [
+     "Power limit",
+     "0%",
+     "-10% to max slider",
+     "Hotspot above 100 C"
+    ]
+   ],
+   "src": [
+    {
+     "T": "RX 7900 XTX daily game-stable: 1065 mV, +15% power, 2700 MHz memory, max clock 3050 MHz.",
+     "S": "r/Amd owner",
+     "U": "https://redlib.reallyaweso.me/r/Amd/comments/zn0jh5/rx_7900_xtx_reference_overclock_results/j0ee0ep/?context=3"
+    },
+    {
+     "T": "RX 7900 XT stable at 1075 mV: peak power in Helldivers 2 dropped from about 310 W to 260 W.",
+     "S": "Evetech",
+     "U": "https://evezone.evetech.co.za/deep-dives/rx-7900-xt-undervolt-no-fps-loss"
+    },
+    {
+     "T": "RX 7900 XTX at 1100 mV with +15% power: stock performance at lower voltage; raise 10-15 mV after a crash.",
+     "S": "TechFuelHQ undervolt database",
+     "U": "https://techfuelhq.com/articles/gpu-undervolt-settings-database/"
+    },
+    {
+     "T": "Reference boost clock, memory and board power from the official specifications.",
+     "S": "TechPowerUp GPU Database",
+     "U": "https://www.techpowerup.com/gpu-specs/"
+    }
+   ]
+  },
+  {
+   "id": "rx7800xt",
+   "name": "Radeon RX 7800 XT",
+   "family": "rdna3",
+   "match": [
+    "RX\\s*7800"
+   ],
+   "notes": [
+    "Memory overclock helps this card more than core clock: try VRAM 2600 MHz.",
+    "Safest values use this card's reference clock and a conservative voltage: about stock FPS, less heat and noise. Test 30-60 minutes in your heaviest game before going further."
+   ],
+   "checked": "2026-11-04",
+   "safe": [
+    [
+     "Owner-proven undervolt",
+     "1100 mV, stock clocks",
+     "1050-1100 mV",
+     "Errors after hours of play: +25 mV"
+    ],
+    [
+     "Safest undervolt",
+     "-50 mV from what Adrenalin shows",
+     "-50 to -100 mV",
+     "Crash or driver timeout: +10 mV"
+    ],
+    [
+     "Max frequency",
+     "2430 MHz (stock)",
+     "stock to +50 MHz",
+     "Crash: back to stock"
+    ],
+    [
+     "VRAM",
+     "2438 MHz + Fast Timing",
+     "2438 to 2538 MHz",
+     "Lower FPS while stable: too far"
+    ],
+    [
+     "Power limit",
+     "0%",
+     "-10% to max slider",
+     "Hotspot above 100 C"
+    ]
+   ],
+   "stock": "263 W reference board power, 2430 MHz boost (partner cards often run higher).",
+   "src": [
+    {
+     "T": "RX 7900 XTX daily game-stable: 1065 mV, +15% power, 2700 MHz memory, max clock 3050 MHz.",
+     "S": "r/Amd owner",
+     "U": "https://redlib.reallyaweso.me/r/Amd/comments/zn0jh5/rx_7900_xtx_reference_overclock_results/j0ee0ep/?context=3"
+    },
+    {
+     "T": "RX 7900 XT stable at 1075 mV: peak power in Helldivers 2 dropped from about 310 W to 260 W.",
+     "S": "Evetech",
+     "U": "https://evezone.evetech.co.za/deep-dives/rx-7900-xt-undervolt-no-fps-loss"
+    },
+    {
+     "T": "RX 7900 XTX at 1100 mV with +15% power: stock performance at lower voltage; raise 10-15 mV after a crash.",
+     "S": "TechFuelHQ undervolt database",
+     "U": "https://techfuelhq.com/articles/gpu-undervolt-settings-database/"
+    },
+    {
+     "T": "Reference boost clock, memory and board power from the official specifications.",
+     "S": "TechPowerUp GPU Database",
+     "U": "https://www.techpowerup.com/gpu-specs/"
+    }
+   ],
+   "proven": [
+    {
+     "C": "1100 mV (stock 1150 mV)",
+     "R": "Clock rose from 2600 to 2680 MHz, no FPS loss, ~45 W less at full load.",
+     "S": "Guru3D",
+     "U": "https://www.guru3d.com/review/undervolting-the-yeston-radeon-rx-7800-xt/page-17/"
+    },
+    {
+     "C": "Power limit -10% plus undervolt",
+     "R": "About 200 W and 2220 MHz: ~40% less power for ~9% lower FPS.",
+     "S": "HotHardware (Techtesters)",
+     "U": "https://hothardware.com/news/undervolted-amd-radeon-rx-7800-xt-impresses"
+    }
+   ]
+  },
+  {
+   "id": "rx6800xt",
+   "name": "Radeon RX 6800 XT",
+   "family": "rdna2",
+   "match": [
+    "RX\\s*6800\\s*XT"
+   ],
+   "stock": "300 W board power; 1.15 V max voltage.",
+   "notes": [
+    "ComputerBase: max voltage 1.15 V -> 1.025 V stable, about 45 W less and slightly higher FPS.",
+    "Core overclocked +209 MHz in the same test (up to 2525 MHz in games).",
+    "Safest values use this card's reference clock and a conservative voltage: about stock FPS, less heat and noise. Test 30-60 minutes in your heaviest game before going further."
+   ],
+   "checked": "2026-11-04",
+   "safe": [
+    [
+     "Owner-proven undervolt",
+     "1100 mV, max 2400 MHz",
+     "1025-1100 mV",
+     "Errors after hours of play: +25 mV"
+    ],
+    [
+     "Safest undervolt",
+     "-50 mV from what Adrenalin shows",
+     "-50 to -100 mV",
+     "Crash or driver timeout: +10 mV"
+    ],
+    [
+     "Max frequency",
+     "2250 MHz (stock)",
+     "stock to +50 MHz",
+     "Crash: back to stock"
+    ],
+    [
+     "VRAM",
+     "2000 MHz + Fast Timing",
+     "2000 to 2100 MHz",
+     "Lower FPS while stable: too far"
+    ],
+    [
+     "Power limit",
+     "0%",
+     "-10% to max slider",
+     "Hotspot above 100 C"
+    ]
+   ],
+   "src": [
+    {
+     "T": "RX 6800 XT max voltage lowered from 1.15 V to 1.025 V: about 45 W less and slightly higher FPS; the core also overclocked by 209 MHz.",
+     "S": "ComputerBase",
+     "U": "https://www.computerbase.de/2020-11/amd-radeon-rx-6800-xt-oc-uv/"
+    },
+    {
+     "T": "Owners commonly run RX 6800 XT/6900 XT at about 1050 mV daily; very low voltage profiles can be stable in one game and not another.",
+     "S": "ComputerBase forum",
+     "U": "https://www.computerbase.de/forum/threads/big-navi-rx-6700xt-6800-xt-6900xt-overclocking-undervolting.1983202/page-25"
+    },
+    {
+     "T": "Reference boost clock, memory and board power from the official specifications.",
+     "S": "TechPowerUp GPU Database",
+     "U": "https://www.techpowerup.com/gpu-specs/"
+    }
+   ],
+   "proven": [
+    {
+     "C": "Max 1.025 V (stock 1.15 V)",
+     "R": "Lowest stable on the review sample; FPS went from 70.8 to 72.6.",
+     "S": "ComputerBase",
+     "U": "https://www.computerbase.de/2020-11/amd-radeon-rx-6800-xt-oc-uv/"
+    },
+    {
+     "C": "2400 MHz, ~1060 mV under load",
+     "R": "Nitro+: 290 W to 220-245 W, 3-4 C cooler, same clock.",
+     "S": "Igor's Lab community",
+     "U": "https://www.igorslab.de/community/threads/uv-oc-rx-6800-6800xt-6900-xt.4125/post-105847"
+    }
+   ]
+  },
+  {
+   "id": "rx6800",
+   "name": "Radeon RX 6800",
+   "family": "rdna2",
+   "match": [
+    "RX\\s*6800(?!\\s*XT)"
+   ],
+   "stock": "250 W board power; 1.025 V max voltage.",
+   "notes": [
+    "Adrenalin lets the RX 6800 go down to about 0.79 V; it already runs low voltage at stock.",
+    "Safest values use this card's reference clock and a conservative voltage: about stock FPS, less heat and noise. Test 30-60 minutes in your heaviest game before going further."
+   ],
+   "checked": "2026-11-04",
+   "safe": [
+    [
+     "Owner-proven undervolt",
+     "1000 mV",
+     "975-1000 mV",
+     "Errors after hours of play: +25 mV"
+    ],
+    [
+     "Safest undervolt",
+     "-50 mV from what Adrenalin shows",
+     "-50 to -100 mV",
+     "Crash or driver timeout: +10 mV"
+    ],
+    [
+     "Max frequency",
+     "2105 MHz (stock)",
+     "stock to +50 MHz",
+     "Crash: back to stock"
+    ],
+    [
+     "VRAM",
+     "2000 MHz + Fast Timing",
+     "2000 to 2100 MHz",
+     "Lower FPS while stable: too far"
+    ],
+    [
+     "Power limit",
+     "0%",
+     "-10% to max slider",
+     "Hotspot above 100 C"
+    ]
+   ],
+   "src": [
+    {
+     "T": "RX 6800 XT max voltage lowered from 1.15 V to 1.025 V: about 45 W less and slightly higher FPS; the core also overclocked by 209 MHz.",
+     "S": "ComputerBase",
+     "U": "https://www.computerbase.de/2020-11/amd-radeon-rx-6800-xt-oc-uv/"
+    },
+    {
+     "T": "Owners commonly run RX 6800 XT/6900 XT at about 1050 mV daily; very low voltage profiles can be stable in one game and not another.",
+     "S": "ComputerBase forum",
+     "U": "https://www.computerbase.de/forum/threads/big-navi-rx-6700xt-6800-xt-6900xt-overclocking-undervolting.1983202/page-25"
+    },
+    {
+     "T": "Reference boost clock, memory and board power from the official specifications.",
+     "S": "TechPowerUp GPU Database",
+     "U": "https://www.techpowerup.com/gpu-specs/"
+    }
+   ],
+   "proven": [
+    {
+     "C": "Undervolt (stock 1.025 V)",
+     "R": "FPS 60.8 to 61.0 at about 183 W.",
+     "S": "ComputerBase",
+     "U": "https://www.computerbase.de/2020-11/amd-radeon-rx-6800-xt-oc-uv/"
+    },
+    {
+     "C": "975 mV @ 2234 MHz",
+     "R": "Lowest stable on a weaker sample.",
+     "S": "Igor's Lab community",
+     "U": "https://www.igorslab.de/community/goto/post?id=171716"
+    }
+   ]
+  },
+  {
+   "id": "rx69x0",
+   "name": "Radeon RX 6900 XT / 6950 XT",
+   "family": "rdna2",
+   "match": [
+    "RX\\s*69[05]0"
+   ],
+   "notes": [
+    "Owners commonly run about 1050 mV daily.",
+    "Safest values use this card's reference clock and a conservative voltage: about stock FPS, less heat and noise. Test 30-60 minutes in your heaviest game before going further."
+   ],
+   "checked": "2026-11-02",
+   "safe": [
+    [
+     "Safest undervolt",
+     "-50 mV from what Adrenalin shows",
+     "-50 to -100 mV",
+     "Crash or driver timeout: +10 mV"
+    ],
+    [
+     "Max frequency",
+     "2310 MHz (stock)",
+     "stock to +50 MHz",
+     "Crash: back to stock"
+    ],
+    [
+     "VRAM",
+     "2250 MHz + Fast Timing",
+     "2250 to 2350 MHz",
+     "Lower FPS while stable: too far"
+    ],
+    [
+     "Power limit",
+     "0%",
+     "-10% to max slider",
+     "Hotspot above 100 C"
+    ]
+   ],
+   "stock": "335 W reference board power, 2310 MHz boost (partner cards often run higher).",
+   "src": [
+    {
+     "T": "RX 6800 XT max voltage lowered from 1.15 V to 1.025 V: about 45 W less and slightly higher FPS; the core also overclocked by 209 MHz.",
+     "S": "ComputerBase",
+     "U": "https://www.computerbase.de/2020-11/amd-radeon-rx-6800-xt-oc-uv/"
+    },
+    {
+     "T": "Owners commonly run RX 6800 XT/6900 XT at about 1050 mV daily; very low voltage profiles can be stable in one game and not another.",
+     "S": "ComputerBase forum",
+     "U": "https://www.computerbase.de/forum/threads/big-navi-rx-6700xt-6800-xt-6900xt-overclocking-undervolting.1983202/page-25"
+    },
+    {
+     "T": "Reference boost clock, memory and board power from the official specifications.",
+     "S": "TechPowerUp GPU Database",
+     "U": "https://www.techpowerup.com/gpu-specs/"
+    }
+   ]
+  },
+  {
+   "id": "rx67x0",
+   "name": "Radeon RX 6700 XT / 6750 XT",
+   "family": "rdna2",
+   "match": [
+    "RX\\s*67[05]0\\s*XT"
+   ],
+   "stock": "1.2 V max voltage at stock.",
+   "notes": [
+    "Some cards barely take -25 mV: go in 10 mV steps.",
+    "Low-load moments (menus, video) can crash an undervolt that games pass.",
+    "Safest values use this card's reference clock and a conservative voltage: about stock FPS, less heat and noise. Test 30-60 minutes in your heaviest game before going further."
+   ],
+   "checked": "2026-11-04",
+   "safe": [
+    [
+     "Owner-proven undervolt",
+     "1175 mV, max 2600 MHz",
+     "1100-1175 mV",
+     "Errors after hours of play: +25 mV"
+    ],
+    [
+     "Safest undervolt",
+     "-50 mV from what Adrenalin shows",
+     "-50 to -100 mV",
+     "Crash or driver timeout: +10 mV"
+    ],
+    [
+     "Max frequency",
+     "2600 MHz (stock)",
+     "stock to +50 MHz",
+     "Crash: back to stock"
+    ],
+    [
+     "VRAM",
+     "2250 MHz + Fast Timing",
+     "2250 to 2350 MHz",
+     "Lower FPS while stable: too far"
+    ],
+    [
+     "Power limit",
+     "0%",
+     "-10% to max slider",
+     "Hotspot above 100 C"
+    ]
+   ],
+   "src": [
+    {
+     "T": "RX 6800 XT max voltage lowered from 1.15 V to 1.025 V: about 45 W less and slightly higher FPS; the core also overclocked by 209 MHz.",
+     "S": "ComputerBase",
+     "U": "https://www.computerbase.de/2020-11/amd-radeon-rx-6800-xt-oc-uv/"
+    },
+    {
+     "T": "Owners commonly run RX 6800 XT/6900 XT at about 1050 mV daily; very low voltage profiles can be stable in one game and not another.",
+     "S": "ComputerBase forum",
+     "U": "https://www.computerbase.de/forum/threads/big-navi-rx-6700xt-6800-xt-6900xt-overclocking-undervolting.1983202/page-25"
+    },
+    {
+     "T": "Reference boost clock, memory and board power from the official specifications.",
+     "S": "TechPowerUp GPU Database",
+     "U": "https://www.techpowerup.com/gpu-specs/"
+    }
+   ],
+   "proven": [
+    {
+     "C": "6750 XT: max 2600 MHz, 1175 mV",
+     "R": "About 97% of full performance, 210 W to ~170 W.",
+     "S": "TechPowerUp forum",
+     "U": "https://techpowerup.com/forums/goto/post?id=4890353"
+    }
+   ]
+  },
+  {
+   "id": "rx5700xt",
+   "name": "Radeon RX 5700 XT",
+   "family": "rdna1",
+   "match": [
+    "RX\\s*5700\\s*XT"
+   ],
+   "stock": "Stock top point about 2054 MHz @ 1173 mV.",
+   "notes": [
+    "1100 mV at about 2060 MHz is a common stable owner setting.",
+    "Safest values use this card's reference clock and a conservative voltage: about stock FPS, less heat and noise. Test 30-60 minutes in your heaviest game before going further."
+   ],
+   "checked": "2026-11-02",
+   "safe": [
+    [
+     "Safest undervolt",
+     "-50 mV from what Adrenalin shows",
+     "-50 to -100 mV",
+     "Crash or driver timeout: +10 mV"
+    ],
+    [
+     "Max frequency",
+     "1905 MHz (stock)",
+     "stock to +50 MHz",
+     "Crash: back to stock"
+    ],
+    [
+     "VRAM",
+     "1750 MHz + Fast Timing",
+     "1750 to 1850 MHz",
+     "Lower FPS while stable: too far"
+    ],
+    [
+     "Power limit",
+     "0%",
+     "-10% to max slider",
+     "Hotspot above 100 C"
+    ]
+   ],
+   "src": [
+    {
+     "T": "Overclocking the RX 5700 XT gains nothing unless the power limit is raised to the max first.",
+     "S": "TechPowerUp review",
+     "U": "https://techpowerup.com/review/amd-radeon-rx-5700-xt/33.html"
+    },
+    {
+     "T": "Reference boost clock, memory and board power from the official specifications.",
+     "S": "TechPowerUp GPU Database",
+     "U": "https://www.techpowerup.com/gpu-specs/"
+    }
+   ]
+  },
+  {
+   "id": "rtx5090",
+   "name": "GeForce RTX 5090",
+   "family": "blackwell",
+   "match": [
+    "RTX\\s*5090"
+   ],
+   "stock": "575 W board power.",
+   "notes": [
+    "Undervolting matters most here: it also lowers 12V-2x6 connector current.",
+    "Safest values use this card's reference clock and a conservative voltage: about stock FPS, less heat and noise. Test 30-60 minutes in your heaviest game before going further."
+   ],
+   "checked": "2026-11-04",
+   "safe": [
+    [
+     "Owner-proven undervolt",
+     "2800 MHz @ 0.900 V",
+     "2700-2800 MHz @ 0.900-0.950 V",
+     "Errors after hours of play: +25 mV"
+    ],
+    [
+     "Safest undervolt",
+     "2407 MHz @ 0.925 V",
+     "2407 MHz @ 0.875-0.925 V",
+     "Crash or driver reset: +25 mV"
+    ],
+    [
+     "Safest overclock",
+     "+150 MHz core",
+     "+150 to +300 MHz",
+     "Crash: -15 MHz"
+    ],
+    [
+     "Memory offset",
+     "+500 MHz",
+     "+500 to +1500 MHz",
+     "Artifacts or lower FPS: -100 MHz"
+    ],
+    [
+     "Temperatures",
+     "GPU under 83 C",
+     "hotspot under 95 C",
+     "Too hot: power limit 90% first"
+    ]
+   ],
+   "src": [
+    {
+     "T": "An undervolted RTX 5070 Ti ran about 4% faster than stock with 50-70 W less; memory took +1000 to +2000 MHz.",
+     "S": "Esports Tales",
+     "U": "https://esportstales.com/tech-tips/how-to-undervolt-the-5070-ti-with-msi-afterburner"
+    },
+    {
+     "T": "Simplest route: lower the power limit; best result: flatten the voltage/frequency curve.",
+     "S": "MSI",
+     "U": "https://www.msi.com/blog/rtx-5070-5060ti-overclocking-undervolting-guide-with-msi-afterburner-part-2"
+    },
+    {
+     "T": "RTX 50 tuners often hit a wall around +150 MHz; +165 MHz crashed sooner or later.",
+     "S": "Hardwareluxx",
+     "U": "https://www.hardwareluxx.de/community/posts/31166039/"
+    },
+    {
+     "T": "Reference boost clock, memory and board power from the official specifications.",
+     "S": "TechPowerUp GPU Database",
+     "U": "https://www.techpowerup.com/gpu-specs/"
+    }
+   ],
+   "proven": [
+    {
+     "C": "2800 MHz @ 0.900 V",
+     "R": "About 100 W less and ~10 C cooler for ~2% lower FPS, stable for hours.",
+     "S": "TechFuel HQ dataset",
+     "U": "https://techfuelhq.com/articles/gpu-undervolt-settings-database/"
+    }
+   ]
+  },
+  {
+   "id": "rtx5080",
+   "name": "GeForce RTX 5080",
+   "family": "blackwell",
+   "match": [
+    "RTX\\s*5080"
+   ],
+   "stock": "360 W board power.",
+   "notes": [
+    "Owners report about 2700-2800 MHz at about 0.90-0.92 V with tens of watts saved.",
+    "Safest values use this card's reference clock and a conservative voltage: about stock FPS, less heat and noise. Test 30-60 minutes in your heaviest game before going further."
+   ],
+   "checked": "2026-11-04",
+   "safe": [
+    [
+     "Owner-proven undervolt",
+     "2750 MHz @ 0.950 V",
+     "2750-3000 MHz @ 0.925-0.975 V",
+     "Errors after hours of play: +25 mV"
+    ],
+    [
+     "Safest undervolt",
+     "2617 MHz @ 0.925 V",
+     "2617 MHz @ 0.875-0.925 V",
+     "Crash or driver reset: +25 mV"
+    ],
+    [
+     "Safest overclock",
+     "+150 MHz core",
+     "+150 to +300 MHz",
+     "Crash: -15 MHz"
+    ],
+    [
+     "Memory offset",
+     "+500 MHz",
+     "+500 to +1500 MHz",
+     "Artifacts or lower FPS: -100 MHz"
+    ],
+    [
+     "Temperatures",
+     "GPU under 83 C",
+     "hotspot under 95 C",
+     "Too hot: power limit 90% first"
+    ]
+   ],
+   "src": [
+    {
+     "T": "An undervolted RTX 5070 Ti ran about 4% faster than stock with 50-70 W less; memory took +1000 to +2000 MHz.",
+     "S": "Esports Tales",
+     "U": "https://esportstales.com/tech-tips/how-to-undervolt-the-5070-ti-with-msi-afterburner"
+    },
+    {
+     "T": "Simplest route: lower the power limit; best result: flatten the voltage/frequency curve.",
+     "S": "MSI",
+     "U": "https://www.msi.com/blog/rtx-5070-5060ti-overclocking-undervolting-guide-with-msi-afterburner-part-2"
+    },
+    {
+     "T": "RTX 50 tuners often hit a wall around +150 MHz; +165 MHz crashed sooner or later.",
+     "S": "Hardwareluxx",
+     "U": "https://www.hardwareluxx.de/community/posts/31166039/"
+    },
+    {
+     "T": "Reference boost clock, memory and board power from the official specifications.",
+     "S": "TechPowerUp GPU Database",
+     "U": "https://www.techpowerup.com/gpu-specs/"
+    }
+   ],
+   "proven": [
+    {
+     "C": "2750 MHz @ 0.950 V, power limit 90%",
+     "R": "About 50 W less with the same FPS. Founders cards often hold ~925 mV, partner cards 950-975 mV.",
+     "S": "TechFuel HQ dataset",
+     "U": "https://techfuelhq.com/articles/gpu-undervolt-settings-database/"
+    }
+   ]
+  },
+  {
+   "id": "rtx5070ti",
+   "name": "GeForce RTX 5070 Ti",
+   "family": "blackwell",
+   "match": [
+    "RTX\\s*5070\\s*Ti"
+   ],
+   "stock": "300 W board power.",
+   "notes": [
+    "Undervolt measured about +4% FPS with 50-70 W less (Esports Tales).",
+    "Afterburner currently caps memory at +2000 MHz.",
+    "Safest values use this card's reference clock and a conservative voltage: about stock FPS, less heat and noise. Test 30-60 minutes in your heaviest game before going further."
+   ],
+   "checked": "2026-11-04",
+   "safe": [
+    [
+     "Owner-proven undervolt",
+     "2800 MHz @ 0.925 V",
+     "2700-3000 MHz @ 0.875-0.950 V",
+     "Errors after hours of play: +25 mV"
+    ],
+    [
+     "Safest undervolt",
+     "2452 MHz @ 0.925 V",
+     "2452 MHz @ 0.875-0.925 V",
+     "Crash or driver reset: +25 mV"
+    ],
+    [
+     "Safest overclock",
+     "+150 MHz core",
+     "+150 to +300 MHz",
+     "Crash: -15 MHz"
+    ],
+    [
+     "Memory offset",
+     "+500 MHz",
+     "+500 to +1500 MHz",
+     "Artifacts or lower FPS: -100 MHz"
+    ],
+    [
+     "Temperatures",
+     "GPU under 83 C",
+     "hotspot under 95 C",
+     "Too hot: power limit 90% first"
+    ]
+   ],
+   "src": [
+    {
+     "T": "An undervolted RTX 5070 Ti ran about 4% faster than stock with 50-70 W less; memory took +1000 to +2000 MHz.",
+     "S": "Esports Tales",
+     "U": "https://esportstales.com/tech-tips/how-to-undervolt-the-5070-ti-with-msi-afterburner"
+    },
+    {
+     "T": "Simplest route: lower the power limit; best result: flatten the voltage/frequency curve.",
+     "S": "MSI",
+     "U": "https://www.msi.com/blog/rtx-5070-5060ti-overclocking-undervolting-guide-with-msi-afterburner-part-2"
+    },
+    {
+     "T": "RTX 50 tuners often hit a wall around +150 MHz; +165 MHz crashed sooner or later.",
+     "S": "Hardwareluxx",
+     "U": "https://www.hardwareluxx.de/community/posts/31166039/"
+    },
+    {
+     "T": "Reference boost clock, memory and board power from the official specifications.",
+     "S": "TechPowerUp GPU Database",
+     "U": "https://www.techpowerup.com/gpu-specs/"
+    }
+   ],
+   "proven": [
+    {
+     "C": "2800 MHz @ 0.900 V",
+     "R": "Stable for months on one card; another tester found 2850 @ 0.900 V worked on most of his cards but not all.",
+     "S": "ComputerBase forum",
+     "U": "https://www.computerbase.de/forum/threads/rtx-5070ti-undervolting.2257637/"
+    },
+    {
+     "C": "Ten owner curves",
+     "R": "850 to 950 mV; 925 mV was the most common, at 2950-3050 MHz on good samples.",
+     "S": "TechFuel HQ",
+     "U": "https://techfuelhq.com/articles/rtx-5070-ti-undervolt-2026/"
+    },
+    {
+     "C": "925 mV curve",
+     "R": "About 4% faster than stock while using 50-70 W less (250 W vs 300 W in Steel Nomad).",
+     "S": "Esports Tales",
+     "U": "https://esportstales.com/tech-tips/how-to-undervolt-the-5070-ti-with-msi-afterburner"
+    }
+   ]
+  },
+  {
+   "id": "rtx4090",
+   "name": "GeForce RTX 4090",
+   "family": "ada",
+   "match": [
+    "RTX\\s*4090"
+   ],
+   "stock": "450 W board power; ~1.05 V max.",
+   "notes": [
+    "0.95 V at stock boost (about 2745 MHz) is the classic sweet spot.",
+    "Power limit 70-80% is a simple alternative: little FPS lost.",
+    "Safest values use this card's reference clock and a conservative voltage: about stock FPS, less heat and noise. Test 30-60 minutes in your heaviest game before going further."
+   ],
+   "checked": "2026-11-04",
+   "safe": [
+    [
+     "Owner-proven undervolt",
+     "2730 MHz @ 0.950 V",
+     "2415-2805 MHz @ 0.875-0.950 V",
+     "Errors after hours of play: +25 mV"
+    ],
+    [
+     "Safest undervolt",
+     "2520 MHz @ 0.925 V",
+     "2520 MHz @ 0.875-0.925 V",
+     "Crash or driver reset: +25 mV"
+    ],
+    [
+     "Safest overclock",
+     "+150 MHz core",
+     "+150 to +250 MHz",
+     "Crash: -15 MHz"
+    ],
+    [
+     "Memory offset",
+     "+250 MHz",
+     "+250 to +500 MHz",
+     "Artifacts or lower FPS: -100 MHz"
+    ],
+    [
+     "Temperatures",
+     "GPU under 83 C",
+     "memory junction under 100 C",
+     "Too hot: power limit 90% first"
+    ]
+   ],
+   "src": [
+    {
+     "T": "RTX 4090 from 1.0 V to 0.95 V: 323 W down to 289 W for about 1% less performance.",
+     "S": "QuasarZone via Hardware.com.br",
+     "U": "https://www.hardware.com.br/noticias/teste-revela-como-undervolting-reduz-consideravelmente-consumo-rtx-4090-sem-sacrificar-demais-o-desempenho/"
+    },
+    {
+     "T": "RTX 4090 at about half its power limit (270 W) lost only around 8% at 4K.",
+     "S": "QuasarZone via TechPowerUp",
+     "U": "https://www.techpowerup.com/forums/posts/4892815"
+    },
+    {
+     "T": "Flatten the curve at your card's stock boost (method 2): effective clocks stay much closer to target than a plain offset.",
+     "S": "r/nvidia",
+     "U": "https://lr.in.psf.lt/r/nvidia/comments/ybxa3c/there_are_two_methods_people_follow_when/iwiqh73/?context=3"
+    },
+    {
+     "T": "Reference boost clock, memory and board power from the official specifications.",
+     "S": "TechPowerUp GPU Database",
+     "U": "https://www.techpowerup.com/gpu-specs/"
+    }
+   ],
+   "proven": [
+    {
+     "C": "2730 MHz @ 0.950 V (curve flattened +15 MHz above the target)",
+     "R": "Cyberpunk benchmark: 332 W to 277 W with the same score; Port Royal within 2% of stock.",
+     "S": "Reddit r/nvidia",
+     "U": "https://www.reddit.com/r/nvidia/comments/ybxa3c/"
+    },
+    {
+     "C": "Ladder: 2715 @ 0.950, 2625 @ 0.925, 2510 @ 0.900, 2415 @ 0.875 V",
+     "R": "All passed Time Spy on an ASUS TUF OC.",
+     "S": "Reddit r/nvidia",
+     "U": "https://www.reddit.com/r/nvidia/comments/ybxa3c/"
+    },
+    {
+     "C": "QuasarZone undervolt sweep",
+     "R": "2850 MHz at 323 W, or 2460 MHz at 232 W; stock ran 2726 MHz at 347 W.",
+     "S": "Digital Trends",
+     "U": "https://digitaltrends.com/computing/nvidia-rtx-4090-performance-after-undervolting"
+    }
+   ]
+  },
+  {
+   "id": "rtx4080",
+   "name": "GeForce RTX 4080 / 4080 Super",
+   "family": "ada",
+   "match": [
+    "RTX\\s*4080"
+   ],
+   "notes": [
+    "2760 MHz at 950 mV is a widely used starting point (4080 Super).",
+    "Safest values use this card's reference clock and a conservative voltage: about stock FPS, less heat and noise. Test 30-60 minutes in your heaviest game before going further."
+   ],
+   "checked": "2026-11-02",
+   "safe": [
+    [
+     "Safest undervolt",
+     "2550 MHz @ 0.925 V",
+     "2550 MHz @ 0.875-0.925 V",
+     "Crash or driver reset: +25 mV"
+    ],
+    [
+     "Safest overclock",
+     "+150 MHz core",
+     "+150 to +250 MHz",
+     "Crash: -15 MHz"
+    ],
+    [
+     "Memory offset",
+     "+250 MHz",
+     "+250 to +500 MHz",
+     "Artifacts or lower FPS: -100 MHz"
+    ],
+    [
+     "Temperatures",
+     "GPU under 83 C",
+     "memory junction under 100 C",
+     "Too hot: power limit 90% first"
+    ]
+   ],
+   "stock": "320 W reference board power, 2550 MHz boost (partner cards often run higher).",
+   "src": [
+    {
+     "T": "RTX 4090 from 1.0 V to 0.95 V: 323 W down to 289 W for about 1% less performance.",
+     "S": "QuasarZone via Hardware.com.br",
+     "U": "https://www.hardware.com.br/noticias/teste-revela-como-undervolting-reduz-consideravelmente-consumo-rtx-4090-sem-sacrificar-demais-o-desempenho/"
+    },
+    {
+     "T": "RTX 4090 at about half its power limit (270 W) lost only around 8% at 4K.",
+     "S": "QuasarZone via TechPowerUp",
+     "U": "https://www.techpowerup.com/forums/posts/4892815"
+    },
+    {
+     "T": "Flatten the curve at your card's stock boost (method 2): effective clocks stay much closer to target than a plain offset.",
+     "S": "r/nvidia",
+     "U": "https://lr.in.psf.lt/r/nvidia/comments/ybxa3c/there_are_two_methods_people_follow_when/iwiqh73/?context=3"
+    },
+    {
+     "T": "Reference boost clock, memory and board power from the official specifications.",
+     "S": "TechPowerUp GPU Database",
+     "U": "https://www.techpowerup.com/gpu-specs/"
+    }
+   ]
+  },
+  {
+   "id": "rtx4070",
+   "name": "GeForce RTX 4070 / 4070 Super",
+   "family": "ada",
+   "match": [
+    "RTX\\s*4070(?!\\s*Ti)"
+   ],
+   "notes": [
+    "Near stock boost at about 925 mV, much cooler (owner reports).",
+    "Safest values use this card's reference clock and a conservative voltage: about stock FPS, less heat and noise. Test 30-60 minutes in your heaviest game before going further."
+   ],
+   "checked": "2026-11-04",
+   "safe": [
+    [
+     "Owner-proven undervolt",
+     "2700 MHz @ 0.950 V",
+     "2600-2805 MHz @ 0.910-1.000 V",
+     "Errors after hours of play: +25 mV"
+    ],
+    [
+     "Safest undervolt",
+     "2475 MHz @ 0.925 V",
+     "2475 MHz @ 0.875-0.925 V",
+     "Crash or driver reset: +25 mV"
+    ],
+    [
+     "Safest overclock",
+     "+150 MHz core",
+     "+150 to +250 MHz",
+     "Crash: -15 MHz"
+    ],
+    [
+     "Memory offset",
+     "+250 MHz",
+     "+250 to +500 MHz",
+     "Artifacts or lower FPS: -100 MHz"
+    ],
+    [
+     "Temperatures",
+     "GPU under 83 C",
+     "memory junction under 100 C",
+     "Too hot: power limit 90% first"
+    ]
+   ],
+   "stock": "220 W reference board power, 2475 MHz boost (partner cards often run higher).",
+   "src": [
+    {
+     "T": "RTX 4090 from 1.0 V to 0.95 V: 323 W down to 289 W for about 1% less performance.",
+     "S": "QuasarZone via Hardware.com.br",
+     "U": "https://www.hardware.com.br/noticias/teste-revela-como-undervolting-reduz-consideravelmente-consumo-rtx-4090-sem-sacrificar-demais-o-desempenho/"
+    },
+    {
+     "T": "RTX 4090 at about half its power limit (270 W) lost only around 8% at 4K.",
+     "S": "QuasarZone via TechPowerUp",
+     "U": "https://www.techpowerup.com/forums/posts/4892815"
+    },
+    {
+     "T": "Flatten the curve at your card's stock boost (method 2): effective clocks stay much closer to target than a plain offset.",
+     "S": "r/nvidia",
+     "U": "https://lr.in.psf.lt/r/nvidia/comments/ybxa3c/there_are_two_methods_people_follow_when/iwiqh73/?context=3"
+    },
+    {
+     "T": "Reference boost clock, memory and board power from the official specifications.",
+     "S": "TechPowerUp GPU Database",
+     "U": "https://www.techpowerup.com/gpu-specs/"
+    }
+   ],
+   "proven": [
+    {
+     "C": "2805 MHz @ 1.000 V",
+     "R": "Stock performance with 5-15% less power (3DMark and games).",
+     "S": "TechPowerUp forum",
+     "U": "https://techpowerup.com/forums/goto/post?id=5007670"
+    },
+    {
+     "C": "2610 MHz @ 0.910 V",
+     "R": "About 95% of stock FPS with ~25% less power.",
+     "S": "TechPowerUp forum",
+     "U": "https://techpowerup.com/forums/goto/post?id=5007670"
+    },
+    {
+     "C": "4070 SUPER: 2700 MHz @ 0.950 V, memory +1000",
+     "R": "212 W to 166 W, 5 C cooler, 2 FPS lower in AC Valhalla.",
+     "S": "Tutkit",
+     "U": "https://www.tutkit.com/en/blog/389-undervolting-the-graphics-card-rtx-4070-super"
+    },
+    {
+     "C": "4070 SUPER: 2700 MHz @ 0.950 V",
+     "R": "0.940 V showed artifacts after hours of play; 0.950 V stayed stable. The SUPER does not go below 0.925 V under load.",
+     "S": "ComputerBase forum",
+     "U": "https://www.computerbase.de/forum/threads/4070-super-sobald-curve-editor-spannung-unter-last-immer-0-925v.2248925/"
+    }
+   ]
+  },
+  {
+   "id": "rtx3080",
+   "name": "GeForce RTX 3080 / 3080 Ti",
+   "family": "ampere",
+   "match": [
+    "RTX\\s*3080"
+   ],
+   "stock": "320-350 W board power.",
+   "notes": [
+    "0.85 V @ 1900-1920 MHz is the classic setting: faster than stock in 3DMark, far cooler.",
+    "Memory past +250 MHz can lower FPS on some 3080s: always compare.",
+    "Safest values use this card's reference clock and a conservative voltage: about stock FPS, less heat and noise. Test 30-60 minutes in your heaviest game before going further."
+   ],
+   "checked": "2026-11-04",
+   "safe": [
+    [
+     "Owner-proven undervolt",
+     "1900 MHz @ 0.875 V",
+     "1800-1905 MHz @ 0.800-0.925 V",
+     "Errors after hours of play: +25 mV"
+    ],
+    [
+     "Safest undervolt",
+     "1665 MHz @ 0.850 V",
+     "1665 MHz @ 0.800-0.850 V",
+     "Crash or driver reset: +25 mV"
+    ],
+    [
+     "Safest overclock",
+     "+100 MHz core",
+     "+100 to +150 MHz",
+     "Crash: -15 MHz"
+    ],
+    [
+     "Memory offset",
+     "+250 MHz",
+     "+250 to +500 MHz",
+     "Artifacts or lower FPS: -100 MHz"
+    ],
+    [
+     "Temperatures",
+     "GPU under 83 C",
+     "memory junction under 100 C",
+     "Too hot: power limit 90% first"
+    ]
+   ],
+   "src": [
+    {
+     "T": "RTX 3080 at 0.85 V @ 1920 MHz scored higher than stock in Time Spy and Port Royal, quieter and cooler.",
+     "S": "TechPowerUp forum",
+     "U": "https://techpowerup.com/forums/threads/rtx-3080-undervolt-0-85v-1920mhz-results.274877"
+    },
+    {
+     "T": "RTX 3070: 1850-1900 MHz at 0.85 V with +1000 memory is a common stable setting.",
+     "S": "r/nvidia guide",
+     "U": "https://axebps-redlib.hf.space/r/nvidia/comments/jn878f/small_beginners_undervolting_guide_for_rtx_3070_fe"
+    },
+    {
+     "T": "On GDDR6X cards memory past +250 MHz can lower FPS (error correction).",
+     "S": "Overclockers UK",
+     "U": "https://forums.overclockers.co.uk/threads/3080-undervolting.18936805/"
+    },
+    {
+     "T": "Reference boost clock, memory and board power from the official specifications.",
+     "S": "TechPowerUp GPU Database",
+     "U": "https://www.techpowerup.com/gpu-specs/"
+    }
+   ],
+   "proven": [
+    {
+     "C": "1905 MHz @ 0.925 V",
+     "R": "Port Royal 11588 to 11578; 378 W to 322 W; 4 C cooler.",
+     "S": "Reddit r/buildapc",
+     "U": "https://www.reddit.com/r/buildapc/comments/uhi9p0/"
+    },
+    {
+     "C": "1900 MHz @ 0.887 V",
+     "R": "About 80 W less than stock with slightly higher performance.",
+     "S": "Overclockers UK forum",
+     "U": "https://forums.overclockers.co.uk/threads/3080-undervolting.18936805/"
+    },
+    {
+     "C": "1905 MHz @ 0.875 V",
+     "R": "1920 MHz @ 0.850 V crashed in Watch Dogs Legion; 1905 @ 0.875 V passed, 8-10 C cooler.",
+     "S": "EVGA forum",
+     "U": "https://forums.evga.com/FindPost/3515410"
+    },
+    {
+     "C": "1800 MHz @ 0.800 V",
+     "R": "Port Royal ~10400 to ~10000; 320 W to ~260 W. 0.775 V crashed in Cyberpunk.",
+     "S": "Igor's Lab community",
+     "U": "https://www.igorslab.de/community/goto/post?id=136084"
+    }
+   ]
+  },
+  {
+   "id": "rtx3070",
+   "name": "GeForce RTX 3070 / 3070 Ti",
+   "family": "ampere",
+   "match": [
+    "RTX\\s*3070"
+   ],
+   "notes": [
+    "1850-1900 MHz at 0.85 V with +1000 memory: ~90 W less at load (owner reports).",
+    "Safest values use this card's reference clock and a conservative voltage: about stock FPS, less heat and noise. Test 30-60 minutes in your heaviest game before going further."
+   ],
+   "checked": "2026-11-04",
+   "safe": [
+    [
+     "Owner-proven undervolt",
+     "1900 MHz @ 0.850 V",
+     "1850-1900 MHz @ 0.850-0.900 V",
+     "Errors after hours of play: +25 mV"
+    ],
+    [
+     "Safest undervolt",
+     "1770 MHz @ 0.850 V",
+     "1770 MHz @ 0.800-0.850 V",
+     "Crash or driver reset: +25 mV"
+    ],
+    [
+     "Safest overclock",
+     "+100 MHz core",
+     "+100 to +150 MHz",
+     "Crash: -15 MHz"
+    ],
+    [
+     "Memory offset",
+     "+250 MHz",
+     "+250 to +500 MHz",
+     "Artifacts or lower FPS: -100 MHz"
+    ],
+    [
+     "Temperatures",
+     "GPU under 83 C",
+     "memory junction under 100 C",
+     "Too hot: power limit 90% first"
+    ]
+   ],
+   "stock": "290 W reference board power, 1770 MHz boost (partner cards often run higher).",
+   "src": [
+    {
+     "T": "RTX 3080 at 0.85 V @ 1920 MHz scored higher than stock in Time Spy and Port Royal, quieter and cooler.",
+     "S": "TechPowerUp forum",
+     "U": "https://techpowerup.com/forums/threads/rtx-3080-undervolt-0-85v-1920mhz-results.274877"
+    },
+    {
+     "T": "RTX 3070: 1850-1900 MHz at 0.85 V with +1000 memory is a common stable setting.",
+     "S": "r/nvidia guide",
+     "U": "https://axebps-redlib.hf.space/r/nvidia/comments/jn878f/small_beginners_undervolting_guide_for_rtx_3070_fe"
+    },
+    {
+     "T": "On GDDR6X cards memory past +250 MHz can lower FPS (error correction).",
+     "S": "Overclockers UK",
+     "U": "https://forums.overclockers.co.uk/threads/3080-undervolting.18936805/"
+    },
+    {
+     "T": "Reference boost clock, memory and board power from the official specifications.",
+     "S": "TechPowerUp GPU Database",
+     "U": "https://www.techpowerup.com/gpu-specs/"
+    }
+   ],
+   "proven": [
+    {
+     "C": "1900 MHz @ 0.850 V, memory +1000",
+     "R": "Stable, about 90 W less under load.",
+     "S": "Igor's Lab community",
+     "U": "https://www.igorslab.de/community/goto/post?id=136084"
+    }
+   ]
+  },
+  {
+   "id": "rtx3090",
+   "name": "GeForce RTX 3090 / 3090 Ti",
+   "family": "ampere",
+   "match": [
+    "RTX\\s*3090"
+   ],
+   "notes": [
+    "Even at 0.85 V some UE4 games hit the 350 W power limit: memory on the back of the card runs very hot.",
+    "Safest values use this card's reference clock and a conservative voltage: about stock FPS, less heat and noise. Test 30-60 minutes in your heaviest game before going further."
+   ],
+   "checked": "2026-11-04",
+   "safe": [
+    [
+     "Owner-proven undervolt",
+     "1890 MHz @ 0.875 V",
+     "1800-1920 MHz @ 0.850-0.900 V",
+     "Errors after hours of play: +25 mV"
+    ],
+    [
+     "Safest undervolt",
+     "1860 MHz @ 0.850 V",
+     "1860 MHz @ 0.800-0.850 V",
+     "Crash or driver reset: +25 mV"
+    ],
+    [
+     "Safest overclock",
+     "+100 MHz core",
+     "+100 to +150 MHz",
+     "Crash: -15 MHz"
+    ],
+    [
+     "Memory offset",
+     "+250 MHz",
+     "+250 to +500 MHz",
+     "Artifacts or lower FPS: -100 MHz"
+    ],
+    [
+     "Temperatures",
+     "GPU under 83 C",
+     "memory junction under 100 C",
+     "Too hot: power limit 90% first"
+    ]
+   ],
+   "stock": "450 W reference board power, 1860 MHz boost (partner cards often run higher).",
+   "src": [
+    {
+     "T": "RTX 3080 at 0.85 V @ 1920 MHz scored higher than stock in Time Spy and Port Royal, quieter and cooler.",
+     "S": "TechPowerUp forum",
+     "U": "https://techpowerup.com/forums/threads/rtx-3080-undervolt-0-85v-1920mhz-results.274877"
+    },
+    {
+     "T": "RTX 3070: 1850-1900 MHz at 0.85 V with +1000 memory is a common stable setting.",
+     "S": "r/nvidia guide",
+     "U": "https://axebps-redlib.hf.space/r/nvidia/comments/jn878f/small_beginners_undervolting_guide_for_rtx_3070_fe"
+    },
+    {
+     "T": "On GDDR6X cards memory past +250 MHz can lower FPS (error correction).",
+     "S": "Overclockers UK",
+     "U": "https://forums.overclockers.co.uk/threads/3080-undervolting.18936805/"
+    },
+    {
+     "T": "Reference boost clock, memory and board power from the official specifications.",
+     "S": "TechPowerUp GPU Database",
+     "U": "https://www.techpowerup.com/gpu-specs/"
+    }
+   ],
+   "proven": [
+    {
+     "C": "1890 MHz @ 0.850 V",
+     "R": "Gigabyte Eagle OC; holds clock that stock dropped below 1700 MHz.",
+     "S": "ComputerBase forum",
+     "U": "https://www.computerbase.de/forum/threads/nvidia-geforce-rtx-3090-undervolting-thread.1975071/latest"
+    },
+    {
+     "C": "1920 MHz @ 0.850 V",
+     "R": "Crashed in Cinebench on an EVGA FTW3; moved to 0.900 V.",
+     "S": "Tom's Hardware Italia forum",
+     "U": "https://forum.tomshw.it/threads/undervolt-rtx-ampere-ada-lovelace.842772/post-9101219"
+    }
+   ]
+  },
+  {
+   "id": "rtx2070s",
+   "name": "GeForce RTX 2070 Super",
+   "family": "turing",
+   "match": [
+    "RTX\\s*2070\\s*Super"
+   ],
+   "notes": [
+    "About 1950 MHz at 0.900 V (stock 1.05 V).",
+    "Safest values use this card's reference clock and a conservative voltage: about stock FPS, less heat and noise. Test 30-60 minutes in your heaviest game before going further."
+   ],
+   "checked": "2026-11-02",
+   "safe": [
+    [
+     "Safest undervolt",
+     "1770 MHz @ 0.900 V",
+     "1770 MHz @ 0.850-0.900 V",
+     "Crash or driver reset: +25 mV"
+    ],
+    [
+     "Safest overclock",
+     "+50 MHz core",
+     "+50 to +100 MHz",
+     "Crash: -15 MHz"
+    ],
+    [
+     "Memory offset",
+     "+400 MHz",
+     "+400 to +700 MHz",
+     "Artifacts or lower FPS: -100 MHz"
+    ],
+    [
+     "Temperatures",
+     "GPU under 83 C",
+     "GPU under 80 C (ideal)",
+     "Too hot: power limit 90% first"
+    ]
+   ],
+   "stock": "215 W reference board power, 1770 MHz boost (partner cards often run higher).",
+   "src": [
+    {
+     "T": "RTX 2070 Super owners run about 1950 MHz at 0.900 V; stock boost uses 1.05 V.",
+     "S": "Tom's Hardware forum",
+     "U": "https://forums.tomshardware.com/threads/core-clock-keeps-changing-when-i-apply-my-undervolt-on-my-gpu-with-msi-afterburner.3625036"
+    },
+    {
+     "T": "Turing cards run 1.05 V at their highest clocks at stock.",
+     "S": "AnandTech",
+     "U": "https://www.anandtech.com/show/14663/the-nvidia-geforce-rtx-2080-super-review/15"
+    },
+    {
+     "T": "Reference boost clock, memory and board power from the official specifications.",
+     "S": "TechPowerUp GPU Database",
+     "U": "https://www.techpowerup.com/gpu-specs/"
+    }
+   ]
+  },
+  {
+   "id": "gtx1660s",
+   "name": "GeForce GTX 1660 Super",
+   "family": "turing16",
+   "match": [
+    "GTX\\s*1660\\s*Super"
+   ],
+   "notes": [
+    "+105 core / +725 memory was KitGuru's best; +800 memory locked up.",
+    "Safest values use this card's reference clock and a conservative voltage: about stock FPS, less heat and noise. Test 30-60 minutes in your heaviest game before going further."
+   ],
+   "checked": "2026-11-02",
+   "safe": [
+    [
+     "Safest undervolt",
+     "1785 MHz @ 0.900 V",
+     "1785 MHz @ 0.850-0.900 V",
+     "Crash or driver reset: +25 mV"
+    ],
+    [
+     "Safest overclock",
+     "+50 MHz core",
+     "+50 to +100 MHz",
+     "Crash: -15 MHz"
+    ],
+    [
+     "Memory offset",
+     "+400 MHz",
+     "+400 to +700 MHz",
+     "Artifacts or lower FPS: -100 MHz"
+    ],
+    [
+     "Temperatures",
+     "GPU under 83 C",
+     "GPU under 80 C (ideal)",
+     "Too hot: power limit 90% first"
+    ]
+   ],
+   "stock": "125 W reference board power, 1785 MHz boost (partner cards often run higher).",
+   "src": [
+    {
+     "T": "GTX 1660 Super best result: +105 MHz core, +725 MHz memory; +750 artifacted, +800 locked up.",
+     "S": "KitGuru",
+     "U": "https://www.kitguru.net/components/graphic-cards/dominic-moass/gigabyte-gtx-1660-super-gaming-oc-6g-review/20"
+    },
+    {
+     "T": "The GTX 1660 Super overclock gave about 4% more performance.",
+     "S": "TechPowerUp",
+     "U": "https://techpowerup.com/review/gigabyte-geforce-gtx-1660-super-gaming-pro-oc/37.html"
+    },
+    {
+     "T": "Reference boost clock, memory and board power from the official specifications.",
+     "S": "TechPowerUp GPU Database",
+     "U": "https://www.techpowerup.com/gpu-specs/"
+    }
+   ]
+  },
+  {
+   "id": "gtx1080",
+   "name": "GeForce GTX 1080 / 1080 Ti",
+   "family": "pascal",
+   "match": [
+    "GTX\\s*1080"
+   ],
+   "notes": [
+    "+200 core / +500 memory reported on Founders cards (about 2100 MHz).",
+    "Safest values use this card's reference clock and a conservative voltage: about stock FPS, less heat and noise. Test 30-60 minutes in your heaviest game before going further."
+   ],
+   "checked": "2026-11-04",
+   "safe": [
+    [
+     "Owner-proven undervolt",
+     "1850 MHz @ 0.925 V",
+     "1810-1900 MHz @ 0.900-0.931 V",
+     "Errors after hours of play: +25 mV"
+    ],
+    [
+     "Safest undervolt",
+     "1582 MHz @ 0.950 V",
+     "1582 MHz @ 0.900-0.950 V",
+     "Crash or driver reset: +25 mV"
+    ],
+    [
+     "Safest overclock",
+     "+75 MHz core",
+     "+75 to +150 MHz",
+     "Crash: -15 MHz"
+    ],
+    [
+     "Memory offset",
+     "+300 MHz",
+     "+300 to +500 MHz",
+     "Artifacts or lower FPS: -100 MHz"
+    ],
+    [
+     "Temperatures",
+     "GPU under 83 C",
+     "GPU under 80 C (ideal)",
+     "Too hot: power limit 90% first"
+    ]
+   ],
+   "stock": "250 W reference board power, 1582 MHz boost (partner cards often run higher).",
+   "src": [
+    {
+     "T": "GTX 1080 Founders Edition owners report +200 core and +500 memory (about 2100 MHz boost).",
+     "S": "Hexus forum",
+     "U": "https://forums.hexus.net/hexus-reviews/358724-evga-geforce-gtx-1080-win.html"
+    },
+    {
+     "T": "Reference boost clock, memory and board power from the official specifications.",
+     "S": "TechPowerUp GPU Database",
+     "U": "https://www.techpowerup.com/gpu-specs/"
+    }
+   ],
+   "proven": [
+    {
+     "C": "1080 Ti: 1898 MHz @ 0.931 V",
+     "R": "Same performance as stock, 30 W less and 6 C cooler.",
+     "S": "EVGA forum",
+     "U": "https://forums.evga.com/best-undervolting-1080-ti-m2808569.aspx"
+    },
+    {
+     "C": "1080 Ti: 1810 MHz @ 0.900 V",
+     "R": "75 C to 65 C at ~40% fan, stress-tested in 3DMark.",
+     "S": "SFF.Network forum",
+     "U": "https://smallformfactor.net/forum/threads/zotac-gtx-1080-ti-mod-0rpm-bios-liquid-metal-undervolt.10193/"
+    },
+    {
+     "C": "1080: ~1850 MHz @ 0.900 V",
+     "R": "About 5 C cooler under full load.",
+     "S": "PCGH forum",
+     "U": "https://extreme.pcgameshardware.de/threads/gtx-1070-ti-undervolting-oc-anfaenger-hat-fragen.517980/"
+    }
+   ]
+  },
+  {
+   "id": "arcb580",
+   "name": "Intel Arc B580 / B570",
+   "family": "battlemage",
+   "match": [
+    "Arc.*B5[78]0"
+   ],
+   "stock": "190 W total board power (B580).",
+   "notes": [
+    "TechPowerUp: full OC about +7% (44.5 -> 47.7 FPS)."
+   ],
+   "checked": "2026-11-02"
+  },
+  {
+   "id": "arca770",
+   "name": "Intel Arc A770 / A750",
+   "family": "alchemist",
+   "match": [
+    "Arc.*A7[57]0"
+   ],
+   "stock": "225 W (A770), power limit up to 228 W.",
+   "notes": [
+    "KitGuru: +10% Time Spy with max power, +55 mV, boost 16."
+   ],
+   "checked": "2026-11-02"
+  },
+  {
+   "id": "rx7700xt",
+   "name": "Radeon RX 7700 XT",
+   "family": "rdna3",
+   "match": [
+    "RX\\s*7700\\s*XT"
+   ],
+   "stock": "245 W reference board power, 2544 MHz boost (partner cards often run higher).",
+   "notes": [
+    "Safest values use this card's reference clock and a conservative voltage: about stock FPS, less heat and noise. Test 30-60 minutes in your heaviest game before going further."
+   ],
+   "safe": [
+    [
+     "Safest undervolt",
+     "-50 mV from what Adrenalin shows",
+     "-50 to -100 mV",
+     "Crash or driver timeout: +10 mV"
+    ],
+    [
+     "Max frequency",
+     "2544 MHz (stock)",
+     "stock to +50 MHz",
+     "Crash: back to stock"
+    ],
+    [
+     "VRAM",
+     "2250 MHz + Fast Timing",
+     "2250 to 2350 MHz",
+     "Lower FPS while stable: too far"
+    ],
+    [
+     "Power limit",
+     "0%",
+     "-10% to max slider",
+     "Hotspot above 100 C"
+    ]
+   ],
+   "src": [
+    {
+     "T": "RX 7900 XTX daily game-stable: 1065 mV, +15% power, 2700 MHz memory, max clock 3050 MHz.",
+     "S": "r/Amd owner",
+     "U": "https://redlib.reallyaweso.me/r/Amd/comments/zn0jh5/rx_7900_xtx_reference_overclock_results/j0ee0ep/?context=3"
+    },
+    {
+     "T": "RX 7900 XT stable at 1075 mV: peak power in Helldivers 2 dropped from about 310 W to 260 W.",
+     "S": "Evetech",
+     "U": "https://evezone.evetech.co.za/deep-dives/rx-7900-xt-undervolt-no-fps-loss"
+    },
+    {
+     "T": "RX 7900 XTX at 1100 mV with +15% power: stock performance at lower voltage; raise 10-15 mV after a crash.",
+     "S": "TechFuelHQ undervolt database",
+     "U": "https://techfuelhq.com/articles/gpu-undervolt-settings-database/"
+    },
+    {
+     "T": "Reference boost clock, memory and board power from the official specifications.",
+     "S": "TechPowerUp GPU Database",
+     "U": "https://www.techpowerup.com/gpu-specs/"
+    }
+   ],
+   "checked": "2026-11-04"
+  },
+  {
+   "id": "rx7600",
+   "name": "Radeon RX 7600",
+   "family": "rdna3",
+   "match": [
+    "RX\\s*7600(?!\\s*XT)"
+   ],
+   "stock": "165 W reference board power, 2655 MHz boost (partner cards often run higher).",
+   "notes": [
+    "Safest values use this card's reference clock and a conservative voltage: about stock FPS, less heat and noise. Test 30-60 minutes in your heaviest game before going further."
+   ],
+   "safe": [
+    [
+     "Safest undervolt",
+     "-50 mV from what Adrenalin shows",
+     "-50 to -100 mV",
+     "Crash or driver timeout: +10 mV"
+    ],
+    [
+     "Max frequency",
+     "2655 MHz (stock)",
+     "stock to +50 MHz",
+     "Crash: back to stock"
+    ],
+    [
+     "VRAM",
+     "2250 MHz + Fast Timing",
+     "2250 to 2350 MHz",
+     "Lower FPS while stable: too far"
+    ],
+    [
+     "Power limit",
+     "0%",
+     "-10% to max slider",
+     "Hotspot above 100 C"
+    ]
+   ],
+   "src": [
+    {
+     "T": "RX 7900 XTX daily game-stable: 1065 mV, +15% power, 2700 MHz memory, max clock 3050 MHz.",
+     "S": "r/Amd owner",
+     "U": "https://redlib.reallyaweso.me/r/Amd/comments/zn0jh5/rx_7900_xtx_reference_overclock_results/j0ee0ep/?context=3"
+    },
+    {
+     "T": "RX 7900 XT stable at 1075 mV: peak power in Helldivers 2 dropped from about 310 W to 260 W.",
+     "S": "Evetech",
+     "U": "https://evezone.evetech.co.za/deep-dives/rx-7900-xt-undervolt-no-fps-loss"
+    },
+    {
+     "T": "RX 7900 XTX at 1100 mV with +15% power: stock performance at lower voltage; raise 10-15 mV after a crash.",
+     "S": "TechFuelHQ undervolt database",
+     "U": "https://techfuelhq.com/articles/gpu-undervolt-settings-database/"
+    },
+    {
+     "T": "Reference boost clock, memory and board power from the official specifications.",
+     "S": "TechPowerUp GPU Database",
+     "U": "https://www.techpowerup.com/gpu-specs/"
+    }
+   ],
+   "checked": "2026-11-04"
+  },
+  {
+   "id": "rx6600xt",
+   "name": "Radeon RX 6600 XT",
+   "family": "rdna2",
+   "match": [
+    "RX\\s*6600\\s*XT"
+   ],
+   "stock": "160 W reference board power, 2589 MHz boost (partner cards often run higher).",
+   "notes": [
+    "Safest values use this card's reference clock and a conservative voltage: about stock FPS, less heat and noise. Test 30-60 minutes in your heaviest game before going further."
+   ],
+   "safe": [
+    [
+     "Safest undervolt",
+     "-50 mV from what Adrenalin shows",
+     "-50 to -100 mV",
+     "Crash or driver timeout: +10 mV"
+    ],
+    [
+     "Max frequency",
+     "2589 MHz (stock)",
+     "stock to +50 MHz",
+     "Crash: back to stock"
+    ],
+    [
+     "VRAM",
+     "2000 MHz + Fast Timing",
+     "2000 to 2100 MHz",
+     "Lower FPS while stable: too far"
+    ],
+    [
+     "Power limit",
+     "0%",
+     "-10% to max slider",
+     "Hotspot above 100 C"
+    ]
+   ],
+   "src": [
+    {
+     "T": "RX 6800 XT max voltage lowered from 1.15 V to 1.025 V: about 45 W less and slightly higher FPS; the core also overclocked by 209 MHz.",
+     "S": "ComputerBase",
+     "U": "https://www.computerbase.de/2020-11/amd-radeon-rx-6800-xt-oc-uv/"
+    },
+    {
+     "T": "Owners commonly run RX 6800 XT/6900 XT at about 1050 mV daily; very low voltage profiles can be stable in one game and not another.",
+     "S": "ComputerBase forum",
+     "U": "https://www.computerbase.de/forum/threads/big-navi-rx-6700xt-6800-xt-6900xt-overclocking-undervolting.1983202/page-25"
+    },
+    {
+     "T": "Reference boost clock, memory and board power from the official specifications.",
+     "S": "TechPowerUp GPU Database",
+     "U": "https://www.techpowerup.com/gpu-specs/"
+    }
+   ],
+   "checked": "2026-11-04"
+  },
+  {
+   "id": "rx6600",
+   "name": "Radeon RX 6600",
+   "family": "rdna2",
+   "match": [
+    "RX\\s*6600(?!\\s*XT)"
+   ],
+   "stock": "132 W reference board power, 2491 MHz boost (partner cards often run higher).",
+   "notes": [
+    "Safest values use this card's reference clock and a conservative voltage: about stock FPS, less heat and noise. Test 30-60 minutes in your heaviest game before going further."
+   ],
+   "safe": [
+    [
+     "Safest undervolt",
+     "-50 mV from what Adrenalin shows",
+     "-50 to -100 mV",
+     "Crash or driver timeout: +10 mV"
+    ],
+    [
+     "Max frequency",
+     "2491 MHz (stock)",
+     "stock to +50 MHz",
+     "Crash: back to stock"
+    ],
+    [
+     "VRAM",
+     "1750 MHz + Fast Timing",
+     "1750 to 1850 MHz",
+     "Lower FPS while stable: too far"
+    ],
+    [
+     "Power limit",
+     "0%",
+     "-10% to max slider",
+     "Hotspot above 100 C"
+    ]
+   ],
+   "src": [
+    {
+     "T": "RX 6800 XT max voltage lowered from 1.15 V to 1.025 V: about 45 W less and slightly higher FPS; the core also overclocked by 209 MHz.",
+     "S": "ComputerBase",
+     "U": "https://www.computerbase.de/2020-11/amd-radeon-rx-6800-xt-oc-uv/"
+    },
+    {
+     "T": "Owners commonly run RX 6800 XT/6900 XT at about 1050 mV daily; very low voltage profiles can be stable in one game and not another.",
+     "S": "ComputerBase forum",
+     "U": "https://www.computerbase.de/forum/threads/big-navi-rx-6700xt-6800-xt-6900xt-overclocking-undervolting.1983202/page-25"
+    },
+    {
+     "T": "Reference boost clock, memory and board power from the official specifications.",
+     "S": "TechPowerUp GPU Database",
+     "U": "https://www.techpowerup.com/gpu-specs/"
+    }
+   ],
+   "checked": "2026-11-04"
+  },
+  {
+   "id": "rtx5070",
+   "name": "GeForce RTX 5070",
+   "family": "blackwell",
+   "match": [
+    "RTX\\s*5070(?!\\s*Ti)"
+   ],
+   "stock": "250 W reference board power, 2512 MHz boost (partner cards often run higher).",
+   "notes": [
+    "Safest values use this card's reference clock and a conservative voltage: about stock FPS, less heat and noise. Test 30-60 minutes in your heaviest game before going further."
+   ],
+   "safe": [
+    [
+     "Safest undervolt",
+     "2512 MHz @ 0.925 V",
+     "2512 MHz @ 0.875-0.925 V",
+     "Crash or driver reset: +25 mV"
+    ],
+    [
+     "Safest overclock",
+     "+150 MHz core",
+     "+150 to +300 MHz",
+     "Crash: -15 MHz"
+    ],
+    [
+     "Memory offset",
+     "+500 MHz",
+     "+500 to +1500 MHz",
+     "Artifacts or lower FPS: -100 MHz"
+    ],
+    [
+     "Temperatures",
+     "GPU under 83 C",
+     "hotspot under 95 C",
+     "Too hot: power limit 90% first"
+    ]
+   ],
+   "src": [
+    {
+     "T": "An undervolted RTX 5070 Ti ran about 4% faster than stock with 50-70 W less; memory took +1000 to +2000 MHz.",
+     "S": "Esports Tales",
+     "U": "https://esportstales.com/tech-tips/how-to-undervolt-the-5070-ti-with-msi-afterburner"
+    },
+    {
+     "T": "Simplest route: lower the power limit; best result: flatten the voltage/frequency curve.",
+     "S": "MSI",
+     "U": "https://www.msi.com/blog/rtx-5070-5060ti-overclocking-undervolting-guide-with-msi-afterburner-part-2"
+    },
+    {
+     "T": "RTX 50 tuners often hit a wall around +150 MHz; +165 MHz crashed sooner or later.",
+     "S": "Hardwareluxx",
+     "U": "https://www.hardwareluxx.de/community/posts/31166039/"
+    },
+    {
+     "T": "Reference boost clock, memory and board power from the official specifications.",
+     "S": "TechPowerUp GPU Database",
+     "U": "https://www.techpowerup.com/gpu-specs/"
+    }
+   ],
+   "checked": "2026-11-04"
+  },
+  {
+   "id": "rtx4070tis",
+   "name": "GeForce RTX 4070 Ti Super",
+   "family": "ada",
+   "match": [
+    "RTX\\s*4070\\s*Ti\\s*Super"
+   ],
+   "stock": "285 W reference board power, 2610 MHz boost (partner cards often run higher).",
+   "notes": [
+    "Safest values use this card's reference clock and a conservative voltage: about stock FPS, less heat and noise. Test 30-60 minutes in your heaviest game before going further."
+   ],
+   "safe": [
+    [
+     "Safest undervolt",
+     "2610 MHz @ 0.925 V",
+     "2610 MHz @ 0.875-0.925 V",
+     "Crash or driver reset: +25 mV"
+    ],
+    [
+     "Safest overclock",
+     "+150 MHz core",
+     "+150 to +250 MHz",
+     "Crash: -15 MHz"
+    ],
+    [
+     "Memory offset",
+     "+250 MHz",
+     "+250 to +500 MHz",
+     "Artifacts or lower FPS: -100 MHz"
+    ],
+    [
+     "Temperatures",
+     "GPU under 83 C",
+     "memory junction under 100 C",
+     "Too hot: power limit 90% first"
+    ]
+   ],
+   "src": [
+    {
+     "T": "RTX 4090 from 1.0 V to 0.95 V: 323 W down to 289 W for about 1% less performance.",
+     "S": "QuasarZone via Hardware.com.br",
+     "U": "https://www.hardware.com.br/noticias/teste-revela-como-undervolting-reduz-consideravelmente-consumo-rtx-4090-sem-sacrificar-demais-o-desempenho/"
+    },
+    {
+     "T": "RTX 4090 at about half its power limit (270 W) lost only around 8% at 4K.",
+     "S": "QuasarZone via TechPowerUp",
+     "U": "https://www.techpowerup.com/forums/posts/4892815"
+    },
+    {
+     "T": "Flatten the curve at your card's stock boost (method 2): effective clocks stay much closer to target than a plain offset.",
+     "S": "r/nvidia",
+     "U": "https://lr.in.psf.lt/r/nvidia/comments/ybxa3c/there_are_two_methods_people_follow_when/iwiqh73/?context=3"
+    },
+    {
+     "T": "Reference boost clock, memory and board power from the official specifications.",
+     "S": "TechPowerUp GPU Database",
+     "U": "https://www.techpowerup.com/gpu-specs/"
+    }
+   ],
+   "checked": "2026-11-04"
+  },
+  {
+   "id": "rtx4070ti",
+   "name": "GeForce RTX 4070 Ti",
+   "family": "ada",
+   "match": [
+    "RTX\\s*4070\\s*Ti(?!\\s*Super)"
+   ],
+   "stock": "285 W reference board power, 2610 MHz boost (partner cards often run higher).",
+   "notes": [
+    "Safest values use this card's reference clock and a conservative voltage: about stock FPS, less heat and noise. Test 30-60 minutes in your heaviest game before going further."
+   ],
+   "safe": [
+    [
+     "Owner-proven undervolt",
+     "2580 MHz @ 1.000 V",
+     "2500-2650 MHz @ 0.950-1.050 V",
+     "Errors after hours of play: +25 mV"
+    ],
+    [
+     "Safest undervolt",
+     "2610 MHz @ 0.925 V",
+     "2610 MHz @ 0.875-0.925 V",
+     "Crash or driver reset: +25 mV"
+    ],
+    [
+     "Safest overclock",
+     "+150 MHz core",
+     "+150 to +250 MHz",
+     "Crash: -15 MHz"
+    ],
+    [
+     "Memory offset",
+     "+250 MHz",
+     "+250 to +500 MHz",
+     "Artifacts or lower FPS: -100 MHz"
+    ],
+    [
+     "Temperatures",
+     "GPU under 83 C",
+     "memory junction under 100 C",
+     "Too hot: power limit 90% first"
+    ]
+   ],
+   "src": [
+    {
+     "T": "RTX 4090 from 1.0 V to 0.95 V: 323 W down to 289 W for about 1% less performance.",
+     "S": "QuasarZone via Hardware.com.br",
+     "U": "https://www.hardware.com.br/noticias/teste-revela-como-undervolting-reduz-consideravelmente-consumo-rtx-4090-sem-sacrificar-demais-o-desempenho/"
+    },
+    {
+     "T": "RTX 4090 at about half its power limit (270 W) lost only around 8% at 4K.",
+     "S": "QuasarZone via TechPowerUp",
+     "U": "https://www.techpowerup.com/forums/posts/4892815"
+    },
+    {
+     "T": "Flatten the curve at your card's stock boost (method 2): effective clocks stay much closer to target than a plain offset.",
+     "S": "r/nvidia",
+     "U": "https://lr.in.psf.lt/r/nvidia/comments/ybxa3c/there_are_two_methods_people_follow_when/iwiqh73/?context=3"
+    },
+    {
+     "T": "Reference boost clock, memory and board power from the official specifications.",
+     "S": "TechPowerUp GPU Database",
+     "U": "https://www.techpowerup.com/gpu-specs/"
+    }
+   ],
+   "checked": "2026-11-04",
+   "proven": [
+    {
+     "C": "1.050 / 1.000 / 0.950 V steps",
+     "R": "At 1.000 V the card held 2580 MHz (2635 effective) and ran 69 C to 66 C; 0.950 V cost clock speed.",
+     "S": "Guru3D",
+     "U": "https://www.guru3d.com/review/undervolting-the-yeston-geforce-rtx-4070-ti/page-19/"
+    }
+   ]
+  },
+  {
+   "id": "rtx4060ti",
+   "name": "GeForce RTX 4060 Ti",
+   "family": "ada",
+   "match": [
+    "RTX\\s*4060\\s*Ti"
+   ],
+   "stock": "160 W reference board power, 2535 MHz boost (partner cards often run higher).",
+   "notes": [
+    "Safest values use this card's reference clock and a conservative voltage: about stock FPS, less heat and noise. Test 30-60 minutes in your heaviest game before going further."
+   ],
+   "safe": [
+    [
+     "Safest undervolt",
+     "2535 MHz @ 0.925 V",
+     "2535 MHz @ 0.875-0.925 V",
+     "Crash or driver reset: +25 mV"
+    ],
+    [
+     "Safest overclock",
+     "+150 MHz core",
+     "+150 to +250 MHz",
+     "Crash: -15 MHz"
+    ],
+    [
+     "Memory offset",
+     "+500 MHz",
+     "+500 to +1000 MHz",
+     "Artifacts or lower FPS: -100 MHz"
+    ],
+    [
+     "Temperatures",
+     "GPU under 83 C",
+     "hotspot under 95 C",
+     "Too hot: power limit 90% first"
+    ]
+   ],
+   "src": [
+    {
+     "T": "RTX 4090 from 1.0 V to 0.95 V: 323 W down to 289 W for about 1% less performance.",
+     "S": "QuasarZone via Hardware.com.br",
+     "U": "https://www.hardware.com.br/noticias/teste-revela-como-undervolting-reduz-consideravelmente-consumo-rtx-4090-sem-sacrificar-demais-o-desempenho/"
+    },
+    {
+     "T": "RTX 4090 at about half its power limit (270 W) lost only around 8% at 4K.",
+     "S": "QuasarZone via TechPowerUp",
+     "U": "https://www.techpowerup.com/forums/posts/4892815"
+    },
+    {
+     "T": "Flatten the curve at your card's stock boost (method 2): effective clocks stay much closer to target than a plain offset.",
+     "S": "r/nvidia",
+     "U": "https://lr.in.psf.lt/r/nvidia/comments/ybxa3c/there_are_two_methods_people_follow_when/iwiqh73/?context=3"
+    },
+    {
+     "T": "Reference boost clock, memory and board power from the official specifications.",
+     "S": "TechPowerUp GPU Database",
+     "U": "https://www.techpowerup.com/gpu-specs/"
+    }
+   ],
+   "checked": "2026-11-04"
+  },
+  {
+   "id": "rtx4060",
+   "name": "GeForce RTX 4060",
+   "family": "ada",
+   "match": [
+    "RTX\\s*4060(?!\\s*Ti)"
+   ],
+   "stock": "115 W reference board power, 2460 MHz boost (partner cards often run higher).",
+   "notes": [
+    "Safest values use this card's reference clock and a conservative voltage: about stock FPS, less heat and noise. Test 30-60 minutes in your heaviest game before going further."
+   ],
+   "safe": [
+    [
+     "Safest undervolt",
+     "2460 MHz @ 0.925 V",
+     "2460 MHz @ 0.875-0.925 V",
+     "Crash or driver reset: +25 mV"
+    ],
+    [
+     "Safest overclock",
+     "+150 MHz core",
+     "+150 to +250 MHz",
+     "Crash: -15 MHz"
+    ],
+    [
+     "Memory offset",
+     "+500 MHz",
+     "+500 to +1000 MHz",
+     "Artifacts or lower FPS: -100 MHz"
+    ],
+    [
+     "Temperatures",
+     "GPU under 83 C",
+     "hotspot under 95 C",
+     "Too hot: power limit 90% first"
+    ]
+   ],
+   "src": [
+    {
+     "T": "RTX 4090 from 1.0 V to 0.95 V: 323 W down to 289 W for about 1% less performance.",
+     "S": "QuasarZone via Hardware.com.br",
+     "U": "https://www.hardware.com.br/noticias/teste-revela-como-undervolting-reduz-consideravelmente-consumo-rtx-4090-sem-sacrificar-demais-o-desempenho/"
+    },
+    {
+     "T": "RTX 4090 at about half its power limit (270 W) lost only around 8% at 4K.",
+     "S": "QuasarZone via TechPowerUp",
+     "U": "https://www.techpowerup.com/forums/posts/4892815"
+    },
+    {
+     "T": "Flatten the curve at your card's stock boost (method 2): effective clocks stay much closer to target than a plain offset.",
+     "S": "r/nvidia",
+     "U": "https://lr.in.psf.lt/r/nvidia/comments/ybxa3c/there_are_two_methods_people_follow_when/iwiqh73/?context=3"
+    },
+    {
+     "T": "Reference boost clock, memory and board power from the official specifications.",
+     "S": "TechPowerUp GPU Database",
+     "U": "https://www.techpowerup.com/gpu-specs/"
+    }
+   ],
+   "checked": "2026-11-04"
+  },
+  {
+   "id": "rtx3060ti",
+   "name": "GeForce RTX 3060 Ti",
+   "family": "ampere",
+   "match": [
+    "RTX\\s*3060\\s*Ti"
+   ],
+   "stock": "200 W reference board power, 1665 MHz boost (partner cards often run higher).",
+   "notes": [
+    "Safest values use this card's reference clock and a conservative voltage: about stock FPS, less heat and noise. Test 30-60 minutes in your heaviest game before going further."
+   ],
+   "safe": [
+    [
+     "Owner-proven undervolt",
+     "1935 MHz @ 0.915 V",
+     "1815-1935 MHz @ 0.850-0.915 V",
+     "Errors after hours of play: +25 mV"
+    ],
+    [
+     "Safest undervolt",
+     "1665 MHz @ 0.850 V",
+     "1665 MHz @ 0.800-0.850 V",
+     "Crash or driver reset: +25 mV"
+    ],
+    [
+     "Safest overclock",
+     "+100 MHz core",
+     "+100 to +150 MHz",
+     "Crash: -15 MHz"
+    ],
+    [
+     "Memory offset",
+     "+500 MHz",
+     "+500 to +1000 MHz",
+     "Artifacts or lower FPS: -100 MHz"
+    ],
+    [
+     "Temperatures",
+     "GPU under 83 C",
+     "hotspot under 95 C",
+     "Too hot: power limit 90% first"
+    ]
+   ],
+   "src": [
+    {
+     "T": "RTX 3080 at 0.85 V @ 1920 MHz scored higher than stock in Time Spy and Port Royal, quieter and cooler.",
+     "S": "TechPowerUp forum",
+     "U": "https://techpowerup.com/forums/threads/rtx-3080-undervolt-0-85v-1920mhz-results.274877"
+    },
+    {
+     "T": "RTX 3070: 1850-1900 MHz at 0.85 V with +1000 memory is a common stable setting.",
+     "S": "r/nvidia guide",
+     "U": "https://axebps-redlib.hf.space/r/nvidia/comments/jn878f/small_beginners_undervolting_guide_for_rtx_3070_fe"
+    },
+    {
+     "T": "On GDDR6X cards memory past +250 MHz can lower FPS (error correction).",
+     "S": "Overclockers UK",
+     "U": "https://forums.overclockers.co.uk/threads/3080-undervolting.18936805/"
+    },
+    {
+     "T": "Reference boost clock, memory and board power from the official specifications.",
+     "S": "TechPowerUp GPU Database",
+     "U": "https://www.techpowerup.com/gpu-specs/"
+    }
+   ],
+   "checked": "2026-11-04",
+   "proven": [
+    {
+     "C": "1815 MHz @ 0.850 V",
+     "R": "About 4.5% lower FPS; 78 C to 75 C and fan 2700 to 1700 rpm.",
+     "S": "SFF.Network",
+     "U": "https://smallformfactor.net/news/msi-rtx-3060-ti-aero-itx-overclock-and-undervolt-benchmarks/"
+    },
+    {
+     "C": "1935 MHz @ 0.915 V",
+     "R": "Undervolt plus overclock, near stock FPS and much quieter.",
+     "S": "SFF.Network",
+     "U": "https://smallformfactor.net/news/msi-rtx-3060-ti-aero-itx-overclock-and-undervolt-benchmarks/"
+    }
+   ]
+  },
+  {
+   "id": "rtx3060",
+   "name": "GeForce RTX 3060",
+   "family": "ampere",
+   "match": [
+    "RTX\\s*3060(?!\\s*Ti)"
+   ],
+   "stock": "170 W reference board power, 1777 MHz boost (partner cards often run higher).",
+   "notes": [
+    "Safest values use this card's reference clock and a conservative voltage: about stock FPS, less heat and noise. Test 30-60 minutes in your heaviest game before going further."
+   ],
+   "safe": [
+    [
+     "Owner-proven undervolt",
+     "1900 MHz @ 0.900 V",
+     "1830-1920 MHz @ 0.850-0.900 V",
+     "Errors after hours of play: +25 mV"
+    ],
+    [
+     "Safest undervolt",
+     "1777 MHz @ 0.850 V",
+     "1777 MHz @ 0.800-0.850 V",
+     "Crash or driver reset: +25 mV"
+    ],
+    [
+     "Safest overclock",
+     "+100 MHz core",
+     "+100 to +150 MHz",
+     "Crash: -15 MHz"
+    ],
+    [
+     "Memory offset",
+     "+500 MHz",
+     "+500 to +1000 MHz",
+     "Artifacts or lower FPS: -100 MHz"
+    ],
+    [
+     "Temperatures",
+     "GPU under 83 C",
+     "hotspot under 95 C",
+     "Too hot: power limit 90% first"
+    ]
+   ],
+   "src": [
+    {
+     "T": "RTX 3080 at 0.85 V @ 1920 MHz scored higher than stock in Time Spy and Port Royal, quieter and cooler.",
+     "S": "TechPowerUp forum",
+     "U": "https://techpowerup.com/forums/threads/rtx-3080-undervolt-0-85v-1920mhz-results.274877"
+    },
+    {
+     "T": "RTX 3070: 1850-1900 MHz at 0.85 V with +1000 memory is a common stable setting.",
+     "S": "r/nvidia guide",
+     "U": "https://axebps-redlib.hf.space/r/nvidia/comments/jn878f/small_beginners_undervolting_guide_for_rtx_3070_fe"
+    },
+    {
+     "T": "On GDDR6X cards memory past +250 MHz can lower FPS (error correction).",
+     "S": "Overclockers UK",
+     "U": "https://forums.overclockers.co.uk/threads/3080-undervolting.18936805/"
+    },
+    {
+     "T": "Reference boost clock, memory and board power from the official specifications.",
+     "S": "TechPowerUp GPU Database",
+     "U": "https://www.techpowerup.com/gpu-specs/"
+    }
+   ],
+   "checked": "2026-11-04",
+   "proven": [
+    {
+     "C": "1920 MHz @ 0.900 V, memory +1150",
+     "R": "Alan Wake 2: 46 FPS vs 47 at stock.",
+     "S": "NJ Tech via Noticias3D",
+     "U": "https://www.noticias3d.com/noticia/95253/geforce-rtx-3060-12-gb-prueba-undervolt-overclock.html"
+    },
+    {
+     "C": "1908 MHz @ 0.893 V",
+     "R": "Fully stable, steady clock.",
+     "S": "Tom's Hardware Italia forum",
+     "U": "https://forum.tomshw.it/goto/post?id=8160447"
+    }
+   ]
+  },
+  {
+   "id": "rtx2060",
+   "name": "GeForce RTX 2060",
+   "family": "turing",
+   "match": [
+    "RTX\\s*2060(?!\\s*Super)"
+   ],
+   "stock": "160 W reference board power, 1680 MHz boost (partner cards often run higher).",
+   "notes": [
+    "Safest values use this card's reference clock and a conservative voltage: about stock FPS, less heat and noise. Test 30-60 minutes in your heaviest game before going further."
+   ],
+   "safe": [
+    [
+     "Safest undervolt",
+     "1680 MHz @ 0.900 V",
+     "1680 MHz @ 0.850-0.900 V",
+     "Crash or driver reset: +25 mV"
+    ],
+    [
+     "Safest overclock",
+     "+50 MHz core",
+     "+50 to +100 MHz",
+     "Crash: -15 MHz"
+    ],
+    [
+     "Memory offset",
+     "+400 MHz",
+     "+400 to +700 MHz",
+     "Artifacts or lower FPS: -100 MHz"
+    ],
+    [
+     "Temperatures",
+     "GPU under 83 C",
+     "GPU under 80 C (ideal)",
+     "Too hot: power limit 90% first"
+    ]
+   ],
+   "src": [
+    {
+     "T": "RTX 2070 Super owners run about 1950 MHz at 0.900 V; stock boost uses 1.05 V.",
+     "S": "Tom's Hardware forum",
+     "U": "https://forums.tomshardware.com/threads/core-clock-keeps-changing-when-i-apply-my-undervolt-on-my-gpu-with-msi-afterburner.3625036"
+    },
+    {
+     "T": "Turing cards run 1.05 V at their highest clocks at stock.",
+     "S": "AnandTech",
+     "U": "https://www.anandtech.com/show/14663/the-nvidia-geforce-rtx-2080-super-review/15"
+    },
+    {
+     "T": "Reference boost clock, memory and board power from the official specifications.",
+     "S": "TechPowerUp GPU Database",
+     "U": "https://www.techpowerup.com/gpu-specs/"
+    }
+   ],
+   "checked": "2026-11-04"
+  },
+  {
+   "id": "gtx1650",
+   "name": "GeForce GTX 1650",
+   "family": "turing16",
+   "match": [
+    "GTX\\s*1650(?!\\s*Super)"
+   ],
+   "stock": "75 W reference board power, 1665 MHz boost (partner cards often run higher).",
+   "notes": [
+    "Safest values use this card's reference clock and a conservative voltage: about stock FPS, less heat and noise. Test 30-60 minutes in your heaviest game before going further."
+   ],
+   "safe": [
+    [
+     "Safest undervolt",
+     "1665 MHz @ 0.900 V",
+     "1665 MHz @ 0.850-0.900 V",
+     "Crash or driver reset: +25 mV"
+    ],
+    [
+     "Safest overclock",
+     "+50 MHz core",
+     "+50 to +100 MHz",
+     "Crash: -15 MHz"
+    ],
+    [
+     "Memory offset",
+     "+200 MHz",
+     "+200 to +400 MHz",
+     "Artifacts or lower FPS: -100 MHz"
+    ],
+    [
+     "Temperatures",
+     "GPU under 83 C",
+     "GPU under 80 C (ideal)",
+     "Too hot: power limit 90% first"
+    ]
+   ],
+   "src": [
+    {
+     "T": "GTX 1660 Super best result: +105 MHz core, +725 MHz memory; +750 artifacted, +800 locked up.",
+     "S": "KitGuru",
+     "U": "https://www.kitguru.net/components/graphic-cards/dominic-moass/gigabyte-gtx-1660-super-gaming-oc-6g-review/20"
+    },
+    {
+     "T": "The GTX 1660 Super overclock gave about 4% more performance.",
+     "S": "TechPowerUp",
+     "U": "https://techpowerup.com/review/gigabyte-geforce-gtx-1660-super-gaming-pro-oc/37.html"
+    },
+    {
+     "T": "Reference boost clock, memory and board power from the official specifications.",
+     "S": "TechPowerUp GPU Database",
+     "U": "https://www.techpowerup.com/gpu-specs/"
+    }
+   ],
+   "checked": "2026-11-04"
+  },
+  {
+   "id": "gtx1060",
+   "name": "GeForce GTX 1060 6GB",
+   "family": "pascal",
+   "match": [
+    "GTX\\s*1060"
+   ],
+   "stock": "120 W reference board power, 1708 MHz boost (partner cards often run higher).",
+   "notes": [
+    "Safest values use this card's reference clock and a conservative voltage: about stock FPS, less heat and noise. Test 30-60 minutes in your heaviest game before going further."
+   ],
+   "safe": [
+    [
+     "Safest undervolt",
+     "1708 MHz @ 0.950 V",
+     "1708 MHz @ 0.900-0.950 V",
+     "Crash or driver reset: +25 mV"
+    ],
+    [
+     "Safest overclock",
+     "+75 MHz core",
+     "+75 to +150 MHz",
+     "Crash: -15 MHz"
+    ],
+    [
+     "Memory offset",
+     "+200 MHz",
+     "+200 to +400 MHz",
+     "Artifacts or lower FPS: -100 MHz"
+    ],
+    [
+     "Temperatures",
+     "GPU under 83 C",
+     "GPU under 80 C (ideal)",
+     "Too hot: power limit 90% first"
+    ]
+   ],
+   "src": [
+    {
+     "T": "GTX 1080 Founders Edition owners report +200 core and +500 memory (about 2100 MHz boost).",
+     "S": "Hexus forum",
+     "U": "https://forums.hexus.net/hexus-reviews/358724-evga-geforce-gtx-1080-win.html"
+    },
+    {
+     "T": "Reference boost clock, memory and board power from the official specifications.",
+     "S": "TechPowerUp GPU Database",
+     "U": "https://www.techpowerup.com/gpu-specs/"
+    }
+   ],
+   "checked": "2026-11-04"
+  },
+  {
+   "id": "gtx970",
+   "name": "GeForce GTX 970",
+   "family": "maxwell",
+   "match": [
+    "GTX\\s*970"
+   ],
+   "stock": "145 W reference board power, 1178 MHz boost (partner cards often run higher).",
+   "notes": [
+    "Safest values use this card's reference clock and a conservative voltage: about stock FPS, less heat and noise. Test 30-60 minutes in your heaviest game before going further."
+   ],
+   "safe": [
+    [
+     "Safest overclock",
+     "+75 MHz core",
+     "+125 to +200 MHz",
+     "Crash: -25 MHz"
+    ],
+    [
+     "Memory offset",
+     "+200 MHz",
+     "+200 to +400 MHz",
+     "Artifacts or lower FPS: -100 MHz"
+    ],
+    [
+     "Temperatures",
+     "GPU under 83 C",
+     "GPU under 80 C (ideal)",
+     "Too hot: power limit 90% first"
+    ]
+   ],
+   "src": [
+    {
+     "T": "Maxwell reviews reached about +200 MHz core on reference GTX 970/980 coolers, with the power limit raised.",
+     "S": "AnandTech",
+     "U": "https://www.anandtech.com/show/8526/nvidia-geforce-gtx-980-review"
+    },
+    {
+     "T": "Reference boost clock, memory and board power from the official specifications.",
+     "S": "TechPowerUp GPU Database",
+     "U": "https://www.techpowerup.com/gpu-specs/"
+    }
+   ],
+   "checked": "2026-11-04"
+  },
+  {
+   "id": "gtx980",
+   "name": "GeForce GTX 980",
+   "family": "maxwell",
+   "match": [
+    "GTX\\s*980(?!\\s*Ti)"
+   ],
+   "stock": "165 W reference board power, 1216 MHz boost (partner cards often run higher).",
+   "notes": [
+    "Safest values use this card's reference clock and a conservative voltage: about stock FPS, less heat and noise. Test 30-60 minutes in your heaviest game before going further."
+   ],
+   "safe": [
+    [
+     "Safest overclock",
+     "+75 MHz core",
+     "+125 to +200 MHz",
+     "Crash: -25 MHz"
+    ],
+    [
+     "Memory offset",
+     "+200 MHz",
+     "+200 to +400 MHz",
+     "Artifacts or lower FPS: -100 MHz"
+    ],
+    [
+     "Temperatures",
+     "GPU under 83 C",
+     "GPU under 80 C (ideal)",
+     "Too hot: power limit 90% first"
+    ]
+   ],
+   "src": [
+    {
+     "T": "Maxwell reviews reached about +200 MHz core on reference GTX 970/980 coolers, with the power limit raised.",
+     "S": "AnandTech",
+     "U": "https://www.anandtech.com/show/8526/nvidia-geforce-gtx-980-review"
+    },
+    {
+     "T": "Reference boost clock, memory and board power from the official specifications.",
+     "S": "TechPowerUp GPU Database",
+     "U": "https://www.techpowerup.com/gpu-specs/"
+    }
+   ],
+   "checked": "2026-11-04"
+  },
+  {
+   "id": "gtx980ti",
+   "name": "GeForce GTX 980 Ti",
+   "family": "maxwell",
+   "match": [
+    "GTX\\s*980\\s*Ti"
+   ],
+   "stock": "250 W reference board power, 1075 MHz boost (partner cards often run higher).",
+   "notes": [
+    "Safest values use this card's reference clock and a conservative voltage: about stock FPS, less heat and noise. Test 30-60 minutes in your heaviest game before going further."
+   ],
+   "safe": [
+    [
+     "Safest overclock",
+     "+75 MHz core",
+     "+125 to +200 MHz",
+     "Crash: -25 MHz"
+    ],
+    [
+     "Memory offset",
+     "+200 MHz",
+     "+200 to +400 MHz",
+     "Artifacts or lower FPS: -100 MHz"
+    ],
+    [
+     "Temperatures",
+     "GPU under 83 C",
+     "GPU under 80 C (ideal)",
+     "Too hot: power limit 90% first"
+    ]
+   ],
+   "src": [
+    {
+     "T": "Maxwell reviews reached about +200 MHz core on reference GTX 970/980 coolers, with the power limit raised.",
+     "S": "AnandTech",
+     "U": "https://www.anandtech.com/show/8526/nvidia-geforce-gtx-980-review"
+    },
+    {
+     "T": "Reference boost clock, memory and board power from the official specifications.",
+     "S": "TechPowerUp GPU Database",
+     "U": "https://www.techpowerup.com/gpu-specs/"
+    }
+   ],
+   "checked": "2026-11-04"
+  },
+  {
+   "id": "gtx1050",
+   "name": "GeForce GTX 1050",
+   "family": "pascal",
+   "match": [
+    "GTX\\s*1050(?!\\s*Ti)"
+   ],
+   "stock": "75 W reference board power, 1455 MHz boost (partner cards often run higher).",
+   "notes": [
+    "Safest values use this card's reference clock and a conservative voltage: about stock FPS, less heat and noise. Test 30-60 minutes in your heaviest game before going further."
+   ],
+   "safe": [
+    [
+     "Safest undervolt",
+     "1455 MHz @ 0.950 V",
+     "1455 MHz @ 0.900-0.950 V",
+     "Crash or driver reset: +25 mV"
+    ],
+    [
+     "Safest overclock",
+     "+75 MHz core",
+     "+75 to +150 MHz",
+     "Crash: -15 MHz"
+    ],
+    [
+     "Memory offset",
+     "+200 MHz",
+     "+200 to +400 MHz",
+     "Artifacts or lower FPS: -100 MHz"
+    ],
+    [
+     "Temperatures",
+     "GPU under 83 C",
+     "GPU under 80 C (ideal)",
+     "Too hot: power limit 90% first"
+    ]
+   ],
+   "src": [
+    {
+     "T": "GTX 1080 Founders Edition owners report +200 core and +500 memory (about 2100 MHz boost).",
+     "S": "Hexus forum",
+     "U": "https://forums.hexus.net/hexus-reviews/358724-evga-geforce-gtx-1080-win.html"
+    },
+    {
+     "T": "Reference boost clock, memory and board power from the official specifications.",
+     "S": "TechPowerUp GPU Database",
+     "U": "https://www.techpowerup.com/gpu-specs/"
+    }
+   ],
+   "checked": "2026-11-04"
+  },
+  {
+   "id": "gtx1050ti",
+   "name": "GeForce GTX 1050 Ti",
+   "family": "pascal",
+   "match": [
+    "GTX\\s*1050\\s*Ti"
+   ],
+   "stock": "75 W reference board power, 1392 MHz boost (partner cards often run higher).",
+   "notes": [
+    "Safest values use this card's reference clock and a conservative voltage: about stock FPS, less heat and noise. Test 30-60 minutes in your heaviest game before going further."
+   ],
+   "safe": [
+    [
+     "Safest undervolt",
+     "1392 MHz @ 0.950 V",
+     "1392 MHz @ 0.900-0.950 V",
+     "Crash or driver reset: +25 mV"
+    ],
+    [
+     "Safest overclock",
+     "+75 MHz core",
+     "+75 to +150 MHz",
+     "Crash: -15 MHz"
+    ],
+    [
+     "Memory offset",
+     "+200 MHz",
+     "+200 to +400 MHz",
+     "Artifacts or lower FPS: -100 MHz"
+    ],
+    [
+     "Temperatures",
+     "GPU under 83 C",
+     "GPU under 80 C (ideal)",
+     "Too hot: power limit 90% first"
+    ]
+   ],
+   "src": [
+    {
+     "T": "GTX 1080 Founders Edition owners report +200 core and +500 memory (about 2100 MHz boost).",
+     "S": "Hexus forum",
+     "U": "https://forums.hexus.net/hexus-reviews/358724-evga-geforce-gtx-1080-win.html"
+    },
+    {
+     "T": "Reference boost clock, memory and board power from the official specifications.",
+     "S": "TechPowerUp GPU Database",
+     "U": "https://www.techpowerup.com/gpu-specs/"
+    }
+   ],
+   "checked": "2026-11-04"
+  },
+  {
+   "id": "gtx1060-3gb",
+   "name": "GeForce GTX 1060 3GB",
+   "family": "pascal",
+   "match": [
+    "GTX\\s*1060\\s*3\\s*GB"
+   ],
+   "stock": "120 W reference board power, 1708 MHz boost (partner cards often run higher).",
+   "notes": [
+    "Safest values use this card's reference clock and a conservative voltage: about stock FPS, less heat and noise. Test 30-60 minutes in your heaviest game before going further."
+   ],
+   "safe": [
+    [
+     "Safest undervolt",
+     "1708 MHz @ 0.950 V",
+     "1708 MHz @ 0.900-0.950 V",
+     "Crash or driver reset: +25 mV"
+    ],
+    [
+     "Safest overclock",
+     "+75 MHz core",
+     "+75 to +150 MHz",
+     "Crash: -15 MHz"
+    ],
+    [
+     "Memory offset",
+     "+200 MHz",
+     "+200 to +400 MHz",
+     "Artifacts or lower FPS: -100 MHz"
+    ],
+    [
+     "Temperatures",
+     "GPU under 83 C",
+     "GPU under 80 C (ideal)",
+     "Too hot: power limit 90% first"
+    ]
+   ],
+   "src": [
+    {
+     "T": "GTX 1080 Founders Edition owners report +200 core and +500 memory (about 2100 MHz boost).",
+     "S": "Hexus forum",
+     "U": "https://forums.hexus.net/hexus-reviews/358724-evga-geforce-gtx-1080-win.html"
+    },
+    {
+     "T": "Reference boost clock, memory and board power from the official specifications.",
+     "S": "TechPowerUp GPU Database",
+     "U": "https://www.techpowerup.com/gpu-specs/"
+    }
+   ],
+   "checked": "2026-11-04"
+  },
+  {
+   "id": "gtx1070",
+   "name": "GeForce GTX 1070",
+   "family": "pascal",
+   "match": [
+    "GTX\\s*1070(?!\\s*Ti)"
+   ],
+   "stock": "150 W reference board power, 1683 MHz boost (partner cards often run higher).",
+   "notes": [
+    "Safest values use this card's reference clock and a conservative voltage: about stock FPS, less heat and noise. Test 30-60 minutes in your heaviest game before going further."
+   ],
+   "safe": [
+    [
+     "Safest undervolt",
+     "1683 MHz @ 0.950 V",
+     "1683 MHz @ 0.900-0.950 V",
+     "Crash or driver reset: +25 mV"
+    ],
+    [
+     "Safest overclock",
+     "+75 MHz core",
+     "+75 to +150 MHz",
+     "Crash: -15 MHz"
+    ],
+    [
+     "Memory offset",
+     "+200 MHz",
+     "+200 to +400 MHz",
+     "Artifacts or lower FPS: -100 MHz"
+    ],
+    [
+     "Temperatures",
+     "GPU under 83 C",
+     "GPU under 80 C (ideal)",
+     "Too hot: power limit 90% first"
+    ]
+   ],
+   "src": [
+    {
+     "T": "GTX 1080 Founders Edition owners report +200 core and +500 memory (about 2100 MHz boost).",
+     "S": "Hexus forum",
+     "U": "https://forums.hexus.net/hexus-reviews/358724-evga-geforce-gtx-1080-win.html"
+    },
+    {
+     "T": "Reference boost clock, memory and board power from the official specifications.",
+     "S": "TechPowerUp GPU Database",
+     "U": "https://www.techpowerup.com/gpu-specs/"
+    }
+   ],
+   "checked": "2026-11-04"
+  },
+  {
+   "id": "gtx1070ti",
+   "name": "GeForce GTX 1070 Ti",
+   "family": "pascal",
+   "match": [
+    "GTX\\s*1070\\s*Ti"
+   ],
+   "stock": "180 W reference board power, 1683 MHz boost (partner cards often run higher).",
+   "notes": [
+    "Safest values use this card's reference clock and a conservative voltage: about stock FPS, less heat and noise. Test 30-60 minutes in your heaviest game before going further."
+   ],
+   "safe": [
+    [
+     "Safest undervolt",
+     "1683 MHz @ 0.950 V",
+     "1683 MHz @ 0.900-0.950 V",
+     "Crash or driver reset: +25 mV"
+    ],
+    [
+     "Safest overclock",
+     "+75 MHz core",
+     "+75 to +150 MHz",
+     "Crash: -15 MHz"
+    ],
+    [
+     "Memory offset",
+     "+200 MHz",
+     "+200 to +400 MHz",
+     "Artifacts or lower FPS: -100 MHz"
+    ],
+    [
+     "Temperatures",
+     "GPU under 83 C",
+     "GPU under 80 C (ideal)",
+     "Too hot: power limit 90% first"
+    ]
+   ],
+   "src": [
+    {
+     "T": "GTX 1080 Founders Edition owners report +200 core and +500 memory (about 2100 MHz boost).",
+     "S": "Hexus forum",
+     "U": "https://forums.hexus.net/hexus-reviews/358724-evga-geforce-gtx-1080-win.html"
+    },
+    {
+     "T": "Reference boost clock, memory and board power from the official specifications.",
+     "S": "TechPowerUp GPU Database",
+     "U": "https://www.techpowerup.com/gpu-specs/"
+    }
+   ],
+   "checked": "2026-11-04"
+  },
+  {
+   "id": "gtx1650s",
+   "name": "GeForce GTX 1650 SUPER",
+   "family": "turing16",
+   "match": [
+    "GTX\\s*1650\\s*Super"
+   ],
+   "stock": "100 W reference board power, 1725 MHz boost (partner cards often run higher).",
+   "notes": [
+    "Safest values use this card's reference clock and a conservative voltage: about stock FPS, less heat and noise. Test 30-60 minutes in your heaviest game before going further."
+   ],
+   "safe": [
+    [
+     "Safest undervolt",
+     "1725 MHz @ 0.900 V",
+     "1725 MHz @ 0.850-0.900 V",
+     "Crash or driver reset: +25 mV"
+    ],
+    [
+     "Safest overclock",
+     "+50 MHz core",
+     "+50 to +100 MHz",
+     "Crash: -15 MHz"
+    ],
+    [
+     "Memory offset",
+     "+400 MHz",
+     "+400 to +700 MHz",
+     "Artifacts or lower FPS: -100 MHz"
+    ],
+    [
+     "Temperatures",
+     "GPU under 83 C",
+     "GPU under 80 C (ideal)",
+     "Too hot: power limit 90% first"
+    ]
+   ],
+   "src": [
+    {
+     "T": "GTX 1660 Super best result: +105 MHz core, +725 MHz memory; +750 artifacted, +800 locked up.",
+     "S": "KitGuru",
+     "U": "https://www.kitguru.net/components/graphic-cards/dominic-moass/gigabyte-gtx-1660-super-gaming-oc-6g-review/20"
+    },
+    {
+     "T": "The GTX 1660 Super overclock gave about 4% more performance.",
+     "S": "TechPowerUp",
+     "U": "https://techpowerup.com/review/gigabyte-geforce-gtx-1660-super-gaming-pro-oc/37.html"
+    },
+    {
+     "T": "Reference boost clock, memory and board power from the official specifications.",
+     "S": "TechPowerUp GPU Database",
+     "U": "https://www.techpowerup.com/gpu-specs/"
+    }
+   ],
+   "checked": "2026-11-04"
+  },
+  {
+   "id": "gtx1660",
+   "name": "GeForce GTX 1660",
+   "family": "turing16",
+   "match": [
+    "GTX\\s*1660(?!\\s*(Ti|Super))"
+   ],
+   "stock": "120 W reference board power, 1785 MHz boost (partner cards often run higher).",
+   "notes": [
+    "Safest values use this card's reference clock and a conservative voltage: about stock FPS, less heat and noise. Test 30-60 minutes in your heaviest game before going further."
+   ],
+   "safe": [
+    [
+     "Safest undervolt",
+     "1785 MHz @ 0.900 V",
+     "1785 MHz @ 0.850-0.900 V",
+     "Crash or driver reset: +25 mV"
+    ],
+    [
+     "Safest overclock",
+     "+50 MHz core",
+     "+50 to +100 MHz",
+     "Crash: -15 MHz"
+    ],
+    [
+     "Memory offset",
+     "+200 MHz",
+     "+200 to +400 MHz",
+     "Artifacts or lower FPS: -100 MHz"
+    ],
+    [
+     "Temperatures",
+     "GPU under 83 C",
+     "GPU under 80 C (ideal)",
+     "Too hot: power limit 90% first"
+    ]
+   ],
+   "src": [
+    {
+     "T": "GTX 1660 Super best result: +105 MHz core, +725 MHz memory; +750 artifacted, +800 locked up.",
+     "S": "KitGuru",
+     "U": "https://www.kitguru.net/components/graphic-cards/dominic-moass/gigabyte-gtx-1660-super-gaming-oc-6g-review/20"
+    },
+    {
+     "T": "The GTX 1660 Super overclock gave about 4% more performance.",
+     "S": "TechPowerUp",
+     "U": "https://techpowerup.com/review/gigabyte-geforce-gtx-1660-super-gaming-pro-oc/37.html"
+    },
+    {
+     "T": "Reference boost clock, memory and board power from the official specifications.",
+     "S": "TechPowerUp GPU Database",
+     "U": "https://www.techpowerup.com/gpu-specs/"
+    }
+   ],
+   "checked": "2026-11-04"
+  },
+  {
+   "id": "gtx1660ti",
+   "name": "GeForce GTX 1660 Ti",
+   "family": "turing16",
+   "match": [
+    "GTX\\s*1660\\s*Ti"
+   ],
+   "stock": "120 W reference board power, 1770 MHz boost (partner cards often run higher).",
+   "notes": [
+    "Safest values use this card's reference clock and a conservative voltage: about stock FPS, less heat and noise. Test 30-60 minutes in your heaviest game before going further."
+   ],
+   "safe": [
+    [
+     "Safest undervolt",
+     "1770 MHz @ 0.900 V",
+     "1770 MHz @ 0.850-0.900 V",
+     "Crash or driver reset: +25 mV"
+    ],
+    [
+     "Safest overclock",
+     "+50 MHz core",
+     "+50 to +100 MHz",
+     "Crash: -15 MHz"
+    ],
+    [
+     "Memory offset",
+     "+400 MHz",
+     "+400 to +700 MHz",
+     "Artifacts or lower FPS: -100 MHz"
+    ],
+    [
+     "Temperatures",
+     "GPU under 83 C",
+     "GPU under 80 C (ideal)",
+     "Too hot: power limit 90% first"
+    ]
+   ],
+   "src": [
+    {
+     "T": "GTX 1660 Super best result: +105 MHz core, +725 MHz memory; +750 artifacted, +800 locked up.",
+     "S": "KitGuru",
+     "U": "https://www.kitguru.net/components/graphic-cards/dominic-moass/gigabyte-gtx-1660-super-gaming-oc-6g-review/20"
+    },
+    {
+     "T": "The GTX 1660 Super overclock gave about 4% more performance.",
+     "S": "TechPowerUp",
+     "U": "https://techpowerup.com/review/gigabyte-geforce-gtx-1660-super-gaming-pro-oc/37.html"
+    },
+    {
+     "T": "Reference boost clock, memory and board power from the official specifications.",
+     "S": "TechPowerUp GPU Database",
+     "U": "https://www.techpowerup.com/gpu-specs/"
+    }
+   ],
+   "checked": "2026-11-04"
+  },
+  {
+   "id": "rtx2060s",
+   "name": "GeForce RTX 2060 SUPER",
+   "family": "turing",
+   "match": [
+    "RTX\\s*2060\\s*Super"
+   ],
+   "stock": "175 W reference board power, 1650 MHz boost (partner cards often run higher).",
+   "notes": [
+    "Safest values use this card's reference clock and a conservative voltage: about stock FPS, less heat and noise. Test 30-60 minutes in your heaviest game before going further."
+   ],
+   "safe": [
+    [
+     "Safest undervolt",
+     "1650 MHz @ 0.900 V",
+     "1650 MHz @ 0.850-0.900 V",
+     "Crash or driver reset: +25 mV"
+    ],
+    [
+     "Safest overclock",
+     "+50 MHz core",
+     "+50 to +100 MHz",
+     "Crash: -15 MHz"
+    ],
+    [
+     "Memory offset",
+     "+400 MHz",
+     "+400 to +700 MHz",
+     "Artifacts or lower FPS: -100 MHz"
+    ],
+    [
+     "Temperatures",
+     "GPU under 83 C",
+     "GPU under 80 C (ideal)",
+     "Too hot: power limit 90% first"
+    ]
+   ],
+   "src": [
+    {
+     "T": "RTX 2070 Super owners run about 1950 MHz at 0.900 V; stock boost uses 1.05 V.",
+     "S": "Tom's Hardware forum",
+     "U": "https://forums.tomshardware.com/threads/core-clock-keeps-changing-when-i-apply-my-undervolt-on-my-gpu-with-msi-afterburner.3625036"
+    },
+    {
+     "T": "Turing cards run 1.05 V at their highest clocks at stock.",
+     "S": "AnandTech",
+     "U": "https://www.anandtech.com/show/14663/the-nvidia-geforce-rtx-2080-super-review/15"
+    },
+    {
+     "T": "Reference boost clock, memory and board power from the official specifications.",
+     "S": "TechPowerUp GPU Database",
+     "U": "https://www.techpowerup.com/gpu-specs/"
+    }
+   ],
+   "checked": "2026-11-04"
+  },
+  {
+   "id": "rtx2070",
+   "name": "GeForce RTX 2070",
+   "family": "turing",
+   "match": [
+    "RTX\\s*2070(?!\\s*Super)"
+   ],
+   "stock": "175 W reference board power, 1620 MHz boost (partner cards often run higher).",
+   "notes": [
+    "Safest values use this card's reference clock and a conservative voltage: about stock FPS, less heat and noise. Test 30-60 minutes in your heaviest game before going further."
+   ],
+   "safe": [
+    [
+     "Safest undervolt",
+     "1620 MHz @ 0.900 V",
+     "1620 MHz @ 0.850-0.900 V",
+     "Crash or driver reset: +25 mV"
+    ],
+    [
+     "Safest overclock",
+     "+50 MHz core",
+     "+50 to +100 MHz",
+     "Crash: -15 MHz"
+    ],
+    [
+     "Memory offset",
+     "+400 MHz",
+     "+400 to +700 MHz",
+     "Artifacts or lower FPS: -100 MHz"
+    ],
+    [
+     "Temperatures",
+     "GPU under 83 C",
+     "GPU under 80 C (ideal)",
+     "Too hot: power limit 90% first"
+    ]
+   ],
+   "src": [
+    {
+     "T": "RTX 2070 Super owners run about 1950 MHz at 0.900 V; stock boost uses 1.05 V.",
+     "S": "Tom's Hardware forum",
+     "U": "https://forums.tomshardware.com/threads/core-clock-keeps-changing-when-i-apply-my-undervolt-on-my-gpu-with-msi-afterburner.3625036"
+    },
+    {
+     "T": "Turing cards run 1.05 V at their highest clocks at stock.",
+     "S": "AnandTech",
+     "U": "https://www.anandtech.com/show/14663/the-nvidia-geforce-rtx-2080-super-review/15"
+    },
+    {
+     "T": "Reference boost clock, memory and board power from the official specifications.",
+     "S": "TechPowerUp GPU Database",
+     "U": "https://www.techpowerup.com/gpu-specs/"
+    }
+   ],
+   "checked": "2026-11-04"
+  },
+  {
+   "id": "rtx2080",
+   "name": "GeForce RTX 2080",
+   "family": "turing",
+   "match": [
+    "RTX\\s*2080(?!\\s*(Super|Ti))"
+   ],
+   "stock": "215 W reference board power, 1710 MHz boost (partner cards often run higher).",
+   "notes": [
+    "Safest values use this card's reference clock and a conservative voltage: about stock FPS, less heat and noise. Test 30-60 minutes in your heaviest game before going further."
+   ],
+   "safe": [
+    [
+     "Safest undervolt",
+     "1710 MHz @ 0.900 V",
+     "1710 MHz @ 0.850-0.900 V",
+     "Crash or driver reset: +25 mV"
+    ],
+    [
+     "Safest overclock",
+     "+50 MHz core",
+     "+50 to +100 MHz",
+     "Crash: -15 MHz"
+    ],
+    [
+     "Memory offset",
+     "+400 MHz",
+     "+400 to +700 MHz",
+     "Artifacts or lower FPS: -100 MHz"
+    ],
+    [
+     "Temperatures",
+     "GPU under 83 C",
+     "GPU under 80 C (ideal)",
+     "Too hot: power limit 90% first"
+    ]
+   ],
+   "src": [
+    {
+     "T": "RTX 2070 Super owners run about 1950 MHz at 0.900 V; stock boost uses 1.05 V.",
+     "S": "Tom's Hardware forum",
+     "U": "https://forums.tomshardware.com/threads/core-clock-keeps-changing-when-i-apply-my-undervolt-on-my-gpu-with-msi-afterburner.3625036"
+    },
+    {
+     "T": "Turing cards run 1.05 V at their highest clocks at stock.",
+     "S": "AnandTech",
+     "U": "https://www.anandtech.com/show/14663/the-nvidia-geforce-rtx-2080-super-review/15"
+    },
+    {
+     "T": "Reference boost clock, memory and board power from the official specifications.",
+     "S": "TechPowerUp GPU Database",
+     "U": "https://www.techpowerup.com/gpu-specs/"
+    }
+   ],
+   "checked": "2026-11-04"
+  },
+  {
+   "id": "rtx2080s",
+   "name": "GeForce RTX 2080 SUPER",
+   "family": "turing",
+   "match": [
+    "RTX\\s*2080\\s*Super"
+   ],
+   "stock": "250 W reference board power, 1815 MHz boost (partner cards often run higher).",
+   "notes": [
+    "Safest values use this card's reference clock and a conservative voltage: about stock FPS, less heat and noise. Test 30-60 minutes in your heaviest game before going further."
+   ],
+   "safe": [
+    [
+     "Safest undervolt",
+     "1815 MHz @ 0.900 V",
+     "1815 MHz @ 0.850-0.900 V",
+     "Crash or driver reset: +25 mV"
+    ],
+    [
+     "Safest overclock",
+     "+50 MHz core",
+     "+50 to +100 MHz",
+     "Crash: -15 MHz"
+    ],
+    [
+     "Memory offset",
+     "+400 MHz",
+     "+400 to +700 MHz",
+     "Artifacts or lower FPS: -100 MHz"
+    ],
+    [
+     "Temperatures",
+     "GPU under 83 C",
+     "GPU under 80 C (ideal)",
+     "Too hot: power limit 90% first"
+    ]
+   ],
+   "src": [
+    {
+     "T": "RTX 2070 Super owners run about 1950 MHz at 0.900 V; stock boost uses 1.05 V.",
+     "S": "Tom's Hardware forum",
+     "U": "https://forums.tomshardware.com/threads/core-clock-keeps-changing-when-i-apply-my-undervolt-on-my-gpu-with-msi-afterburner.3625036"
+    },
+    {
+     "T": "Turing cards run 1.05 V at their highest clocks at stock.",
+     "S": "AnandTech",
+     "U": "https://www.anandtech.com/show/14663/the-nvidia-geforce-rtx-2080-super-review/15"
+    },
+    {
+     "T": "Reference boost clock, memory and board power from the official specifications.",
+     "S": "TechPowerUp GPU Database",
+     "U": "https://www.techpowerup.com/gpu-specs/"
+    }
+   ],
+   "checked": "2026-11-04"
+  },
+  {
+   "id": "rtx2080ti",
+   "name": "GeForce RTX 2080 Ti",
+   "family": "turing",
+   "match": [
+    "RTX\\s*2080\\s*Ti"
+   ],
+   "stock": "250 W reference board power, 1545 MHz boost (partner cards often run higher).",
+   "notes": [
+    "Safest values use this card's reference clock and a conservative voltage: about stock FPS, less heat and noise. Test 30-60 minutes in your heaviest game before going further."
+   ],
+   "safe": [
+    [
+     "Safest undervolt",
+     "1545 MHz @ 0.900 V",
+     "1545 MHz @ 0.850-0.900 V",
+     "Crash or driver reset: +25 mV"
+    ],
+    [
+     "Safest overclock",
+     "+50 MHz core",
+     "+50 to +100 MHz",
+     "Crash: -15 MHz"
+    ],
+    [
+     "Memory offset",
+     "+400 MHz",
+     "+400 to +700 MHz",
+     "Artifacts or lower FPS: -100 MHz"
+    ],
+    [
+     "Temperatures",
+     "GPU under 83 C",
+     "GPU under 80 C (ideal)",
+     "Too hot: power limit 90% first"
+    ]
+   ],
+   "src": [
+    {
+     "T": "RTX 2070 Super owners run about 1950 MHz at 0.900 V; stock boost uses 1.05 V.",
+     "S": "Tom's Hardware forum",
+     "U": "https://forums.tomshardware.com/threads/core-clock-keeps-changing-when-i-apply-my-undervolt-on-my-gpu-with-msi-afterburner.3625036"
+    },
+    {
+     "T": "Turing cards run 1.05 V at their highest clocks at stock.",
+     "S": "AnandTech",
+     "U": "https://www.anandtech.com/show/14663/the-nvidia-geforce-rtx-2080-super-review/15"
+    },
+    {
+     "T": "Reference boost clock, memory and board power from the official specifications.",
+     "S": "TechPowerUp GPU Database",
+     "U": "https://www.techpowerup.com/gpu-specs/"
+    }
+   ],
+   "checked": "2026-11-04"
+  },
+  {
+   "id": "rtx3050",
+   "name": "GeForce RTX 3050",
+   "family": "ampere",
+   "match": [
+    "RTX\\s*3050"
+   ],
+   "stock": "130 W reference board power, 1777 MHz boost (partner cards often run higher).",
+   "notes": [
+    "Safest values use this card's reference clock and a conservative voltage: about stock FPS, less heat and noise. Test 30-60 minutes in your heaviest game before going further."
+   ],
+   "safe": [
+    [
+     "Safest undervolt",
+     "1777 MHz @ 0.850 V",
+     "1777 MHz @ 0.800-0.850 V",
+     "Crash or driver reset: +25 mV"
+    ],
+    [
+     "Safest overclock",
+     "+100 MHz core",
+     "+100 to +150 MHz",
+     "Crash: -15 MHz"
+    ],
+    [
+     "Memory offset",
+     "+500 MHz",
+     "+500 to +1000 MHz",
+     "Artifacts or lower FPS: -100 MHz"
+    ],
+    [
+     "Temperatures",
+     "GPU under 83 C",
+     "hotspot under 95 C",
+     "Too hot: power limit 90% first"
+    ]
+   ],
+   "src": [
+    {
+     "T": "RTX 3080 at 0.85 V @ 1920 MHz scored higher than stock in Time Spy and Port Royal, quieter and cooler.",
+     "S": "TechPowerUp forum",
+     "U": "https://techpowerup.com/forums/threads/rtx-3080-undervolt-0-85v-1920mhz-results.274877"
+    },
+    {
+     "T": "RTX 3070: 1850-1900 MHz at 0.85 V with +1000 memory is a common stable setting.",
+     "S": "r/nvidia guide",
+     "U": "https://axebps-redlib.hf.space/r/nvidia/comments/jn878f/small_beginners_undervolting_guide_for_rtx_3070_fe"
+    },
+    {
+     "T": "On GDDR6X cards memory past +250 MHz can lower FPS (error correction).",
+     "S": "Overclockers UK",
+     "U": "https://forums.overclockers.co.uk/threads/3080-undervolting.18936805/"
+    },
+    {
+     "T": "Reference boost clock, memory and board power from the official specifications.",
+     "S": "TechPowerUp GPU Database",
+     "U": "https://www.techpowerup.com/gpu-specs/"
+    }
+   ],
+   "checked": "2026-11-04"
+  },
+  {
+   "id": "rtx5060ti",
+   "name": "GeForce RTX 5060 Ti",
+   "family": "blackwell",
+   "match": [
+    "RTX\\s*5060\\s*Ti"
+   ],
+   "stock": "180 W reference board power, 2572 MHz boost (partner cards often run higher).",
+   "notes": [
+    "Safest values use this card's reference clock and a conservative voltage: about stock FPS, less heat and noise. Test 30-60 minutes in your heaviest game before going further."
+   ],
+   "safe": [
+    [
+     "Safest undervolt",
+     "2572 MHz @ 0.925 V",
+     "2572 MHz @ 0.875-0.925 V",
+     "Crash or driver reset: +25 mV"
+    ],
+    [
+     "Safest overclock",
+     "+150 MHz core",
+     "+150 to +300 MHz",
+     "Crash: -15 MHz"
+    ],
+    [
+     "Memory offset",
+     "+500 MHz",
+     "+500 to +1500 MHz",
+     "Artifacts or lower FPS: -100 MHz"
+    ],
+    [
+     "Temperatures",
+     "GPU under 83 C",
+     "hotspot under 95 C",
+     "Too hot: power limit 90% first"
+    ]
+   ],
+   "src": [
+    {
+     "T": "An undervolted RTX 5070 Ti ran about 4% faster than stock with 50-70 W less; memory took +1000 to +2000 MHz.",
+     "S": "Esports Tales",
+     "U": "https://esportstales.com/tech-tips/how-to-undervolt-the-5070-ti-with-msi-afterburner"
+    },
+    {
+     "T": "Simplest route: lower the power limit; best result: flatten the voltage/frequency curve.",
+     "S": "MSI",
+     "U": "https://www.msi.com/blog/rtx-5070-5060ti-overclocking-undervolting-guide-with-msi-afterburner-part-2"
+    },
+    {
+     "T": "RTX 50 tuners often hit a wall around +150 MHz; +165 MHz crashed sooner or later.",
+     "S": "Hardwareluxx",
+     "U": "https://www.hardwareluxx.de/community/posts/31166039/"
+    },
+    {
+     "T": "Reference boost clock, memory and board power from the official specifications.",
+     "S": "TechPowerUp GPU Database",
+     "U": "https://www.techpowerup.com/gpu-specs/"
+    }
+   ],
+   "checked": "2026-11-04"
+  },
+  {
+   "id": "rtx5060",
+   "name": "GeForce RTX 5060",
+   "family": "blackwell",
+   "match": [
+    "RTX\\s*5060(?!\\s*Ti)"
+   ],
+   "stock": "145 W reference board power, 2497 MHz boost (partner cards often run higher).",
+   "notes": [
+    "Safest values use this card's reference clock and a conservative voltage: about stock FPS, less heat and noise. Test 30-60 minutes in your heaviest game before going further."
+   ],
+   "safe": [
+    [
+     "Safest undervolt",
+     "2497 MHz @ 0.925 V",
+     "2497 MHz @ 0.875-0.925 V",
+     "Crash or driver reset: +25 mV"
+    ],
+    [
+     "Safest overclock",
+     "+150 MHz core",
+     "+150 to +300 MHz",
+     "Crash: -15 MHz"
+    ],
+    [
+     "Memory offset",
+     "+500 MHz",
+     "+500 to +1500 MHz",
+     "Artifacts or lower FPS: -100 MHz"
+    ],
+    [
+     "Temperatures",
+     "GPU under 83 C",
+     "hotspot under 95 C",
+     "Too hot: power limit 90% first"
+    ]
+   ],
+   "src": [
+    {
+     "T": "An undervolted RTX 5070 Ti ran about 4% faster than stock with 50-70 W less; memory took +1000 to +2000 MHz.",
+     "S": "Esports Tales",
+     "U": "https://esportstales.com/tech-tips/how-to-undervolt-the-5070-ti-with-msi-afterburner"
+    },
+    {
+     "T": "Simplest route: lower the power limit; best result: flatten the voltage/frequency curve.",
+     "S": "MSI",
+     "U": "https://www.msi.com/blog/rtx-5070-5060ti-overclocking-undervolting-guide-with-msi-afterburner-part-2"
+    },
+    {
+     "T": "RTX 50 tuners often hit a wall around +150 MHz; +165 MHz crashed sooner or later.",
+     "S": "Hardwareluxx",
+     "U": "https://www.hardwareluxx.de/community/posts/31166039/"
+    },
+    {
+     "T": "Reference boost clock, memory and board power from the official specifications.",
+     "S": "TechPowerUp GPU Database",
+     "U": "https://www.techpowerup.com/gpu-specs/"
+    }
+   ],
+   "checked": "2026-11-04"
+  },
+  {
+   "id": "rtx5050",
+   "name": "GeForce RTX 5050",
+   "family": "blackwell",
+   "match": [
+    "RTX\\s*5050"
+   ],
+   "stock": "130 W reference board power, 2572 MHz boost (partner cards often run higher).",
+   "notes": [
+    "Safest values use this card's reference clock and a conservative voltage: about stock FPS, less heat and noise. Test 30-60 minutes in your heaviest game before going further."
+   ],
+   "safe": [
+    [
+     "Safest undervolt",
+     "2572 MHz @ 0.925 V",
+     "2572 MHz @ 0.875-0.925 V",
+     "Crash or driver reset: +25 mV"
+    ],
+    [
+     "Safest overclock",
+     "+150 MHz core",
+     "+150 to +300 MHz",
+     "Crash: -15 MHz"
+    ],
+    [
+     "Memory offset",
+     "+500 MHz",
+     "+500 to +1000 MHz",
+     "Artifacts or lower FPS: -100 MHz"
+    ],
+    [
+     "Temperatures",
+     "GPU under 83 C",
+     "hotspot under 95 C",
+     "Too hot: power limit 90% first"
+    ]
+   ],
+   "src": [
+    {
+     "T": "An undervolted RTX 5070 Ti ran about 4% faster than stock with 50-70 W less; memory took +1000 to +2000 MHz.",
+     "S": "Esports Tales",
+     "U": "https://esportstales.com/tech-tips/how-to-undervolt-the-5070-ti-with-msi-afterburner"
+    },
+    {
+     "T": "Simplest route: lower the power limit; best result: flatten the voltage/frequency curve.",
+     "S": "MSI",
+     "U": "https://www.msi.com/blog/rtx-5070-5060ti-overclocking-undervolting-guide-with-msi-afterburner-part-2"
+    },
+    {
+     "T": "RTX 50 tuners often hit a wall around +150 MHz; +165 MHz crashed sooner or later.",
+     "S": "Hardwareluxx",
+     "U": "https://www.hardwareluxx.de/community/posts/31166039/"
+    },
+    {
+     "T": "Reference boost clock, memory and board power from the official specifications.",
+     "S": "TechPowerUp GPU Database",
+     "U": "https://www.techpowerup.com/gpu-specs/"
+    }
+   ],
+   "checked": "2026-11-04"
+  },
+  {
+   "id": "rx470",
+   "name": "Radeon RX 470",
+   "family": "gcn",
+   "match": [
+    "RX\\s*470\\b"
+   ],
+   "stock": "120 W reference board power, 1206 MHz boost (partner cards often run higher).",
+   "notes": [
+    "Safest values use this card's reference clock and a conservative voltage: about stock FPS, less heat and noise. Test 30-60 minutes in your heaviest game before going further."
+   ],
+   "safe": [
+    [
+     "Safest undervolt",
+     "1206 MHz @ 1100 mV (top state)",
+     "1050-1100 mV",
+     "Crash: +25 mV"
+    ],
+    [
+     "Memory",
+     "1650 MHz (stock)",
+     "+50 to +100 MHz",
+     "Artifacts: back to stock"
+    ],
+    [
+     "Power limit",
+     "0%",
+     "+20% to +50% (for overclocking)",
+     "GPU above 85 C"
+    ],
+    [
+     "Temperatures",
+     "GPU under 80 C",
+     "VRM under 100 C",
+     "Too hot: lower the voltage first"
+    ]
+   ],
+   "src": [
+    {
+     "T": "Reference boost clock, memory and board power from the official specifications.",
+     "S": "TechPowerUp GPU Database",
+     "U": "https://www.techpowerup.com/gpu-specs/"
+    }
+   ],
+   "checked": "2026-11-04"
+  },
+  {
+   "id": "rx480",
+   "name": "Radeon RX 480",
+   "family": "gcn",
+   "match": [
+    "RX\\s*480\\b"
+   ],
+   "stock": "150 W reference board power, 1266 MHz boost (partner cards often run higher).",
+   "notes": [
+    "Safest values use this card's reference clock and a conservative voltage: about stock FPS, less heat and noise. Test 30-60 minutes in your heaviest game before going further."
+   ],
+   "safe": [
+    [
+     "Safest undervolt",
+     "1266 MHz @ 1100 mV (top state)",
+     "1050-1100 mV",
+     "Crash: +25 mV"
+    ],
+    [
+     "Memory",
+     "2000 MHz (stock)",
+     "+50 to +100 MHz",
+     "Artifacts: back to stock"
+    ],
+    [
+     "Power limit",
+     "0%",
+     "+20% to +50% (for overclocking)",
+     "GPU above 85 C"
+    ],
+    [
+     "Temperatures",
+     "GPU under 80 C",
+     "VRM under 100 C",
+     "Too hot: lower the voltage first"
+    ]
+   ],
+   "src": [
+    {
+     "T": "Reference boost clock, memory and board power from the official specifications.",
+     "S": "TechPowerUp GPU Database",
+     "U": "https://www.techpowerup.com/gpu-specs/"
+    }
+   ],
+   "checked": "2026-11-04"
+  },
+  {
+   "id": "rx570",
+   "name": "Radeon RX 570",
+   "family": "gcn",
+   "match": [
+    "RX\\s*570\\b"
+   ],
+   "stock": "150 W reference board power, 1244 MHz boost (partner cards often run higher).",
+   "notes": [
+    "Safest values use this card's reference clock and a conservative voltage: about stock FPS, less heat and noise. Test 30-60 minutes in your heaviest game before going further."
+   ],
+   "safe": [
+    [
+     "Safest undervolt",
+     "1244 MHz @ 1100 mV (top state)",
+     "1050-1100 mV",
+     "Crash: +25 mV"
+    ],
+    [
+     "Memory",
+     "1750 MHz (stock)",
+     "+50 to +100 MHz",
+     "Artifacts: back to stock"
+    ],
+    [
+     "Power limit",
+     "0%",
+     "+20% to +50% (for overclocking)",
+     "GPU above 85 C"
+    ],
+    [
+     "Temperatures",
+     "GPU under 80 C",
+     "VRM under 100 C",
+     "Too hot: lower the voltage first"
+    ]
+   ],
+   "src": [
+    {
+     "T": "Reference boost clock, memory and board power from the official specifications.",
+     "S": "TechPowerUp GPU Database",
+     "U": "https://www.techpowerup.com/gpu-specs/"
+    }
+   ],
+   "checked": "2026-11-04"
+  },
+  {
+   "id": "rx580",
+   "name": "Radeon RX 580",
+   "family": "gcn",
+   "match": [
+    "RX\\s*580\\b",
+    "RX\\s*580\\s*Series",
+    "RX\\s*580\\s*2048SP"
+   ],
+   "stock": "185 W reference board power, 1340 MHz boost (partner cards often run higher).",
+   "notes": [
+    "Safest values use this card's reference clock and a conservative voltage: about stock FPS, less heat and noise. Test 30-60 minutes in your heaviest game before going further."
+   ],
+   "safe": [
+    [
+     "Owner-proven undervolt",
+     "1325 MHz @ 1050 mV",
+     "1050-1100 mV",
+     "Errors after hours of play: +25 mV"
+    ],
+    [
+     "Safest undervolt",
+     "1340 MHz @ 1100 mV (top state)",
+     "1050-1100 mV",
+     "Crash: +25 mV"
+    ],
+    [
+     "Memory",
+     "2000 MHz (stock)",
+     "+50 to +100 MHz",
+     "Artifacts: back to stock"
+    ],
+    [
+     "Power limit",
+     "0%",
+     "+20% to +50% (for overclocking)",
+     "GPU above 85 C"
+    ],
+    [
+     "Temperatures",
+     "GPU under 80 C",
+     "VRM under 100 C",
+     "Too hot: lower the voltage first"
+    ]
+   ],
+   "src": [
+    {
+     "T": "Reference boost clock, memory and board power from the official specifications.",
+     "S": "TechPowerUp GPU Database",
+     "U": "https://www.techpowerup.com/gpu-specs/"
+    }
+   ],
+   "checked": "2026-11-04",
+   "proven": [
+    {
+     "C": "1325 MHz @ 1050 mV",
+     "R": "GPU ~88 W at ~64 C; 1350 MHz @ 1050 mV gave one compute error.",
+     "S": "AnandTech forum",
+     "U": "https://forums.anandtech.com/threads/rx-series-undervolt-how-much-have-you-undervolted-it.2541872/latest"
+    }
+   ]
+  },
+  {
+   "id": "rx590",
+   "name": "Radeon RX 590",
+   "family": "gcn",
+   "match": [
+    "RX\\s*590\\b"
+   ],
+   "stock": "175 W reference board power, 1545 MHz boost (partner cards often run higher).",
+   "notes": [
+    "Safest values use this card's reference clock and a conservative voltage: about stock FPS, less heat and noise. Test 30-60 minutes in your heaviest game before going further."
+   ],
+   "safe": [
+    [
+     "Safest undervolt",
+     "1545 MHz @ 1125 mV (top state)",
+     "1075-1125 mV",
+     "Crash: +25 mV"
+    ],
+    [
+     "Memory",
+     "2000 MHz (stock)",
+     "+50 to +100 MHz",
+     "Artifacts: back to stock"
+    ],
+    [
+     "Power limit",
+     "0%",
+     "+20% to +50% (for overclocking)",
+     "GPU above 85 C"
+    ],
+    [
+     "Temperatures",
+     "GPU under 80 C",
+     "VRM under 100 C",
+     "Too hot: lower the voltage first"
+    ]
+   ],
+   "src": [
+    {
+     "T": "Reference boost clock, memory and board power from the official specifications.",
+     "S": "TechPowerUp GPU Database",
+     "U": "https://www.techpowerup.com/gpu-specs/"
+    }
+   ],
+   "checked": "2026-11-04"
+  },
+  {
+   "id": "vega56",
+   "name": "Radeon RX Vega 56",
+   "family": "gcn",
+   "match": [
+    "Vega\\s*56"
+   ],
+   "stock": "210 W reference board power, 1471 MHz boost (partner cards often run higher).",
+   "notes": [
+    "Safest values use this card's reference clock and a conservative voltage: about stock FPS, less heat and noise. Test 30-60 minutes in your heaviest game before going further."
+   ],
+   "safe": [
+    [
+     "Safest undervolt",
+     "1471 MHz @ 1050 mV (top state)",
+     "1000-1050 mV",
+     "Crash: +25 mV"
+    ],
+    [
+     "HBM2 memory",
+     "stock",
+     "+50 MHz",
+     "Artifacts: back to stock"
+    ],
+    [
+     "Power limit",
+     "0%",
+     "+25% to +50% (with the undervolt)",
+     "Hotspot above 95 C"
+    ],
+    [
+     "Temperatures",
+     "GPU under 80 C",
+     "hotspot under 95 C",
+     "Too hot: lower the power limit"
+    ]
+   ],
+   "src": [
+    {
+     "T": "Reference boost clock, memory and board power from the official specifications.",
+     "S": "TechPowerUp GPU Database",
+     "U": "https://www.techpowerup.com/gpu-specs/"
+    }
+   ],
+   "checked": "2026-11-04"
+  },
+  {
+   "id": "vega64",
+   "name": "Radeon RX Vega 64",
+   "family": "gcn",
+   "match": [
+    "Vega\\s*64"
+   ],
+   "stock": "295 W reference board power, 1546 MHz boost (partner cards often run higher).",
+   "notes": [
+    "Safest values use this card's reference clock and a conservative voltage: about stock FPS, less heat and noise. Test 30-60 minutes in your heaviest game before going further."
+   ],
+   "safe": [
+    [
+     "Safest undervolt",
+     "1546 MHz @ 1050 mV (top state)",
+     "1000-1050 mV",
+     "Crash: +25 mV"
+    ],
+    [
+     "HBM2 memory",
+     "stock",
+     "+50 MHz",
+     "Artifacts: back to stock"
+    ],
+    [
+     "Power limit",
+     "0%",
+     "+25% to +50% (with the undervolt)",
+     "Hotspot above 95 C"
+    ],
+    [
+     "Temperatures",
+     "GPU under 80 C",
+     "hotspot under 95 C",
+     "Too hot: lower the power limit"
+    ]
+   ],
+   "src": [
+    {
+     "T": "Reference boost clock, memory and board power from the official specifications.",
+     "S": "TechPowerUp GPU Database",
+     "U": "https://www.techpowerup.com/gpu-specs/"
+    }
+   ],
+   "checked": "2026-11-04"
+  },
+  {
+   "id": "radeonvii",
+   "name": "Radeon VII",
+   "family": "gcn",
+   "match": [
+    "Radeon\\s*VII\\b"
+   ],
+   "stock": "300 W reference board power, 1750 MHz boost (partner cards often run higher).",
+   "notes": [
+    "Safest values use this card's reference clock and a conservative voltage: about stock FPS, less heat and noise. Test 30-60 minutes in your heaviest game before going further."
+   ],
+   "safe": [
+    [
+     "Safest undervolt",
+     "1750 MHz @ 1050 mV (top state)",
+     "1000-1050 mV",
+     "Crash: +25 mV"
+    ],
+    [
+     "HBM2 memory",
+     "stock",
+     "+50 MHz",
+     "Artifacts: back to stock"
+    ],
+    [
+     "Power limit",
+     "0%",
+     "+25% to +50% (with the undervolt)",
+     "Hotspot above 95 C"
+    ],
+    [
+     "Temperatures",
+     "GPU under 80 C",
+     "hotspot under 95 C",
+     "Too hot: lower the power limit"
+    ]
+   ],
+   "src": [
+    {
+     "T": "Reference boost clock, memory and board power from the official specifications.",
+     "S": "TechPowerUp GPU Database",
+     "U": "https://www.techpowerup.com/gpu-specs/"
+    }
+   ],
+   "checked": "2026-11-04"
+  },
+  {
+   "id": "rx5500xt",
+   "name": "Radeon RX 5500 XT",
+   "family": "rdna1",
+   "match": [
+    "RX\\s*5500\\s*XT"
+   ],
+   "stock": "130 W reference board power, 1845 MHz boost (partner cards often run higher).",
+   "notes": [
+    "Safest values use this card's reference clock and a conservative voltage: about stock FPS, less heat and noise. Test 30-60 minutes in your heaviest game before going further."
+   ],
+   "safe": [
+    [
+     "Safest undervolt",
+     "-50 mV from what Adrenalin shows",
+     "-50 to -100 mV",
+     "Crash or driver timeout: +10 mV"
+    ],
+    [
+     "Max frequency",
+     "1845 MHz (stock)",
+     "stock to +50 MHz",
+     "Crash: back to stock"
+    ],
+    [
+     "VRAM",
+     "1750 MHz + Fast Timing",
+     "1750 to 1850 MHz",
+     "Lower FPS while stable: too far"
+    ],
+    [
+     "Power limit",
+     "0%",
+     "-10% to max slider",
+     "Hotspot above 100 C"
+    ]
+   ],
+   "src": [
+    {
+     "T": "Overclocking the RX 5700 XT gains nothing unless the power limit is raised to the max first.",
+     "S": "TechPowerUp review",
+     "U": "https://techpowerup.com/review/amd-radeon-rx-5700-xt/33.html"
+    },
+    {
+     "T": "Reference boost clock, memory and board power from the official specifications.",
+     "S": "TechPowerUp GPU Database",
+     "U": "https://www.techpowerup.com/gpu-specs/"
+    }
+   ],
+   "checked": "2026-11-04"
+  },
+  {
+   "id": "rx5600xt",
+   "name": "Radeon RX 5600 XT",
+   "family": "rdna1",
+   "match": [
+    "RX\\s*5600\\s*XT"
+   ],
+   "stock": "150 W reference board power, 1560 MHz boost (partner cards often run higher).",
+   "notes": [
+    "Safest values use this card's reference clock and a conservative voltage: about stock FPS, less heat and noise. Test 30-60 minutes in your heaviest game before going further."
+   ],
+   "safe": [
+    [
+     "Safest undervolt",
+     "-50 mV from what Adrenalin shows",
+     "-50 to -100 mV",
+     "Crash or driver timeout: +10 mV"
+    ],
+    [
+     "Max frequency",
+     "1560 MHz (stock)",
+     "stock to +50 MHz",
+     "Crash: back to stock"
+    ],
+    [
+     "VRAM",
+     "1500 MHz + Fast Timing",
+     "1500 to 1600 MHz",
+     "Lower FPS while stable: too far"
+    ],
+    [
+     "Power limit",
+     "0%",
+     "-10% to max slider",
+     "Hotspot above 100 C"
+    ]
+   ],
+   "src": [
+    {
+     "T": "Overclocking the RX 5700 XT gains nothing unless the power limit is raised to the max first.",
+     "S": "TechPowerUp review",
+     "U": "https://techpowerup.com/review/amd-radeon-rx-5700-xt/33.html"
+    },
+    {
+     "T": "Reference boost clock, memory and board power from the official specifications.",
+     "S": "TechPowerUp GPU Database",
+     "U": "https://www.techpowerup.com/gpu-specs/"
+    }
+   ],
+   "checked": "2026-11-04"
+  },
+  {
+   "id": "rx5700",
+   "name": "Radeon RX 5700",
+   "family": "rdna1",
+   "match": [
+    "RX\\s*5700(?!\\s*XT)"
+   ],
+   "stock": "180 W reference board power, 1725 MHz boost (partner cards often run higher).",
+   "notes": [
+    "Safest values use this card's reference clock and a conservative voltage: about stock FPS, less heat and noise. Test 30-60 minutes in your heaviest game before going further."
+   ],
+   "safe": [
+    [
+     "Safest undervolt",
+     "-50 mV from what Adrenalin shows",
+     "-50 to -100 mV",
+     "Crash or driver timeout: +10 mV"
+    ],
+    [
+     "Max frequency",
+     "1725 MHz (stock)",
+     "stock to +50 MHz",
+     "Crash: back to stock"
+    ],
+    [
+     "VRAM",
+     "1750 MHz + Fast Timing",
+     "1750 to 1850 MHz",
+     "Lower FPS while stable: too far"
+    ],
+    [
+     "Power limit",
+     "0%",
+     "-10% to max slider",
+     "Hotspot above 100 C"
+    ]
+   ],
+   "src": [
+    {
+     "T": "Overclocking the RX 5700 XT gains nothing unless the power limit is raised to the max first.",
+     "S": "TechPowerUp review",
+     "U": "https://techpowerup.com/review/amd-radeon-rx-5700-xt/33.html"
+    },
+    {
+     "T": "Reference boost clock, memory and board power from the official specifications.",
+     "S": "TechPowerUp GPU Database",
+     "U": "https://www.techpowerup.com/gpu-specs/"
+    }
+   ],
+   "checked": "2026-11-04"
+  },
+  {
+   "id": "rx6400",
+   "name": "Radeon RX 6400",
+   "family": "rdna2",
+   "match": [
+    "RX\\s*6400"
+   ],
+   "stock": "53 W reference board power, 2321 MHz boost (partner cards often run higher).",
+   "notes": [
+    "Safest values use this card's reference clock and a conservative voltage: about stock FPS, less heat and noise. Test 30-60 minutes in your heaviest game before going further."
+   ],
+   "safe": [
+    [
+     "Safest undervolt",
+     "-50 mV from what Adrenalin shows",
+     "-50 to -100 mV",
+     "Crash or driver timeout: +10 mV"
+    ],
+    [
+     "Max frequency",
+     "2321 MHz (stock)",
+     "stock to +50 MHz",
+     "Crash: back to stock"
+    ],
+    [
+     "VRAM",
+     "2000 MHz + Fast Timing",
+     "2000 to 2100 MHz",
+     "Lower FPS while stable: too far"
+    ],
+    [
+     "Power limit",
+     "0%",
+     "-10% to max slider",
+     "Hotspot above 100 C"
+    ]
+   ],
+   "src": [
+    {
+     "T": "RX 6800 XT max voltage lowered from 1.15 V to 1.025 V: about 45 W less and slightly higher FPS; the core also overclocked by 209 MHz.",
+     "S": "ComputerBase",
+     "U": "https://www.computerbase.de/2020-11/amd-radeon-rx-6800-xt-oc-uv/"
+    },
+    {
+     "T": "Owners commonly run RX 6800 XT/6900 XT at about 1050 mV daily; very low voltage profiles can be stable in one game and not another.",
+     "S": "ComputerBase forum",
+     "U": "https://www.computerbase.de/forum/threads/big-navi-rx-6700xt-6800-xt-6900xt-overclocking-undervolting.1983202/page-25"
+    },
+    {
+     "T": "Reference boost clock, memory and board power from the official specifications.",
+     "S": "TechPowerUp GPU Database",
+     "U": "https://www.techpowerup.com/gpu-specs/"
+    }
+   ],
+   "checked": "2026-11-04"
+  },
+  {
+   "id": "rx6500xt",
+   "name": "Radeon RX 6500 XT",
+   "family": "rdna2",
+   "match": [
+    "RX\\s*6500\\s*XT"
+   ],
+   "stock": "107 W reference board power, 2815 MHz boost (partner cards often run higher).",
+   "notes": [
+    "Safest values use this card's reference clock and a conservative voltage: about stock FPS, less heat and noise. Test 30-60 minutes in your heaviest game before going further."
+   ],
+   "safe": [
+    [
+     "Safest undervolt",
+     "-50 mV from what Adrenalin shows",
+     "-50 to -100 mV",
+     "Crash or driver timeout: +10 mV"
+    ],
+    [
+     "Max frequency",
+     "2815 MHz (stock)",
+     "stock to +50 MHz",
+     "Crash: back to stock"
+    ],
+    [
+     "VRAM",
+     "2250 MHz + Fast Timing",
+     "2250 to 2350 MHz",
+     "Lower FPS while stable: too far"
+    ],
+    [
+     "Power limit",
+     "0%",
+     "-10% to max slider",
+     "Hotspot above 100 C"
+    ]
+   ],
+   "src": [
+    {
+     "T": "RX 6800 XT max voltage lowered from 1.15 V to 1.025 V: about 45 W less and slightly higher FPS; the core also overclocked by 209 MHz.",
+     "S": "ComputerBase",
+     "U": "https://www.computerbase.de/2020-11/amd-radeon-rx-6800-xt-oc-uv/"
+    },
+    {
+     "T": "Owners commonly run RX 6800 XT/6900 XT at about 1050 mV daily; very low voltage profiles can be stable in one game and not another.",
+     "S": "ComputerBase forum",
+     "U": "https://www.computerbase.de/forum/threads/big-navi-rx-6700xt-6800-xt-6900xt-overclocking-undervolting.1983202/page-25"
+    },
+    {
+     "T": "Reference boost clock, memory and board power from the official specifications.",
+     "S": "TechPowerUp GPU Database",
+     "U": "https://www.techpowerup.com/gpu-specs/"
+    }
+   ],
+   "checked": "2026-11-04"
+  },
+  {
+   "id": "rx6650xt",
+   "name": "Radeon RX 6650 XT",
+   "family": "rdna2",
+   "match": [
+    "RX\\s*6650\\s*XT"
+   ],
+   "stock": "180 W reference board power, 2635 MHz boost (partner cards often run higher).",
+   "notes": [
+    "Safest values use this card's reference clock and a conservative voltage: about stock FPS, less heat and noise. Test 30-60 minutes in your heaviest game before going further."
+   ],
+   "safe": [
+    [
+     "Safest undervolt",
+     "-50 mV from what Adrenalin shows",
+     "-50 to -100 mV",
+     "Crash or driver timeout: +10 mV"
+    ],
+    [
+     "Max frequency",
+     "2635 MHz (stock)",
+     "stock to +50 MHz",
+     "Crash: back to stock"
+    ],
+    [
+     "VRAM",
+     "2188 MHz + Fast Timing",
+     "2188 to 2288 MHz",
+     "Lower FPS while stable: too far"
+    ],
+    [
+     "Power limit",
+     "0%",
+     "-10% to max slider",
+     "Hotspot above 100 C"
+    ]
+   ],
+   "src": [
+    {
+     "T": "RX 6800 XT max voltage lowered from 1.15 V to 1.025 V: about 45 W less and slightly higher FPS; the core also overclocked by 209 MHz.",
+     "S": "ComputerBase",
+     "U": "https://www.computerbase.de/2020-11/amd-radeon-rx-6800-xt-oc-uv/"
+    },
+    {
+     "T": "Owners commonly run RX 6800 XT/6900 XT at about 1050 mV daily; very low voltage profiles can be stable in one game and not another.",
+     "S": "ComputerBase forum",
+     "U": "https://www.computerbase.de/forum/threads/big-navi-rx-6700xt-6800-xt-6900xt-overclocking-undervolting.1983202/page-25"
+    },
+    {
+     "T": "Reference boost clock, memory and board power from the official specifications.",
+     "S": "TechPowerUp GPU Database",
+     "U": "https://www.techpowerup.com/gpu-specs/"
+    }
+   ],
+   "checked": "2026-11-04"
+  },
+  {
+   "id": "rx7600xt",
+   "name": "Radeon RX 7600 XT",
+   "family": "rdna3",
+   "match": [
+    "RX\\s*7600\\s*XT"
+   ],
+   "stock": "190 W reference board power, 2755 MHz boost (partner cards often run higher).",
+   "notes": [
+    "Safest values use this card's reference clock and a conservative voltage: about stock FPS, less heat and noise. Test 30-60 minutes in your heaviest game before going further."
+   ],
+   "safe": [
+    [
+     "Safest undervolt",
+     "-50 mV from what Adrenalin shows",
+     "-50 to -100 mV",
+     "Crash or driver timeout: +10 mV"
+    ],
+    [
+     "Max frequency",
+     "2755 MHz (stock)",
+     "stock to +50 MHz",
+     "Crash: back to stock"
+    ],
+    [
+     "VRAM",
+     "2250 MHz + Fast Timing",
+     "2250 to 2350 MHz",
+     "Lower FPS while stable: too far"
+    ],
+    [
+     "Power limit",
+     "0%",
+     "-10% to max slider",
+     "Hotspot above 100 C"
+    ]
+   ],
+   "src": [
+    {
+     "T": "RX 7900 XTX daily game-stable: 1065 mV, +15% power, 2700 MHz memory, max clock 3050 MHz.",
+     "S": "r/Amd owner",
+     "U": "https://redlib.reallyaweso.me/r/Amd/comments/zn0jh5/rx_7900_xtx_reference_overclock_results/j0ee0ep/?context=3"
+    },
+    {
+     "T": "RX 7900 XT stable at 1075 mV: peak power in Helldivers 2 dropped from about 310 W to 260 W.",
+     "S": "Evetech",
+     "U": "https://evezone.evetech.co.za/deep-dives/rx-7900-xt-undervolt-no-fps-loss"
+    },
+    {
+     "T": "RX 7900 XTX at 1100 mV with +15% power: stock performance at lower voltage; raise 10-15 mV after a crash.",
+     "S": "TechFuelHQ undervolt database",
+     "U": "https://techfuelhq.com/articles/gpu-undervolt-settings-database/"
+    },
+    {
+     "T": "Reference boost clock, memory and board power from the official specifications.",
+     "S": "TechPowerUp GPU Database",
+     "U": "https://www.techpowerup.com/gpu-specs/"
+    }
+   ],
+   "checked": "2026-11-04"
+  },
+  {
+   "id": "rx7900gre",
+   "name": "Radeon RX 7900 GRE",
+   "family": "rdna3",
+   "match": [
+    "RX\\s*7900\\s*GRE"
+   ],
+   "stock": "260 W reference board power, 2245 MHz boost (partner cards often run higher).",
+   "notes": [
+    "Safest values use this card's reference clock and a conservative voltage: about stock FPS, less heat and noise. Test 30-60 minutes in your heaviest game before going further."
+   ],
+   "safe": [
+    [
+     "Safest undervolt",
+     "-50 mV from what Adrenalin shows",
+     "-50 to -100 mV",
+     "Crash or driver timeout: +10 mV"
+    ],
+    [
+     "Max frequency",
+     "2245 MHz (stock)",
+     "stock to +50 MHz",
+     "Crash: back to stock"
+    ],
+    [
+     "VRAM",
+     "2250 MHz + Fast Timing",
+     "2250 to 2350 MHz",
+     "Lower FPS while stable: too far"
+    ],
+    [
+     "Power limit",
+     "0%",
+     "-10% to max slider",
+     "Hotspot above 100 C"
+    ]
+   ],
+   "src": [
+    {
+     "T": "RX 7900 XTX daily game-stable: 1065 mV, +15% power, 2700 MHz memory, max clock 3050 MHz.",
+     "S": "r/Amd owner",
+     "U": "https://redlib.reallyaweso.me/r/Amd/comments/zn0jh5/rx_7900_xtx_reference_overclock_results/j0ee0ep/?context=3"
+    },
+    {
+     "T": "RX 7900 XT stable at 1075 mV: peak power in Helldivers 2 dropped from about 310 W to 260 W.",
+     "S": "Evetech",
+     "U": "https://evezone.evetech.co.za/deep-dives/rx-7900-xt-undervolt-no-fps-loss"
+    },
+    {
+     "T": "RX 7900 XTX at 1100 mV with +15% power: stock performance at lower voltage; raise 10-15 mV after a crash.",
+     "S": "TechFuelHQ undervolt database",
+     "U": "https://techfuelhq.com/articles/gpu-undervolt-settings-database/"
+    },
+    {
+     "T": "Reference boost clock, memory and board power from the official specifications.",
+     "S": "TechPowerUp GPU Database",
+     "U": "https://www.techpowerup.com/gpu-specs/"
+    }
+   ],
+   "checked": "2026-11-04"
+  },
+  {
+   "id": "arca580",
+   "name": "Intel Arc A580",
+   "family": "alchemist",
+   "match": [
+    "Arc.*A580"
+   ],
+   "stock": "185 W reference board power, 2000 MHz boost (partner cards often run higher).",
+   "notes": [
+    "Arc cards cannot be undervolted: use the power limit and GPU Performance Boost in Intel Graphics Software."
+   ],
+   "src": [
+    {
+     "T": "Arc A770 at max 228 W, +55 mV and performance boost 16: about +10% Time Spy, +7% in Resident Evil Village.",
+     "S": "KitGuru",
+     "U": "https://www.kitguru.net/components/graphic-cards/dominic-moass/intel-arc-a770-limited-edition-review/33"
+    },
+    {
+     "T": "A770 voltage tops out at 1.2 V; offset beyond about +180 does nothing more.",
+     "S": "SkatterBencher",
+     "U": "https://skatterbencher.com/2023/07/29/skatterbencher-64-intel-arc-a770-overclocked-to-2795-mhz/"
+    },
+    {
+     "T": "Intel's own overclocking guide for the Performance Tuning sliders.",
+     "S": "Intel",
+     "U": "https://game.intel.com/stories/intel-arc-graphics-overclocking-101/"
+    },
+    {
+     "T": "Reference boost clock, memory and board power from the official specifications.",
+     "S": "TechPowerUp GPU Database",
+     "U": "https://www.techpowerup.com/gpu-specs/"
+    }
+   ],
+   "checked": "2026-11-04"
+  },
+  {
+   "id": "arca380",
+   "name": "Intel Arc A380",
+   "family": "alchemist",
+   "match": [
+    "Arc.*A380"
+   ],
+   "stock": "75 W reference board power, 2050 MHz boost (partner cards often run higher).",
+   "notes": [
+    "Arc cards cannot be undervolted: use the power limit and GPU Performance Boost in Intel Graphics Software."
+   ],
+   "src": [
+    {
+     "T": "Arc A770 at max 228 W, +55 mV and performance boost 16: about +10% Time Spy, +7% in Resident Evil Village.",
+     "S": "KitGuru",
+     "U": "https://www.kitguru.net/components/graphic-cards/dominic-moass/intel-arc-a770-limited-edition-review/33"
+    },
+    {
+     "T": "A770 voltage tops out at 1.2 V; offset beyond about +180 does nothing more.",
+     "S": "SkatterBencher",
+     "U": "https://skatterbencher.com/2023/07/29/skatterbencher-64-intel-arc-a770-overclocked-to-2795-mhz/"
+    },
+    {
+     "T": "Intel's own overclocking guide for the Performance Tuning sliders.",
+     "S": "Intel",
+     "U": "https://game.intel.com/stories/intel-arc-graphics-overclocking-101/"
+    },
+    {
+     "T": "Reference boost clock, memory and board power from the official specifications.",
+     "S": "TechPowerUp GPU Database",
+     "U": "https://www.techpowerup.com/gpu-specs/"
+    }
+   ],
+   "checked": "2026-11-04"
+  },
+  {
+   "id": "gtx1080ti",
+   "name": "GeForce GTX 1080 Ti",
+   "family": "pascal",
+   "match": [
+    "GTX\\s*1080\\s*Ti"
+   ],
+   "notes": [
+    "Blower-style Founders Edition cards run hot: an undervolt is the biggest win.",
+    "Safest values use this card's reference clock and a conservative voltage: about stock FPS, less heat and noise. Test 30-60 minutes in your heaviest game before going further."
+   ],
+   "checked": "2026-11-08",
+   "safe": [
+    [
+     "Safest undervolt",
+     "1582 MHz @ 0.950 V",
+     "1582 MHz @ 0.900-0.950 V",
+     "Crash or driver reset: +25 mV"
+    ],
+    [
+     "Safest overclock",
+     "+75 MHz core",
+     "+75 to +150 MHz",
+     "Crash: -15 MHz"
+    ],
+    [
+     "Memory offset",
+     "+300 MHz",
+     "+300 to +550 MHz",
+     "Artifacts or lower FPS: -100 MHz"
+    ],
+    [
+     "Temperatures",
+     "GPU under 83 C",
+     "memory junction under 100 C",
+     "Too hot: power limit 90% first"
+    ]
+   ],
+   "stock": "250 W reference board power, 1582 MHz boost (partner cards often run higher)."
+  },
+  {
+   "id": "rtx3070ti",
+   "name": "GeForce RTX 3070 Ti",
+   "family": "ampere",
+   "match": [
+    "RTX\\s*3070\\s*Ti"
+   ],
+   "notes": [
+    "GDDR6X memory runs hot: watch memory junction temperature.",
+    "Safest values use this card's reference clock and a conservative voltage: about stock FPS, less heat and noise. Test 30-60 minutes in your heaviest game before going further."
+   ],
+   "checked": "2026-11-08",
+   "safe": [
+    [
+     "Safest undervolt",
+     "1770 MHz @ 0.850 V",
+     "1770 MHz @ 0.800-0.850 V",
+     "Crash or driver reset: +25 mV"
+    ],
+    [
+     "Safest overclock",
+     "+100 MHz core",
+     "+100 to +175 MHz",
+     "Crash: -15 MHz"
+    ],
+    [
+     "Memory offset",
+     "+250 MHz",
+     "+250 to +500 MHz",
+     "Artifacts or lower FPS: -100 MHz"
+    ],
+    [
+     "Temperatures",
+     "GPU under 83 C",
+     "memory junction under 100 C",
+     "Too hot: power limit 90% first"
+    ]
+   ],
+   "stock": "290 W reference board power, 1770 MHz boost (partner cards often run higher)."
+  },
+  {
+   "id": "rtx3080ti",
+   "name": "GeForce RTX 3080 Ti",
+   "family": "ampere",
+   "match": [
+    "RTX\\s*3080\\s*Ti"
+   ],
+   "notes": [
+    "Very power-hungry at stock: an undervolt often saves 60-100 W with almost no FPS loss.",
+    "Safest values use this card's reference clock and a conservative voltage: about stock FPS, less heat and noise. Test 30-60 minutes in your heaviest game before going further."
+   ],
+   "checked": "2026-11-08",
+   "safe": [
+    [
+     "Safest undervolt",
+     "1665 MHz @ 0.850 V",
+     "1665 MHz @ 0.800-0.850 V",
+     "Crash or driver reset: +25 mV"
+    ],
+    [
+     "Safest overclock",
+     "+100 MHz core",
+     "+100 to +175 MHz",
+     "Crash: -15 MHz"
+    ],
+    [
+     "Memory offset",
+     "+250 MHz",
+     "+250 to +500 MHz",
+     "Artifacts or lower FPS: -100 MHz"
+    ],
+    [
+     "Temperatures",
+     "GPU under 83 C",
+     "memory junction under 100 C",
+     "Too hot: power limit 90% first"
+    ]
+   ],
+   "stock": "350 W reference board power, 1665 MHz boost (partner cards often run higher)."
+  },
+  {
+   "id": "rtx3090ti",
+   "name": "GeForce RTX 3090 Ti",
+   "family": "ampere",
+   "match": [
+    "RTX\\s*3090\\s*Ti"
+   ],
+   "notes": [
+    "Safest values use this card's reference clock and a conservative voltage: about stock FPS, less heat and noise. Test 30-60 minutes in your heaviest game before going further."
+   ],
+   "checked": "2026-11-08",
+   "safe": [
+    [
+     "Safest undervolt",
+     "1860 MHz @ 0.900 V",
+     "1860 MHz @ 0.850-0.900 V",
+     "Crash or driver reset: +25 mV"
+    ],
+    [
+     "Safest overclock",
+     "+100 MHz core",
+     "+100 to +175 MHz",
+     "Crash: -15 MHz"
+    ],
+    [
+     "Memory offset",
+     "+250 MHz",
+     "+250 to +500 MHz",
+     "Artifacts or lower FPS: -100 MHz"
+    ],
+    [
+     "Temperatures",
+     "GPU under 83 C",
+     "memory junction under 100 C",
+     "Too hot: power limit 90% first"
+    ]
+   ],
+   "stock": "450 W reference board power, 1860 MHz boost (partner cards often run higher)."
+  },
+  {
+   "id": "rtx4070s",
+   "name": "GeForce RTX 4070 SUPER",
+   "family": "ada",
+   "match": [
+    "RTX\\s*4070\\s*S(uper)?\\b"
+   ],
+   "notes": [
+    "Safest values use this card's reference clock and a conservative voltage: about stock FPS, less heat and noise. Test 30-60 minutes in your heaviest game before going further."
+   ],
+   "checked": "2026-11-08",
+   "safe": [
+    [
+     "Safest undervolt",
+     "2475 MHz @ 0.925 V",
+     "2475 MHz @ 0.875-0.925 V",
+     "Crash or driver reset: +25 mV"
+    ],
+    [
+     "Safest overclock",
+     "+150 MHz core",
+     "+150 to +225 MHz",
+     "Crash: -15 MHz"
+    ],
+    [
+     "Memory offset",
+     "+250 MHz",
+     "+250 to +500 MHz",
+     "Artifacts or lower FPS: -100 MHz"
+    ],
+    [
+     "Temperatures",
+     "GPU under 83 C",
+     "memory junction under 100 C",
+     "Too hot: power limit 90% first"
+    ]
+   ],
+   "stock": "220 W reference board power, 2475 MHz boost (partner cards often run higher)."
+  },
+  {
+   "id": "rtx4080s",
+   "name": "GeForce RTX 4080 SUPER",
+   "family": "ada",
+   "match": [
+    "RTX\\s*4080\\s*S(uper)?\\b"
+   ],
+   "notes": [
+    "Safest values use this card's reference clock and a conservative voltage: about stock FPS, less heat and noise. Test 30-60 minutes in your heaviest game before going further."
+   ],
+   "checked": "2026-11-08",
+   "safe": [
+    [
+     "Safest undervolt",
+     "2550 MHz @ 0.925 V",
+     "2550 MHz @ 0.875-0.925 V",
+     "Crash or driver reset: +25 mV"
+    ],
+    [
+     "Safest overclock",
+     "+150 MHz core",
+     "+150 to +225 MHz",
+     "Crash: -15 MHz"
+    ],
+    [
+     "Memory offset",
+     "+250 MHz",
+     "+250 to +500 MHz",
+     "Artifacts or lower FPS: -100 MHz"
+    ],
+    [
+     "Temperatures",
+     "GPU under 83 C",
+     "memory junction under 100 C",
+     "Too hot: power limit 90% first"
+    ]
+   ],
+   "stock": "320 W reference board power, 2550 MHz boost (partner cards often run higher)."
+  },
+  {
+   "id": "gtx960",
+   "name": "GeForce GTX 960",
+   "family": "maxwell",
+   "match": [
+    "GTX\\s*960"
+   ],
+   "notes": [
+    "Older card: keep the fan curve aggressive and the driver current; small overclocks are the realistic gain.",
+    "Safest values use this card's reference clock and a conservative voltage: about stock FPS, less heat and noise. Test 30-60 minutes in your heaviest game before going further."
+   ],
+   "checked": "2026-11-08",
+   "safe": [
+    [
+     "Safest undervolt",
+     "1178 MHz @ 1.150 V",
+     "1178 MHz @ 1.100-1.150 V",
+     "Crash or driver reset: +25 mV"
+    ],
+    [
+     "Safest overclock",
+     "+100 MHz core",
+     "+100 to +175 MHz",
+     "Crash: -15 MHz"
+    ],
+    [
+     "Memory offset",
+     "+200 MHz",
+     "+200 to +450 MHz",
+     "Artifacts or lower FPS: -100 MHz"
+    ],
+    [
+     "Temperatures",
+     "GPU under 83 C",
+     "memory junction under 100 C",
+     "Too hot: power limit 90% first"
+    ]
+   ],
+   "stock": "120 W reference board power, 1178 MHz boost (partner cards often run higher)."
+  },
+  {
+   "id": "gtx950",
+   "name": "GeForce GTX 950",
+   "family": "maxwell",
+   "match": [
+    "GTX\\s*950"
+   ],
+   "notes": [
+    "Safest values use this card's reference clock and a conservative voltage: about stock FPS, less heat and noise. Test 30-60 minutes in your heaviest game before going further."
+   ],
+   "checked": "2026-11-08",
+   "safe": [
+    [
+     "Safest undervolt",
+     "1188 MHz @ 1.150 V",
+     "1188 MHz @ 1.100-1.150 V",
+     "Crash or driver reset: +25 mV"
+    ],
+    [
+     "Safest overclock",
+     "+100 MHz core",
+     "+100 to +175 MHz",
+     "Crash: -15 MHz"
+    ],
+    [
+     "Memory offset",
+     "+200 MHz",
+     "+200 to +450 MHz",
+     "Artifacts or lower FPS: -100 MHz"
+    ],
+    [
+     "Temperatures",
+     "GPU under 83 C",
+     "memory junction under 100 C",
+     "Too hot: power limit 90% first"
+    ]
+   ],
+   "stock": "90 W reference board power, 1188 MHz boost (partner cards often run higher)."
+  },
+  {
+   "id": "arcb570",
+   "name": "Intel Arc B570",
+   "family": "battlemage",
+   "match": [
+    "Arc.*B570"
+   ],
+   "notes": [
+    "Turn on Resizable BAR in the BIOS: Arc cards lose a lot of performance without it.",
+    "Safest values use the reference settings. Test 30-60 minutes in your heaviest game before going further."
+   ],
+   "checked": "2026-11-08",
+   "safe": [
+    [
+     "Voltage offset",
+     "0 mV (stock)",
+     "0 to -50 mV",
+     "Crash: back to 0"
+    ],
+    [
+     "Power limit",
+     "100%",
+     "100% to max slider",
+     "Too hot: back to 100%"
+    ],
+    [
+     "Frequency offset",
+     "+50 MHz",
+     "+50 to +100 MHz",
+     "Crash: -25 MHz"
+    ],
+    [
+     "Temperatures",
+     "GPU under 85 C",
+     "",
+     "Too hot: lower power limit"
+    ]
+   ],
+   "stock": "150 W total board power, 2500 MHz graphics clock."
+  }
+ ]
+}

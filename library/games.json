@@ -1,0 +1,3507 @@
+{
+ "version": 8,
+ "about": "GearShift game fix library - (c) 2026 HelixTT. Add games/fixes here; publish to GitHub (library/games.json) and every copy updates itself. Each fix can carry src (link), srcName, checked (date it was last confirmed) and fixedIn (patch that made it obsolete); fixes without src are shown as not yet verified. anticheat = the game's anti-cheat (GearShift then never touches its files or process). config = the game's own settings files for backup/restore ({docs}, {game}, %ENV% allowed).",
+ "fixTypes": "tip = advice only | noFso = fullscreen optimizations off | dpi = DPI override | gpuHigh = force dedicated GPU | clearShader = clear this game's Steam shader cache | resetConfig = back up and remove the game's settings file (from 'config'), so it starts with defaults",
+ "when": "optional conditions (all must match): vendor (AMD/NVIDIA/Intel), win11, maxRamGB, minRamGB, maxVramGB, minVramGB, gpuTier [Entry/Mid/High/Enthusiast], cpuTier [...], hdd (game installed on a hard disk), multiGpu. Game flags: heavy (big modern game: gets RAM/VRAM/disk advice for this PC). Exact hardware: gpu / cpu (regular expression on the name). Screen: ultrawide (true/false), minHeight / maxHeight (pixels, e.g. 1440). Each fix may carry issue: crash | stutter | display | launch | audio | input | online (the 'What's wrong?' filter), summary (one line shown first) and steps (numbered list shown when the fix is opened). Top-level 'common' fixes apply to every game, or only to games whose 'engine' is listed (UE4, UE5, Unity, REEngine, Source, Source2, Creation, DX9...); 'except' lists game ids to skip.",
+ "games": [
+  {
+   "id": "gta5",
+   "name": "Grand Theft Auto V",
+   "steam": [
+    271590,
+    3240220
+   ],
+   "match": [
+    "Grand Theft Auto V"
+   ],
+   "fixes": [
+    {
+     "type": "tip",
+     "title": "Keep FPS under 180",
+     "help": "GTA V's engine misbehaves above roughly 188 FPS: stutter, audio and physics glitches. Cap the frame rate at your monitor's refresh rate (V-Sync, FreeSync/G-SYNC + driver frame cap) or at 165 FPS.",
+     "issue": "display"
+    },
+    {
+     "type": "noFso",
+     "title": "Fullscreen optimizations off",
+     "optional": true,
+     "help": "Can reduce alt-tab problems and stutter in exclusive fullscreen.",
+     "issue": "display"
+    }
+   ],
+   "anticheat": "BattlEye",
+   "config": [
+    "{docs}\\Rockstar Games\\GTA V\\settings.xml"
+   ],
+   "demand": {
+    "g": 2.0,
+    "c": 1.2
+   },
+   "engine": "RAGE"
+  },
+  {
+   "id": "gta4",
+   "name": "Grand Theft Auto IV",
+   "steam": [
+    12210,
+    901583
+   ],
+   "match": [
+    "Grand Theft Auto IV"
+   ],
+   "fixes": [
+    {
+     "type": "tip",
+     "title": "Use DXVK for much smoother performance",
+     "help": "GTA IV's DirectX 9 renderer runs badly on modern graphics cards. The free DXVK translation layer (copy its x32 d3d9.dll into the game folder) is the most recommended fix and often doubles smoothness.",
+     "link": "https://github.com/doitsujin/dxvk/releases",
+     "issue": "stutter"
+    }
+   ],
+   "demand": {
+    "g": 2.2,
+    "c": 0.7
+   },
+   "engine": "DX9"
+  },
+  {
+   "id": "fo4",
+   "name": "Fallout 4",
+   "steam": [
+    377160
+   ],
+   "match": [
+    "Fallout 4"
+   ],
+   "fixes": [
+    {
+     "type": "tip",
+     "title": "Do not uncap FPS above 60 without a physics fix",
+     "help": "Fallout 4 ties game logic to frame rate: above 60 FPS terminals, lockpicking and physics break. Keep the 60 FPS cap (iPresentInterval=1), or install the community 'High FPS Physics Fix' mod before going higher.",
+     "issue": "stutter"
+    }
+   ],
+   "config": [
+    "{docs}\\My Games\\Fallout4\\Fallout4Prefs.ini",
+    "{docs}\\My Games\\Fallout4\\Fallout4.ini",
+    "{docs}\\My Games\\Fallout4\\Fallout4Custom.ini"
+   ],
+   "demand": {
+    "g": 1.8,
+    "c": 0.8
+   },
+   "engine": "Creation"
+  },
+  {
+   "id": "skyrimse",
+   "name": "The Elder Scrolls V: Skyrim Special Edition",
+   "steam": [
+    489830
+   ],
+   "match": [
+    "Skyrim Special Edition",
+    "Skyrim Anniversary"
+   ],
+   "fixes": [
+    {
+     "type": "tip",
+     "title": "Stay at 60 FPS (or use SSE Display Tweaks)",
+     "help": "Skyrim's physics run too fast above 60 FPS (flying objects, stuck horses). Cap at 60, or use the 'SSE Display Tweaks' mod, which fixes physics at high refresh rates.",
+     "issue": "display"
+    }
+   ],
+   "config": [
+    "{docs}\\My Games\\Skyrim Special Edition\\SkyrimPrefs.ini",
+    "{docs}\\My Games\\Skyrim Special Edition\\Skyrim.ini"
+   ],
+   "demand": {
+    "g": 2.5,
+    "c": 1.0
+   },
+   "engine": "Creation"
+  },
+  {
+   "id": "fo3",
+   "name": "Fallout 3",
+   "steam": [
+    22300,
+    22370
+   ],
+   "match": [
+    "Fallout 3"
+   ],
+   "fixes": [
+    {
+     "type": "tip",
+     "title": "Crashes on modern CPUs: limit worker threads",
+     "help": "Fallout 3 crashes or freezes on CPUs with many threads. Open Documents\\My Games\\Fallout3\\Fallout.ini and under [General] set iNumHWThreads=2 (add the line if missing).",
+     "issue": "crash"
+    },
+    {
+     "type": "dpi",
+     "title": "DPI override for crisp menus",
+     "optional": true,
+     "help": "Old game: lets it render at native resolution on scaled displays.",
+     "issue": "display"
+    }
+   ],
+   "demand": {
+    "g": 4,
+    "c": 1.5
+   },
+   "engine": "DX9"
+  },
+  {
+   "id": "fnv",
+   "name": "Fallout: New Vegas",
+   "steam": [
+    22380
+   ],
+   "match": [
+    "Fallout: New Vegas",
+    "Fallout New Vegas"
+   ],
+   "fixes": [
+    {
+     "type": "tip",
+     "title": "Crashes: apply the 4GB patch",
+     "help": "New Vegas is a 32-bit game limited to 2 GB of memory, which causes frequent crashes. The community 'FNV 4GB Patcher' lets it use 4 GB and is the first fix to apply.",
+     "issue": "crash"
+    }
+   ],
+   "config": [
+    "{docs}\\My Games\\FalloutNV\\FalloutPrefs.ini",
+    "{docs}\\My Games\\FalloutNV\\Fallout.ini"
+   ],
+   "demand": {
+    "g": 4,
+    "c": 1.5
+   },
+   "engine": "DX9"
+  },
+  {
+   "id": "eldenring",
+   "name": "ELDEN RING",
+   "steam": [
+    1245620
+   ],
+   "match": [
+    "ELDEN RING"
+   ],
+   "fixes": [
+    {
+     "type": "tip",
+     "title": "Early stutter and the 60 FPS cap are normal",
+     "help": "Elden Ring builds shaders while you play, so the first sessions stutter more; it improves over time. Do not clear the shader cache often. The game is capped at 60 FPS by design; keep the GPU driver up to date.",
+     "issue": "stutter"
+    }
+   ],
+   "anticheat": "Easy Anti-Cheat",
+   "config": [
+    "%APPDATA%\\EldenRing\\GraphicsConfig.xml"
+   ],
+   "demand": {
+    "g": 1.3,
+    "c": 1.0,
+    "cap": 60
+   },
+   "engine": "FromSoftware"
+  },
+  {
+   "id": "cs2",
+   "name": "Counter-Strike 2",
+   "steam": [
+    730
+   ],
+   "match": [
+    "Counter-Strike 2"
+   ],
+   "fixes": [
+    {
+     "type": "tip",
+     "title": "Use the in-game latency option",
+     "help": "CS2 has NVIDIA Reflex and AMD Anti-Lag 2 in its video settings. Turn on the one for your GPU, and keep fps_max at 0 or well above your refresh rate for the lowest input lag.",
+     "when": {},
+     "issue": "display"
+    }
+   ],
+   "anticheat": "VAC",
+   "demand": {
+    "g": 4,
+    "c": 2.5
+   },
+   "engine": "Source2"
+  },
+  {
+   "id": "cp2077",
+   "name": "Cyberpunk 2077",
+   "steam": [
+    1091500
+   ],
+   "match": [
+    "Cyberpunk 2077"
+   ],
+   "heavy": true,
+   "fixes": [
+    {
+     "type": "tip",
+     "title": "Crowd density is the CPU setting",
+     "help": "In Gameplay settings, Crowd Density Low/Medium gives the biggest FPS gain in busy city areas when the processor is the limit.",
+     "when": {
+      "cpuTier": [
+       "Entry",
+       "Mid"
+      ]
+     },
+     "issue": "stutter"
+    },
+    {
+     "type": "tip",
+     "title": "Use FSR 3 / XeSS and leave ray tracing off",
+     "help": "On this graphics card, turn ray tracing off and use FSR 3 (or XeSS) Quality with Frame Generation for the smoothest result.",
+     "when": {
+      "gpuTier": [
+       "Entry",
+       "Mid"
+      ]
+     },
+     "issue": "stutter"
+    },
+    {
+     "type": "tip",
+     "title": "Turn on Slow HDD mode",
+     "help": "The game is on a hard disk: Settings > Gameplay > Slow HDD Mode ON reduces pop-in and stutter. Moving it to an SSD is far better.",
+     "when": {
+      "hdd": true
+     },
+     "issue": "stutter"
+    },
+    {
+     "type": "tip",
+     "title": "DLSS + Frame Generation",
+     "help": "On an RTX card use DLSS Quality; with an RTX 40/50 card turn on Frame Generation and keep NVIDIA Reflex on.",
+     "when": {
+      "vendor": "NVIDIA"
+     },
+     "issue": "stutter"
+    },
+    {
+     "type": "tip",
+     "issue": "crash",
+     "title": "Crash with frame generation and a video on a second screen (AMD)",
+     "summary": "AMD known issue in 26.10.1: turn in-game frame generation off.",
+     "steps": [
+      "Settings > Graphics: turn Frame Generation off.",
+      "Keep FSR upscaling on if you want."
+     ],
+     "help": "Crashes or driver timeouts with FSR Upscaling, Anti-Lag and in-game frame generation on while a video plays on another display.",
+     "when": {
+      "vendor": "AMD"
+     },
+     "src": "https://www.amd.com/en/resources/support-articles/release-notes/RN-RAD-WIN-26-10-1.html",
+     "srcName": "AMD",
+     "checked": "2026-11-11"
+    },
+    {
+     "type": "tip",
+     "issue": "crash",
+     "title": "DXGI_ERROR_DEVICE_HUNG after a driver update (Intel Arc)",
+     "summary": "Intel known issue: the game can crash after installing a new Arc driver.",
+     "steps": [
+      "Install the newest Arc driver (a later release may list it fixed).",
+      "If it still crashes, roll back to the driver you had before."
+     ],
+     "help": "Intel lists Cyberpunk 2077 crashing with DXGI_ERROR_DEVICE_HUNG after a driver install on the B580 support page.",
+     "when": {
+      "vendor": "Intel"
+     },
+     "src": "https://www.intel.com/content/www/us/en/products/sku/241598/intel-arc-b580-graphics/support.html",
+     "srcName": "Intel",
+     "checked": "2026-11-11"
+    }
+   ],
+   "config": [
+    "%LOCALAPPDATA%\\CD Projekt Red\\Cyberpunk 2077\\UserSettings.json"
+   ],
+   "demand": {
+    "g": 0.75,
+    "c": 0.8
+   },
+   "engine": "REDengine"
+  },
+  {
+   "id": "rdr2",
+   "name": "Red Dead Redemption 2",
+   "steam": [
+    1174180
+   ],
+   "match": [
+    "Red Dead Redemption 2"
+   ],
+   "heavy": true,
+   "fixes": [
+    {
+     "type": "tip",
+     "title": "Use the Vulkan API",
+     "help": "Settings > Graphics > Advanced: API = Vulkan usually stutters less than DirectX 12 on most PCs. Restart the game after changing it.",
+     "issue": "stutter"
+    },
+    {
+     "type": "tip",
+     "title": "The three big FPS settings",
+     "help": "Water Physics Quality, Tree Tessellation and MSAA cost the most for the smallest visual gain: keep water physics low, tessellation off and use TAA instead of MSAA.",
+     "when": {
+      "gpuTier": [
+       "Entry",
+       "Mid"
+      ]
+     },
+     "issue": "stutter"
+    },
+    {
+     "type": "tip",
+     "title": "Mind the VRAM bar",
+     "help": "Keep the VRAM meter in Graphics settings under your card's limit: with 8 GB or less, textures Ultra is fine but drop volumetrics and reflections first.",
+     "when": {
+      "maxVramGB": 8
+     },
+     "issue": "stutter"
+    }
+   ],
+   "config": [
+    "{docs}\\Rockstar Games\\Red Dead Redemption 2\\Settings\\system.xml"
+   ],
+   "demand": {
+    "g": 0.9,
+    "c": 1.0
+   },
+   "engine": "RAGE"
+  },
+  {
+   "id": "starfield",
+   "name": "Starfield",
+   "steam": [
+    1716740
+   ],
+   "match": [
+    "Starfield"
+   ],
+   "heavy": true,
+   "fixes": [
+    {
+     "type": "tip",
+     "title": "Starfield needs an SSD",
+     "help": "The game officially requires an SSD. On a hard disk it hitches and loads very slowly: move it to an SSD.",
+     "when": {
+      "hdd": true
+     }
+    },
+    {
+     "type": "tip",
+     "title": "Use the upscaler and Dynamic Resolution",
+     "help": "Turn on FSR 3 (or DLSS) with Frame Generation, and Dynamic Resolution, then lower Shadow Quality and Volumetric Lighting first.",
+     "when": {
+      "gpuTier": [
+       "Entry",
+       "Mid"
+      ]
+     },
+     "issue": "display"
+    },
+    {
+     "type": "tip",
+     "issue": "crash",
+     "title": "Crashes on Radeon RX 9000 (Adrenalin 26.8.1)",
+     "summary": "AMD listed this as a known issue and suggested driver 26.7.1 until fixed.",
+     "steps": [
+      "Update to the newest Adrenalin first.",
+      "If it still crashes, install 26.7.1 with the AMD Cleanup Utility."
+     ],
+     "help": "AMD known issue in Adrenalin 26.8.1 for RX 9000 cards; 26.7.1 was the recommended workaround.",
+     "when": {
+      "vendor": "AMD",
+      "gpu": "RX 90[67]0"
+     },
+     "src": "https://www.amd.com/en/resources/support-articles/release-notes/RN-RAD-WIN-26-8-1.html",
+     "srcName": "AMD",
+     "checked": "2026-11-11"
+    }
+   ],
+   "demand": {
+    "g": 0.6,
+    "c": 0.6
+   },
+   "engine": "Creation"
+  },
+  {
+   "id": "hogwarts",
+   "name": "Hogwarts Legacy",
+   "steam": [
+    990080
+   ],
+   "match": [
+    "Hogwarts Legacy"
+   ],
+   "heavy": true,
+   "fixes": [
+    {
+     "type": "tip",
+     "title": "Texture quality to your VRAM",
+     "help": "With 8 GB of VRAM or less, set Texture Quality to High (not Ultra) and keep ray tracing off: stutter in Hogsmeade comes from VRAM running out.",
+     "when": {
+      "maxVramGB": 8
+     },
+     "issue": "stutter"
+    },
+    {
+     "type": "tip",
+     "title": "16 GB RAM or more helps a lot",
+     "help": "The game uses a lot of memory: close browsers and launchers before playing.",
+     "when": {
+      "maxRamGB": 16
+     },
+     "issue": "launch"
+    }
+   ],
+   "demand": {
+    "g": 0.85,
+    "c": 0.7
+   },
+   "engine": "UE4"
+  },
+  {
+   "id": "tlou1",
+   "name": "The Last of Us Part I",
+   "steam": [
+    1888930
+   ],
+   "match": [
+    "The Last of Us"
+   ],
+   "heavy": true,
+   "fixes": [
+    {
+     "type": "tip",
+     "title": "Let shaders finish building",
+     "help": "The first start builds shaders for several minutes: wait on the menu until it reaches 100%, or the game will crash and stutter.",
+     "issue": "crash"
+    },
+    {
+     "type": "tip",
+     "title": "Watch the VRAM meter",
+     "help": "Keep the VRAM usage shown in Graphics settings below your card's amount. With 8 GB, use Medium textures.",
+     "when": {
+      "maxVramGB": 8
+     },
+     "issue": "stutter"
+    },
+    {
+     "type": "tip",
+     "issue": "display",
+     "title": "Flicker or wrong colours (NVIDIA driver 616.56)",
+     "summary": "Driver 616.56 caused flicker and colour corruption in this game; use a newer driver.",
+     "steps": [
+      "Check the driver on Specs > Graphics.",
+      "If it is 616.56, update to the newest Game Ready driver."
+     ],
+     "help": "Reported by TechRadar from NVIDIA's forums; NVIDIA said it was testing a fix.",
+     "when": {
+      "vendor": "NVIDIA"
+     },
+     "src": "https://www.techradar.com/computing/gpu/its-been-particularly-bad-since-blackwell-nvidias-new-gpu-driver-has-another-nasty-bug-and-gamers-are-rapidly-losing-patience",
+     "srcName": "TechRadar",
+     "checked": "2026-11-11"
+    }
+   ],
+   "demand": {
+    "g": 0.8,
+    "c": 0.8
+   },
+   "engine": "Naughty Dog"
+  },
+  {
+   "id": "fh5",
+   "name": "Forza Horizon 5",
+   "steam": [
+    1551360
+   ],
+   "match": [
+    "Forza Horizon 5"
+   ],
+   "heavy": true,
+   "fixes": [
+    {
+     "type": "tip",
+     "title": "Environment textures and VRAM",
+     "help": "If you see a low-VRAM warning, lower Environment Texture Quality first: it uses the most video memory.",
+     "when": {
+      "maxVramGB": 8
+     },
+     "issue": "stutter"
+    }
+   ],
+   "demand": {
+    "g": 1.3,
+    "c": 1.5
+   }
+  },
+  {
+   "id": "apex",
+   "name": "Apex Legends",
+   "steam": [
+    1172470
+   ],
+   "match": [
+    "Apex Legends"
+   ],
+   "fixes": [
+    {
+     "type": "tip",
+     "title": "Uncap the menu FPS limit",
+     "help": "Add +fps_max 0 (or your refresh rate) to Steam launch options: Library > right-click Apex > Properties > Launch Options.",
+     "issue": "launch"
+    },
+    {
+     "type": "tip",
+     "title": "Turn on NVIDIA Reflex",
+     "help": "In Video settings set NVIDIA Reflex to Enabled + Boost for lower input lag.",
+     "when": {
+      "vendor": "NVIDIA"
+     },
+     "issue": "input"
+    },
+    {
+     "type": "tip",
+     "title": "Anti-Lag in Adrenalin",
+     "help": "Turn on Radeon Anti-Lag in Adrenalin for this game: lower input lag in a fast shooter.",
+     "when": {
+      "vendor": "AMD"
+     },
+     "issue": "online"
+    },
+    {
+     "type": "tip",
+     "issue": "crash",
+     "title": "Crashes on an RX 9070 / 9070 XT",
+     "summary": "The developers point RX 9070 owners to Adrenalin 26.10.1 or newer.",
+     "steps": [
+      "Update to Adrenalin 26.10.1 or newer.",
+      "Still crashing? Do a clean install with the AMD Cleanup Utility."
+     ],
+     "help": "Reported fix for RX 9070-series crashes; AMD's own notes do not mention Apex.",
+     "when": {
+      "vendor": "AMD",
+      "gpu": "RX 90[67]0"
+     },
+     "src": "https://windowsforum.com/news/apex-legends-rx-9070-crashes-update-to-amd-adrenalin-26-10-1-driver.449385/",
+     "srcName": "WindowsForum",
+     "checked": "2026-11-11"
+    }
+   ],
+   "anticheat": "Easy Anti-Cheat",
+   "demand": {
+    "g": 2.2,
+    "c": 2.0
+   },
+   "engine": "Source"
+  },
+  {
+   "id": "fortnite",
+   "name": "Fortnite",
+   "match": [
+    "Fortnite"
+   ],
+   "fixes": [
+    {
+     "type": "tip",
+     "title": "Use Performance rendering mode",
+     "help": "Settings > Video > Rendering Mode = Performance: much higher FPS on this PC, at simpler visuals. Restart the game to apply.",
+     "when": {
+      "gpuTier": [
+       "Entry",
+       "Mid"
+      ]
+     },
+     "issue": "stutter"
+    },
+    {
+     "type": "tip",
+     "title": "DirectX 12 + Nanite off for steady FPS",
+     "help": "On a stronger PC use DirectX 12 with Nanite and Lumen off (or Low) for competitive play: high FPS without stutter after the first matches.",
+     "when": {
+      "gpuTier": [
+       "High",
+       "Enthusiast"
+      ]
+     },
+     "issue": "stutter"
+    }
+   ],
+   "anticheat": "Easy Anti-Cheat / BattlEye",
+   "demand": {
+    "g": 1.3,
+    "c": 1.5
+   },
+   "engine": "UE5"
+  },
+  {
+   "id": "valorant",
+   "name": "VALORANT",
+   "match": [
+    "VALORANT"
+   ],
+   "fixes": [
+    {
+     "type": "tip",
+     "title": "Competitive settings",
+     "help": "Turn off Improve Clarity, Vignette and Bloom; set Multithreaded Rendering ON and Limit FPS to a value above your refresh rate.",
+     "issue": "display"
+    },
+    {
+     "type": "tip",
+     "title": "NVIDIA Reflex + Boost",
+     "help": "Video > Graphics Quality > NVIDIA Reflex Low Latency = On + Boost.",
+     "when": {
+      "vendor": "NVIDIA"
+     }
+    }
+   ],
+   "anticheat": "Riot Vanguard",
+   "demand": {
+    "g": 5,
+    "c": 3
+   },
+   "engine": "UE4"
+  },
+  {
+   "id": "dota2",
+   "name": "Dota 2",
+   "steam": [
+    570
+   ],
+   "match": [
+    "Dota 2"
+   ],
+   "fixes": [
+    {
+     "type": "tip",
+     "title": "Try the Vulkan renderer",
+     "help": "Video > Rendering API: Vulkan can give smoother frame times on AMD cards. Restart after switching.",
+     "when": {
+      "vendor": "AMD"
+     },
+     "issue": "stutter"
+    }
+   ],
+   "anticheat": "VAC",
+   "demand": {
+    "g": 3,
+    "c": 2
+   },
+   "engine": "Source2"
+  },
+  {
+   "id": "ow2",
+   "name": "Overwatch 2",
+   "steam": [
+    2357570
+   ],
+   "match": [
+    "Overwatch"
+   ],
+   "fixes": [
+    {
+     "type": "tip",
+     "title": "Reduce Buffering ON",
+     "help": "Video > Advanced: Reduce Buffering = ON for lower input lag; set Frame Rate to Custom with a cap a little above your refresh rate.",
+     "issue": "display"
+    },
+    {
+     "type": "tip",
+     "title": "NVIDIA Reflex",
+     "help": "Video > Advanced: NVIDIA Reflex = Enabled + Boost.",
+     "when": {
+      "vendor": "NVIDIA"
+     }
+    }
+   ],
+   "demand": {
+    "g": 3,
+    "c": 2.5
+   },
+   "engine": "Blizzard"
+  },
+  {
+   "id": "codhq",
+   "name": "Call of Duty (Warzone / Black Ops)",
+   "steam": [
+    1938090
+   ],
+   "match": [
+    "Call of Duty"
+   ],
+   "heavy": true,
+   "fixes": [
+    {
+     "type": "tip",
+     "title": "VRAM scale target 80%",
+     "help": "Graphics > Quality: set VRAM Scale Target to 80% to avoid stutter when video memory fills up.",
+     "when": {
+      "maxVramGB": 8
+     },
+     "issue": "stutter"
+    },
+    {
+     "type": "tip",
+     "title": "On-Demand Texture Streaming",
+     "help": "Turn it off on slow internet or if you see texture pop-in stutter; it downloads textures while you play.",
+     "issue": "stutter"
+    },
+    {
+     "type": "tip",
+     "title": "The game is on a hard disk",
+     "help": "COD streams huge files constantly: on a hard disk expect long loads and hitching. Move it to an SSD.",
+     "when": {
+      "hdd": true
+     }
+    },
+    {
+     "type": "tip",
+     "issue": "crash",
+     "title": "\"GPU hung\" or \"driver removed\" crashes (AMD)",
+     "summary": "A December 2025 Windows 11 update stopped these crashes for many Radeon owners.",
+     "steps": [
+      "Run Windows Update, including optional updates (KB5070311 or newer).",
+      "Then update Adrenalin and restart."
+     ],
+     "help": "Windows 11 update KB5070311 quietly fixed GPU hangs in Call of Duty: Black Ops 7 on some AMD systems.",
+     "when": {
+      "vendor": "AMD",
+      "win11": true
+     },
+     "src": "https://windowslatest.com/2025/12/09/windows-11s-last-update-of-2025-quietly-fixes-amd-gpu-hangs-haunting-battlefield-6-call-of-duty-black-ops-7-arc-raiders",
+     "srcName": "Windows Latest",
+     "checked": "2026-11-11"
+    }
+   ],
+   "anticheat": "Ricochet",
+   "demand": {
+    "g": 1.3,
+    "c": 1.3
+   }
+  },
+  {
+   "id": "bg3",
+   "name": "Baldur's Gate 3",
+   "steam": [
+    1086940
+   ],
+   "match": [
+    "Baldur's Gate 3"
+   ],
+   "heavy": true,
+   "fixes": [
+    {
+     "type": "tip",
+     "title": "Pick DirectX 11 or Vulkan in the launcher",
+     "help": "The Larian launcher lets you choose: DirectX 11 is often smoother on older or entry graphics cards, Vulkan on newer ones. Try both.",
+     "when": {
+      "gpuTier": [
+       "Entry",
+       "Mid"
+      ]
+     },
+     "issue": "launch"
+    },
+    {
+     "type": "tip",
+     "title": "Act 3 is CPU heavy",
+     "help": "The city in Act 3 is limited by the processor: FPS drops there are normal. Lower Crowd/NPC-related settings and use FSR/DLSS.",
+     "when": {
+      "cpuTier": [
+       "Entry",
+       "Mid"
+      ]
+     },
+     "issue": "stutter"
+    }
+   ],
+   "config": [
+    "%LOCALAPPDATA%\\Larian Studios\\Baldur's Gate 3\\PlayerProfiles\\Public\\graphicSettings.lsx"
+   ],
+   "demand": {
+    "g": 1.1,
+    "c": 0.7
+   },
+   "engine": "Divinity"
+  },
+  {
+   "id": "hd2",
+   "name": "HELLDIVERS 2",
+   "steam": [
+    553850
+   ],
+   "match": [
+    "HELLDIVERS"
+   ],
+   "heavy": true,
+   "fixes": [
+    {
+     "type": "tip",
+     "title": "Render scale and shadows first",
+     "help": "Use Render Scale Quality/Balanced (FSR) and lower Shadow Quality and Particle Quality: the biggest FPS gains in big fights.",
+     "when": {
+      "gpuTier": [
+       "Entry",
+       "Mid"
+      ]
+     },
+     "issue": "stutter"
+    },
+    {
+     "type": "tip",
+     "issue": "launch",
+     "title": "Crashes on launch after the latest Arc driver (Intel)",
+     "summary": "Intel known issue: roll back to the previous Arc driver until a fix ships.",
+     "steps": [
+      "Device Manager > Display adapters > Arc > Properties > Driver > Roll Back Driver.",
+      "Check Intel's support page for the fixed version."
+     ],
+     "help": "Intel lists Helldivers 2 crashing on launch after the latest Arc driver update.",
+     "when": {
+      "vendor": "Intel"
+     },
+     "src": "https://www.intel.com/content/www/us/en/products/sku/241598/intel-arc-b580-graphics/support.html",
+     "srcName": "Intel",
+     "checked": "2026-11-11"
+    }
+   ],
+   "anticheat": "nProtect GameGuard",
+   "demand": {
+    "g": 0.9,
+    "c": 0.7
+   },
+   "engine": "Stingray"
+  },
+  {
+   "id": "r6s",
+   "name": "Tom Clancy's Rainbow Six Siege",
+   "steam": [
+    359550
+   ],
+   "match": [
+    "Rainbow Six",
+    "Tom Clancy's Rainbow Six"
+   ],
+   "fixes": [
+    {
+     "type": "tip",
+     "title": "Try the Vulkan version",
+     "help": "Steam lets you start Siege with Vulkan: often higher and steadier FPS, especially on AMD cards.",
+     "when": {
+      "vendor": "AMD"
+     },
+     "issue": "stutter"
+    }
+   ],
+   "anticheat": "BattlEye",
+   "demand": {
+    "g": 3.5,
+    "c": 3
+   },
+   "engine": "Anvil"
+  },
+  {
+   "id": "witcher3",
+   "name": "The Witcher 3: Wild Hunt",
+   "steam": [
+    292030
+   ],
+   "match": [
+    "The Witcher 3"
+   ],
+   "heavy": true,
+   "fixes": [
+    {
+     "type": "tip",
+     "title": "Use the DirectX 11 version on older cards",
+     "help": "The Next-Gen update adds DirectX 12 with ray tracing. On entry and mid graphics cards the DirectX 11 version (choose in the launcher) runs much faster.",
+     "when": {
+      "gpuTier": [
+       "Entry",
+       "Mid"
+      ]
+     },
+     "issue": "launch"
+    }
+   ],
+   "config": [
+    "{docs}\\The Witcher 3\\user.settings",
+    "{docs}\\The Witcher 3\\dx12user.settings"
+   ],
+   "demand": {
+    "g": 1.6,
+    "c": 1.2
+   },
+   "engine": "REDengine"
+  },
+  {
+   "id": "wukong",
+   "name": "Black Myth: Wukong",
+   "steam": [
+    2358720
+   ],
+   "match": [
+    "Black Myth"
+   ],
+   "heavy": true,
+   "fixes": [
+    {
+     "type": "tip",
+     "title": "Upscaler + Frame Generation",
+     "help": "Use FSR (or DLSS/XeSS) at 50-66% resolution with Frame Generation, and turn full ray tracing off on this card.",
+     "when": {
+      "gpuTier": [
+       "Entry",
+       "Mid"
+      ]
+     },
+     "issue": "display"
+    }
+   ],
+   "demand": {
+    "g": 0.55,
+    "c": 1.0
+   },
+   "engine": "UE5"
+  },
+  {
+   "id": "mhwilds",
+   "name": "Monster Hunter Wilds",
+   "steam": [
+    2246340
+   ],
+   "match": [
+    "Monster Hunter Wilds"
+   ],
+   "heavy": true,
+   "fixes": [
+    {
+     "type": "tip",
+     "title": "Uninstall the high-resolution texture pack below 16 GB VRAM",
+     "help": "Capcom confirmed the Steam version can misbehave when the free High Resolution Texture Pack DLC is installed on a card with less than 16 GB of video memory, even if a lower texture setting is picked in the game. Untick the DLC in Steam (Properties > DLC) and use the regular High textures.",
+     "when": {
+      "maxVramGB": 15
+     },
+     "src": "https://www.pcgamesn.com/monster-hunter-wilds/texture-pack",
+     "srcName": "Capcom statement via PCGamesN",
+     "checked": "2026-11-03",
+     "issue": "display"
+    },
+    {
+     "type": "tip",
+     "title": "Capcom's troubleshooting steps",
+     "help": "Capcom's official thread lists the first steps for crashes and poor performance: update the graphics driver, turn off compatibility mode for the game, then re-adjust the graphics settings.",
+     "src": "https://steamcommunity.com/app/2246340/discussions/0/596267902352499612",
+     "srcName": "Capcom, Steam community",
+     "checked": "2026-11-03",
+     "issue": "crash"
+    },
+    {
+     "type": "tip",
+     "title": "Frame Generation helps in camps and towns",
+     "help": "Busy areas are limited by the processor: Frame Generation (FSR/DLSS) smooths them out.",
+     "when": {
+      "cpuTier": [
+       "Entry",
+       "Mid"
+      ]
+     },
+     "issue": "stutter"
+    },
+    {
+     "type": "tip",
+     "issue": "display",
+     "title": "Texture corruption on Intel Arc (driver 8509)",
+     "summary": "Intel known issue with driver 32.0.101.8509: update to a newer Arc driver.",
+     "steps": [
+      "Install the newest Arc driver from Intel."
+     ],
+     "help": "Intel lists texture corruption in Monster Hunter Wilds on driver 32.0.101.8509.",
+     "when": {
+      "vendor": "Intel"
+     },
+     "src": "https://www.intel.com/content/www/us/en/products/sku/241598/intel-arc-b580-graphics/support.html",
+     "srcName": "Intel",
+     "checked": "2026-11-11"
+    }
+   ],
+   "config": [
+    "{game}\\config.ini"
+   ],
+   "demand": {
+    "g": 0.6,
+    "c": 0.6
+   },
+   "engine": "REEngine"
+  },
+  {
+   "id": "rivals",
+   "name": "Marvel Rivals",
+   "steam": [
+    2767030
+   ],
+   "match": [
+    "Marvel Rivals"
+   ],
+   "fixes": [
+    {
+     "type": "tip",
+     "title": "Stutter in the first matches is shader building",
+     "help": "Early matches after an update or driver install stutter while shaders compile; it settles after a few games.",
+     "issue": "stutter"
+    },
+    {
+     "type": "tip",
+     "title": "Lower Global Illumination and reflections",
+     "help": "Use Low/Medium Global Illumination and Reflections plus FSR/DLSS Quality for steady FPS.",
+     "when": {
+      "gpuTier": [
+       "Entry",
+       "Mid"
+      ]
+     },
+     "issue": "stutter"
+    },
+    {
+     "type": "tip",
+     "issue": "crash",
+     "title": "Crashes with Adrenalin 26.5.2 (AMD)",
+     "summary": "AMD known issue; 26.3.1 was the workaround, newer drivers may fix it.",
+     "steps": [
+      "Update to the newest Adrenalin.",
+      "If it still crashes, install 26.3.1."
+     ],
+     "help": "AMD listed Marvel Rivals crashes in Adrenalin 26.5.2 and recommended 26.3.1.",
+     "when": {
+      "vendor": "AMD"
+     },
+     "src": "https://www.amd.com/en/resources/support-articles/release-notes/RN-RAD-WIN-26-5-2.html",
+     "srcName": "AMD",
+     "checked": "2026-11-11"
+    }
+   ],
+   "demand": {
+    "g": 0.9,
+    "c": 1.2
+   },
+   "engine": "UE5"
+  },
+  {
+   "id": "pubg",
+   "name": "PUBG: BATTLEGROUNDS",
+   "steam": [
+    578080
+   ],
+   "match": [
+    "PUBG"
+   ],
+   "fixes": [
+    {
+     "type": "tip",
+     "title": "Competitive settings",
+     "help": "Keep Anti-Aliasing, Textures and View Distance at Medium/High (they help spotting) and set everything else to Very Low.",
+     "issue": "stutter"
+    }
+   ],
+   "anticheat": "BattlEye",
+   "demand": {
+    "g": 1.8,
+    "c": 1.3
+   },
+   "engine": "UE4"
+  },
+  {
+   "id": "rocketleague",
+   "name": "Rocket League",
+   "match": [
+    "Rocket League"
+   ],
+   "steam": [
+    252950
+   ],
+   "fixes": [
+    {
+     "type": "tip",
+     "title": "Uncap the frame rate",
+     "help": "Settings > Video: Max FPS = Uncapped or a value above your refresh rate, and turn off V-Sync for the lowest input lag.",
+     "issue": "display"
+    }
+   ],
+   "demand": {
+    "g": 4,
+    "c": 3
+   },
+   "engine": "UE3"
+  },
+  {
+   "id": "poe2",
+   "name": "Path of Exile 2",
+   "steam": [
+    2694490
+   ],
+   "match": [
+    "Path of Exile 2"
+   ],
+   "heavy": true,
+   "fixes": [
+    {
+     "type": "tip",
+     "title": "Dynamic Resolution for big fights",
+     "help": "Turn on Dynamic Resolution and set a target FPS: the screen-filling effects late in the game drop FPS hard otherwise.",
+     "when": {
+      "gpuTier": [
+       "Entry",
+       "Mid"
+      ]
+     },
+     "issue": "display"
+    },
+    {
+     "type": "tip",
+     "title": "Try Vulkan if DX12 stutters",
+     "help": "Options > Graphics > Renderer: switch between DirectX 12 and Vulkan and keep the one with steadier frame times.",
+     "issue": "stutter"
+    }
+   ],
+   "demand": {
+    "g": 1.6,
+    "c": 0.8
+   }
+  },
+  {
+   "id": "palworld",
+   "name": "Palworld",
+   "steam": [
+    1623730
+   ],
+   "match": [
+    "Palworld"
+   ],
+   "heavy": true,
+   "fixes": [
+    {
+     "type": "tip",
+     "title": "Base FPS drops are the processor",
+     "help": "Large bases with many Pals are limited by the CPU: keep fewer Pals working in one base.",
+     "when": {
+      "cpuTier": [
+       "Entry",
+       "Mid"
+      ]
+     },
+     "issue": "stutter"
+    }
+   ],
+   "demand": {
+    "g": 1.0,
+    "c": 0.9
+   },
+   "engine": "UE5"
+  },
+  {
+   "id": "rust",
+   "name": "Rust",
+   "steam": [
+    252490
+   ],
+   "match": [
+    "Rust"
+   ],
+   "heavy": true,
+   "fixes": [
+    {
+     "type": "tip",
+     "title": "Rust needs 16 GB RAM",
+     "help": "With less than 16 GB the game stutters while loading monuments and bases: close everything else while playing.",
+     "when": {
+      "maxRamGB": 12
+     },
+     "issue": "stutter"
+    },
+    {
+     "type": "tip",
+     "title": "The game is on a hard disk",
+     "help": "Rust loads assets while you move: on a hard disk this causes long freezes. Move it to an SSD.",
+     "when": {
+      "hdd": true
+     },
+     "issue": "crash"
+    }
+   ],
+   "anticheat": "Easy Anti-Cheat",
+   "demand": {
+    "g": 1.0,
+    "c": 0.6
+   },
+   "engine": "Unity"
+  },
+  {
+   "id": "dayz",
+   "name": "DayZ",
+   "steam": [
+    221100
+   ],
+   "match": [
+    "DayZ"
+   ],
+   "fixes": [
+    {
+     "type": "tip",
+     "title": "Object detail and terrain",
+     "help": "Lower Object Detail and Terrain Detail first: they cost the most FPS in towns.",
+     "when": {
+      "gpuTier": [
+       "Entry",
+       "Mid"
+      ]
+     },
+     "issue": "stutter"
+    }
+   ],
+   "anticheat": "BattlEye",
+   "demand": {
+    "g": 1.2,
+    "c": 0.8
+   }
+  },
+  {
+   "id": "destiny2",
+   "name": "Destiny 2",
+   "steam": [
+    1085660
+   ],
+   "match": [
+    "Destiny 2"
+   ],
+   "fixes": [
+    {
+     "type": "tip",
+     "title": "Character and environment detail",
+     "help": "Lower Shadow Quality, Depth of Field and Environment Detail Distance for the biggest gain; keep Textures as high as your VRAM allows.",
+     "when": {
+      "gpuTier": [
+       "Entry",
+       "Mid"
+      ]
+     },
+     "issue": "stutter"
+    },
+    {
+     "type": "tip",
+     "issue": "crash",
+     "title": "Freezing on Intel Arc",
+     "summary": "Intel known issue: update the Arc driver; roll back if it started after an update.",
+     "steps": [
+      "Install the newest Arc driver.",
+      "If freezing started after an update, roll back to the previous one."
+     ],
+     "help": "Intel lists Destiny 2 freezing on its B580 support page.",
+     "when": {
+      "vendor": "Intel"
+     },
+     "src": "https://www.intel.com/content/www/us/en/products/sku/241598/intel-arc-b580-graphics/support.html",
+     "srcName": "Intel",
+     "checked": "2026-11-11"
+    }
+   ],
+   "anticheat": "BattlEye",
+   "demand": {
+    "g": 2.0,
+    "c": 1.5
+   }
+  },
+  {
+   "id": "warframe",
+   "name": "Warframe",
+   "steam": [
+    230410
+   ],
+   "match": [
+    "Warframe"
+   ],
+   "fixes": [
+    {
+     "type": "tip",
+     "title": "DirectX 12 and Dynamic Resolution",
+     "help": "Use DirectX 12 in the launcher settings and turn on Dynamic Resolution for steady FPS in busy missions.",
+     "when": {
+      "gpuTier": [
+       "Entry",
+       "Mid"
+      ]
+     },
+     "issue": "launch"
+    }
+   ],
+   "demand": {
+    "g": 3,
+    "c": 2
+   }
+  },
+  {
+   "id": "valheim",
+   "name": "Valheim",
+   "steam": [
+    892970
+   ],
+   "match": [
+    "Valheim"
+   ],
+   "fixes": [
+    {
+     "type": "tip",
+     "title": "Try the Vulkan renderer",
+     "help": "Add -vulkan to the Steam launch options (Properties > Launch Options): often smoother frame times, especially on AMD cards.",
+     "when": {
+      "vendor": "AMD"
+     },
+     "issue": "launch"
+    }
+   ],
+   "demand": {
+    "g": 2.0,
+    "c": 1.0
+   },
+   "engine": "Unity"
+  },
+  {
+   "id": "thefinals",
+   "name": "THE FINALS",
+   "steam": [
+    2073850
+   ],
+   "match": [
+    "THE FINALS"
+   ],
+   "fixes": [
+    {
+     "type": "tip",
+     "title": "Destruction is CPU heavy",
+     "help": "Big collapses are limited by the processor: use FSR/DLSS Frame Generation and keep Global Illumination at Static for steadier FPS.",
+     "when": {
+      "cpuTier": [
+       "Entry",
+       "Mid"
+      ]
+     },
+     "issue": "stutter"
+    }
+   ],
+   "anticheat": "Easy Anti-Cheat",
+   "demand": {
+    "g": 1.2,
+    "c": 1.3
+   },
+   "engine": "UE5"
+  },
+  {
+   "id": "minecraft",
+   "name": "Minecraft",
+   "match": [
+    "Minecraft"
+   ],
+   "fixes": [
+    {
+     "type": "tip",
+     "title": "Java Edition: give it 4-6 GB of RAM",
+     "help": "In the launcher > Installations > More options, set -Xmx4G to -Xmx6G. More than 8 GB makes it worse. Sodium (Fabric) raises FPS a lot.",
+     "issue": "launch"
+    },
+    {
+     "type": "tip",
+     "issue": "display",
+     "title": "Flicker or wrong colours (NVIDIA driver 616.56)",
+     "summary": "Driver 616.56 caused flicker and colour corruption in Minecraft; use a newer driver.",
+     "steps": [
+      "Check the driver on Specs > Graphics.",
+      "If it is 616.56, update to the newest Game Ready driver."
+     ],
+     "help": "Reported by TechRadar from NVIDIA's forums; NVIDIA said it was testing a fix.",
+     "when": {
+      "vendor": "NVIDIA"
+     },
+     "src": "https://www.techradar.com/computing/gpu/its-been-particularly-bad-since-blackwell-nvidias-new-gpu-driver-has-another-nasty-bug-and-gamers-are-rapidly-losing-patience",
+     "srcName": "TechRadar",
+     "checked": "2026-11-11"
+    }
+   ],
+   "demand": {
+    "g": 3,
+    "c": 0.8
+   }
+  },
+  {
+   "id": "wuwa",
+   "name": "Wuthering Waves",
+   "match": [
+    "Wuthering Waves"
+   ],
+   "heavy": true,
+   "fixes": [
+    {
+     "type": "tip",
+     "title": "Stutter after updates is shader building",
+     "help": "After an update or a driver install the first minutes stutter while shaders compile; it settles. Do not clear the shader cache unless something is broken.",
+     "issue": "stutter"
+    },
+    {
+     "type": "tip",
+     "title": "Frame rate cap",
+     "help": "Set the in-game frame rate to 60 or 120 (matching your monitor) for steady frame times; uncapped tends to stutter in open areas.",
+     "issue": "display"
+    },
+    {
+     "type": "tip",
+     "title": "Lower shadows and effects on this card",
+     "help": "Use Shadow Quality and Special Effects Low/Medium, and turn ray tracing off for steady FPS.",
+     "when": {
+      "gpuTier": [
+       "Entry",
+       "Mid"
+      ]
+     },
+     "issue": "stutter"
+    }
+   ],
+   "demand": {
+    "g": 1.3,
+    "c": 0.9,
+    "cap": 120
+   },
+   "engine": "UE4"
+  },
+  {
+   "id": "genshin",
+   "name": "Genshin Impact",
+   "match": [
+    "Genshin Impact"
+   ],
+   "fixes": [
+    {
+     "type": "tip",
+     "title": "60 FPS cap is by design",
+     "help": "The game is capped at 60 FPS (unlockable to 120 on some versions in Graphics settings). Use V-Sync off with a matching cap for steady frames.",
+     "issue": "stutter"
+    }
+   ],
+   "anticheat": "HoYoverse anti-cheat",
+   "demand": {
+    "g": 3,
+    "c": 1.5,
+    "cap": 60
+   },
+   "engine": "Unity"
+  },
+  {
+   "id": "lol",
+   "name": "League of Legends",
+   "match": [
+    "League of Legends"
+   ],
+   "fixes": [
+    {
+     "type": "tip",
+     "title": "Turn off V-Sync, cap FPS above refresh",
+     "help": "Video settings: Frame Rate Cap a little above your monitor refresh rate and Wait for Vertical Sync off for lowest input lag.",
+     "issue": "display"
+    }
+   ],
+   "anticheat": "Riot Vanguard",
+   "demand": {
+    "g": 6,
+    "c": 3
+   }
+  },
+  {
+   "id": "arcraiders",
+   "name": "ARC Raiders",
+   "match": [
+    "ARC Raiders"
+   ],
+   "heavy": true,
+   "fixes": [
+    {
+     "type": "tip",
+     "title": "First minutes stutter while shaders build",
+     "help": "After installing, updating the game or a new GPU driver, the first minutes stutter while shaders are compiled. Let any \"compiling shaders\" step finish before playing; it settles by itself. Do not clear the shader cache unless something is broken.",
+     "issue": "stutter"
+    },
+    {
+     "type": "tip",
+     "title": "Use the upscaler on this card",
+     "help": "Turn on FSR (or DLSS/XeSS) Quality or Balanced, and Frame Generation if offered: the biggest FPS gain with little visual loss. Lower shadows, volumetric fog and ray tracing first.",
+     "when": {
+      "gpuTier": [
+       "Entry",
+       "Mid"
+      ]
+     },
+     "issue": "stutter"
+    },
+    {
+     "type": "tip",
+     "title": "Keep textures within your video memory",
+     "help": "With 8 GB of VRAM or less, use High (not Ultra/Epic) textures and keep ray tracing off: running out of video memory causes hard stutter.",
+     "when": {
+      "maxVramGB": 8
+     },
+     "issue": "stutter"
+    },
+    {
+     "type": "tip",
+     "issue": "crash",
+     "title": "\"GPU hung\" or \"driver removed\" crashes (AMD)",
+     "summary": "A December 2025 Windows 11 update stopped these crashes for many Radeon owners.",
+     "steps": [
+      "Run Windows Update, including optional updates (KB5070311 or newer).",
+      "Then update Adrenalin and restart."
+     ],
+     "help": "Windows 11 update KB5070311 quietly fixed GPU hangs in ARC Raiders on some AMD systems.",
+     "when": {
+      "vendor": "AMD",
+      "win11": true
+     },
+     "src": "https://windowslatest.com/2025/12/09/windows-11s-last-update-of-2025-quietly-fixes-amd-gpu-hangs-haunting-battlefield-6-call-of-duty-black-ops-7-arc-raiders",
+     "srcName": "Windows Latest",
+     "checked": "2026-11-11"
+    }
+   ],
+   "demand": {
+    "g": 1.1,
+    "c": 1.2
+   },
+   "engine": "UE5"
+  },
+  {
+   "id": "bf6",
+   "name": "Battlefield 6",
+   "match": [
+    "Battlefield 6",
+    "Battlefield™ 6"
+   ],
+   "heavy": true,
+   "fixes": [
+    {
+     "type": "tip",
+     "title": "First minutes stutter while shaders build",
+     "help": "After installing, updating the game or a new GPU driver, the first minutes stutter while shaders are compiled. Let any \"compiling shaders\" step finish before playing; it settles by itself. Do not clear the shader cache unless something is broken.",
+     "issue": "stutter"
+    },
+    {
+     "type": "tip",
+     "title": "Busy scenes are limited by the processor",
+     "help": "Large fights and crowded areas are CPU-bound on this PC: lowering resolution will not help there, but Frame Generation and lower crowd/effects density will.",
+     "when": {
+      "cpuTier": [
+       "Entry",
+       "Mid"
+      ]
+     },
+     "issue": "display"
+    },
+    {
+     "type": "tip",
+     "title": "Use the upscaler on this card",
+     "help": "Turn on FSR (or DLSS/XeSS) Quality or Balanced, and Frame Generation if offered: the biggest FPS gain with little visual loss. Lower shadows, volumetric fog and ray tracing first.",
+     "when": {
+      "gpuTier": [
+       "Entry",
+       "Mid"
+      ]
+     },
+     "issue": "stutter"
+    },
+    {
+     "type": "tip",
+     "title": "NVIDIA Reflex On + Boost",
+     "help": "Turn on NVIDIA Reflex in the video settings for lower input lag in a fast shooter.",
+     "when": {
+      "vendor": "NVIDIA"
+     },
+     "issue": "online"
+    },
+    {
+     "type": "tip",
+     "title": "Radeon Anti-Lag",
+     "help": "Turn on Radeon Anti-Lag 2 in the game (or Anti-Lag in Adrenalin) for lower input lag.",
+     "when": {
+      "vendor": "AMD"
+     },
+     "issue": "online"
+    },
+    {
+     "type": "tip",
+     "issue": "crash",
+     "title": "\"GPU hung\" or \"driver removed\" crashes (AMD)",
+     "summary": "A December 2025 Windows 11 update stopped these crashes for many Radeon owners.",
+     "steps": [
+      "Run Windows Update, including optional updates (KB5070311 or newer).",
+      "Then update Adrenalin and restart."
+     ],
+     "help": "Windows 11 update KB5070311 quietly fixed GPU hangs in Battlefield 6 on some AMD systems.",
+     "when": {
+      "vendor": "AMD",
+      "win11": true
+     },
+     "src": "https://windowslatest.com/2025/12/09/windows-11s-last-update-of-2025-quietly-fixes-amd-gpu-hangs-haunting-battlefield-6-call-of-duty-black-ops-7-arc-raiders",
+     "srcName": "Windows Latest",
+     "checked": "2026-11-11"
+    },
+    {
+     "type": "tip",
+     "issue": "crash",
+     "title": "Crash during shader compilation on RX 9070",
+     "summary": "Owners report a black screen and crash while BF6 builds shaders.",
+     "steps": [
+      "Let the shader step finish without alt-tabbing.",
+      "Clean install the newest Adrenalin (AMD Cleanup Utility first).",
+      "Undo GPU overclock or undervolt while shaders build."
+     ],
+     "help": "Reported on EA's forums for RX 9070 cards; not confirmed by AMD.",
+     "when": {
+      "vendor": "AMD",
+      "gpu": "RX 90[67]0"
+     },
+     "src": "https://forums.ea.com/discussions/battlefield-6-technical-issues-en/rx-9070-%e2%80%93-bf6-crashes-during-shader-compilation-black-screen-gpu-code-2231/13705255",
+     "srcName": "EA Forums",
+     "checked": "2026-11-11"
+    }
+   ],
+   "anticheat": "Javelin",
+   "demand": {
+    "g": 1.2,
+    "c": 0.8
+   }
+  },
+  {
+   "id": "e33",
+   "name": "Clair Obscur: Expedition 33",
+   "match": [
+    "Clair Obscur"
+   ],
+   "heavy": true,
+   "fixes": [
+    {
+     "type": "tip",
+     "title": "First minutes stutter while shaders build",
+     "help": "After installing, updating the game or a new GPU driver, the first minutes stutter while shaders are compiled. Let any \"compiling shaders\" step finish before playing; it settles by itself. Do not clear the shader cache unless something is broken.",
+     "issue": "stutter"
+    },
+    {
+     "type": "tip",
+     "title": "Use the upscaler on this card",
+     "help": "Turn on FSR (or DLSS/XeSS) Quality or Balanced, and Frame Generation if offered: the biggest FPS gain with little visual loss. Lower shadows, volumetric fog and ray tracing first.",
+     "when": {
+      "gpuTier": [
+       "Entry",
+       "Mid"
+      ]
+     },
+     "issue": "stutter"
+    },
+    {
+     "type": "tip",
+     "title": "Keep textures within your video memory",
+     "help": "With 8 GB of VRAM or less, use High (not Ultra/Epic) textures and keep ray tracing off: running out of video memory causes hard stutter.",
+     "when": {
+      "maxVramGB": 8
+     },
+     "issue": "stutter"
+    }
+   ],
+   "demand": {
+    "g": 0.8,
+    "c": 1.0
+   },
+   "engine": "UE5"
+  },
+  {
+   "id": "warthunder",
+   "name": "War Thunder",
+   "steam": [
+    236390
+   ],
+   "match": [
+    "War Thunder"
+   ],
+   "fixes": [
+    {
+     "type": "tip",
+     "title": "Pick DirectX 12 or Vulkan in the launcher",
+     "help": "The launcher lets you change the renderer: DirectX 12 or Vulkan often gives steadier frame times than DirectX 11 on modern cards. Try them and keep the smoothest.",
+     "issue": "launch"
+    }
+   ],
+   "demand": {
+    "g": 2.0,
+    "c": 1.5
+   }
+  },
+  {
+   "id": "naraka",
+   "name": "NARAKA: BLADEPOINT",
+   "steam": [
+    1203220
+   ],
+   "match": [
+    "NARAKA"
+   ],
+   "fixes": [
+    {
+     "type": "tip",
+     "title": "Use the upscaler on this card",
+     "help": "Turn on FSR (or DLSS/XeSS) Quality or Balanced, and Frame Generation if offered: the biggest FPS gain with little visual loss. Lower shadows, volumetric fog and ray tracing first.",
+     "when": {
+      "gpuTier": [
+       "Entry",
+       "Mid"
+      ]
+     },
+     "issue": "stutter"
+    },
+    {
+     "type": "tip",
+     "title": "Lower effects for clear fights",
+     "help": "Lower Effects and Shadow quality: big fights stay readable and FPS stays steady.",
+     "issue": "stutter"
+    }
+   ],
+   "demand": {
+    "g": 1.6,
+    "c": 1.3
+   }
+  },
+  {
+   "id": "deltaforce",
+   "name": "Delta Force",
+   "steam": [
+    2507950
+   ],
+   "match": [
+    "Delta Force"
+   ],
+   "fixes": [
+    {
+     "type": "tip",
+     "title": "Use the upscaler on this card",
+     "help": "Turn on FSR (or DLSS/XeSS) Quality or Balanced, and Frame Generation if offered: the biggest FPS gain with little visual loss. Lower shadows, volumetric fog and ray tracing first.",
+     "when": {
+      "gpuTier": [
+       "Entry",
+       "Mid"
+      ]
+     },
+     "issue": "stutter"
+    },
+    {
+     "type": "tip",
+     "title": "Busy scenes are limited by the processor",
+     "help": "Large fights and crowded areas are CPU-bound on this PC: lowering resolution will not help there, but Frame Generation and lower crowd/effects density will.",
+     "when": {
+      "cpuTier": [
+       "Entry",
+       "Mid"
+      ]
+     },
+     "issue": "display"
+    }
+   ],
+   "anticheat": "Anti-Cheat Expert",
+   "demand": {
+    "g": 1.3,
+    "c": 1.2
+   },
+   "engine": "UE4"
+  },
+  {
+   "id": "tarkov",
+   "name": "Escape from Tarkov",
+   "match": [
+    "Escape from Tarkov",
+    "EscapeFromTarkov"
+   ],
+   "heavy": true,
+   "fixes": [
+    {
+     "type": "tip",
+     "title": "Tarkov loves RAM and an SSD",
+     "help": "Big maps use a lot of memory: 32 GB RAM avoids most stutter, and the game must be on an SSD.",
+     "when": {
+      "maxRamGB": 16
+     },
+     "issue": "stutter"
+    },
+    {
+     "type": "tip",
+     "title": "Big maps are CPU-limited",
+     "help": "Streets and Lighthouse are limited by the processor: lowering resolution helps little; Object LOD and shadows help more.",
+     "when": {
+      "cpuTier": [
+       "Entry",
+       "Mid"
+      ]
+     },
+     "issue": "display"
+    },
+    {
+     "type": "tip",
+     "title": "This game needs an SSD",
+     "help": "Modern open worlds stream data constantly: on a hard disk expect long loads, pop-in and hitching. Move it to an SSD.",
+     "when": {
+      "hdd": true
+     }
+    }
+   ],
+   "anticheat": "BattlEye",
+   "demand": {
+    "g": 0.9,
+    "c": 0.6
+   },
+   "engine": "Unity"
+  },
+  {
+   "id": "fh6",
+   "name": "Forza Horizon 6",
+   "match": [
+    "Forza Horizon 6"
+   ],
+   "heavy": true,
+   "fixes": [
+    {
+     "type": "tip",
+     "title": "Keep textures within your video memory",
+     "help": "With 8 GB of VRAM or less, use High (not Ultra/Epic) textures and keep ray tracing off: running out of video memory causes hard stutter.",
+     "when": {
+      "maxVramGB": 8
+     },
+     "issue": "stutter"
+    },
+    {
+     "type": "tip",
+     "title": "Use the upscaler on this card",
+     "help": "Turn on FSR (or DLSS/XeSS) Quality or Balanced, and Frame Generation if offered: the biggest FPS gain with little visual loss. Lower shadows, volumetric fog and ray tracing first.",
+     "when": {
+      "gpuTier": [
+       "Entry",
+       "Mid"
+      ]
+     },
+     "issue": "stutter"
+    },
+    {
+     "type": "tip",
+     "title": "This game needs an SSD",
+     "help": "Modern open worlds stream data constantly: on a hard disk expect long loads, pop-in and hitching. Move it to an SSD.",
+     "when": {
+      "hdd": true
+     }
+    }
+   ],
+   "demand": {
+    "g": 1.1,
+    "c": 1.2
+   }
+  },
+  {
+   "id": "subnautica2",
+   "name": "Subnautica 2",
+   "match": [
+    "Subnautica 2"
+   ],
+   "heavy": true,
+   "fixes": [
+    {
+     "type": "tip",
+     "title": "First minutes stutter while shaders build",
+     "help": "After installing, updating the game or a new GPU driver, the first minutes stutter while shaders are compiled. Let any \"compiling shaders\" step finish before playing; it settles by itself. Do not clear the shader cache unless something is broken.",
+     "issue": "stutter"
+    },
+    {
+     "type": "tip",
+     "title": "Use the upscaler on this card",
+     "help": "Turn on FSR (or DLSS/XeSS) Quality or Balanced, and Frame Generation if offered: the biggest FPS gain with little visual loss. Lower shadows, volumetric fog and ray tracing first.",
+     "when": {
+      "gpuTier": [
+       "Entry",
+       "Mid"
+      ]
+     },
+     "issue": "stutter"
+    },
+    {
+     "type": "tip",
+     "issue": "crash",
+     "title": "Crashes with Adrenalin 26.5.2 (AMD)",
+     "summary": "AMD known issue; 26.3.1 was the workaround, newer drivers may fix it.",
+     "steps": [
+      "Update to the newest Adrenalin.",
+      "If it still crashes, install 26.3.1."
+     ],
+     "help": "AMD listed Subnautica 2 crashes in Adrenalin 26.5.2 and recommended 26.3.1.",
+     "when": {
+      "vendor": "AMD"
+     },
+     "src": "https://www.amd.com/en/resources/support-articles/release-notes/RN-RAD-WIN-26-5-2.html",
+     "srcName": "AMD",
+     "checked": "2026-11-11"
+    }
+   ],
+   "demand": {
+    "g": 0.8,
+    "c": 1.0
+   },
+   "engine": "UE5"
+  },
+  {
+   "id": "rerequiem",
+   "name": "Resident Evil Requiem",
+   "match": [
+    "Resident Evil Requiem",
+    "RESIDENT EVIL requiem"
+   ],
+   "heavy": true,
+   "fixes": [
+    {
+     "type": "tip",
+     "title": "Watch the VRAM meter in Graphics settings",
+     "help": "RE Engine shows how much video memory your settings need: keep it under your card's amount, starting with Texture Quality.",
+     "when": {
+      "maxVramGB": 12
+     },
+     "issue": "stutter"
+    },
+    {
+     "type": "tip",
+     "title": "Use the upscaler on this card",
+     "help": "Turn on FSR (or DLSS/XeSS) Quality or Balanced, and Frame Generation if offered: the biggest FPS gain with little visual loss. Lower shadows, volumetric fog and ray tracing first.",
+     "when": {
+      "gpuTier": [
+       "Entry",
+       "Mid"
+      ]
+     },
+     "issue": "stutter"
+    }
+   ],
+   "demand": {
+    "g": 0.9,
+    "c": 1.2
+   },
+   "engine": "REEngine"
+  },
+  {
+   "id": "crimsondesert",
+   "name": "Crimson Desert",
+   "match": [
+    "Crimson Desert"
+   ],
+   "heavy": true,
+   "fixes": [
+    {
+     "type": "tip",
+     "title": "First minutes stutter while shaders build",
+     "help": "After installing, updating the game or a new GPU driver, the first minutes stutter while shaders are compiled. Let any \"compiling shaders\" step finish before playing; it settles by itself. Do not clear the shader cache unless something is broken.",
+     "issue": "stutter"
+    },
+    {
+     "type": "tip",
+     "title": "Use the upscaler on this card",
+     "help": "Turn on FSR (or DLSS/XeSS) Quality or Balanced, and Frame Generation if offered: the biggest FPS gain with little visual loss. Lower shadows, volumetric fog and ray tracing first.",
+     "when": {
+      "gpuTier": [
+       "Entry",
+       "Mid"
+      ]
+     },
+     "issue": "stutter"
+    },
+    {
+     "type": "tip",
+     "title": "Keep textures within your video memory",
+     "help": "With 8 GB of VRAM or less, use High (not Ultra/Epic) textures and keep ray tracing off: running out of video memory causes hard stutter.",
+     "when": {
+      "maxVramGB": 8
+     },
+     "issue": "stutter"
+    },
+    {
+     "type": "tip",
+     "title": "This game needs an SSD",
+     "help": "Modern open worlds stream data constantly: on a hard disk expect long loads, pop-in and hitching. Move it to an SSD.",
+     "when": {
+      "hdd": true
+     }
+    },
+    {
+     "type": "tip",
+     "issue": "crash",
+     "title": "Driver timeouts on RX 9070 XT",
+     "summary": "No game patch targets this yet; a clean driver install and stock clocks help most owners.",
+     "steps": [
+      "Clean install the newest Adrenalin (AMD Cleanup Utility first).",
+      "Undo GPU overclock or undervolt.",
+      "Turn off frame generation for a test."
+     ],
+     "help": "Owner reports; patch 2.04.08 lists no fix for RX 9070 XT timeouts.",
+     "when": {
+      "vendor": "AMD",
+      "gpu": "RX 90[67]0"
+     },
+     "src": "https://www.dtgre.com/2026/11/crimson-desert-rx-9070-xt-crashing-amd-driver-timeout-fix.html",
+     "srcName": "DTGRE",
+     "checked": "2026-11-11"
+    }
+   ],
+   "demand": {
+    "g": 0.7,
+    "c": 0.9
+   }
+  },
+  {
+   "id": "007fl",
+   "name": "007 First Light",
+   "match": [
+    "007 First Light"
+   ],
+   "heavy": true,
+   "fixes": [
+    {
+     "type": "tip",
+     "title": "First minutes stutter while shaders build",
+     "help": "After installing, updating the game or a new GPU driver, the first minutes stutter while shaders are compiled. Let any \"compiling shaders\" step finish before playing; it settles by itself. Do not clear the shader cache unless something is broken.",
+     "issue": "stutter"
+    },
+    {
+     "type": "tip",
+     "title": "Use the upscaler on this card",
+     "help": "Turn on FSR (or DLSS/XeSS) Quality or Balanced, and Frame Generation if offered: the biggest FPS gain with little visual loss. Lower shadows, volumetric fog and ray tracing first.",
+     "when": {
+      "gpuTier": [
+       "Entry",
+       "Mid"
+      ]
+     },
+     "issue": "stutter"
+    }
+   ],
+   "demand": {
+    "g": 0.8,
+    "c": 1.0
+   }
+  },
+  {
+   "id": "kcd2",
+   "name": "Kingdom Come: Deliverance II",
+   "steam": [
+    1771300
+   ],
+   "match": [
+    "Kingdom Come: Deliverance II"
+   ],
+   "heavy": true,
+   "fixes": [
+    {
+     "type": "tip",
+     "title": "Leave the Experimental preset off",
+     "help": "The Experimental quality level is meant for future hardware: it costs a lot of FPS. Use Ultra or High instead.",
+     "issue": "stutter"
+    },
+    {
+     "type": "tip",
+     "title": "Cities are CPU-limited",
+     "help": "Kuttenberg is limited by the processor: FPS dips there are normal on this PC. Frame Generation helps.",
+     "when": {
+      "cpuTier": [
+       "Entry",
+       "Mid"
+      ]
+     },
+     "issue": "stutter"
+    }
+   ],
+   "demand": {
+    "g": 0.9,
+    "c": 0.8
+   },
+   "engine": "CryEngine"
+  },
+  {
+   "id": "diablo4",
+   "name": "Diablo IV",
+   "steam": [
+    2344520
+   ],
+   "match": [
+    "Diablo IV"
+   ],
+   "fixes": [
+    {
+     "type": "tip",
+     "title": "Keep textures within your video memory",
+     "help": "With 8 GB of VRAM or less, use High (not Ultra/Epic) textures and keep ray tracing off: running out of video memory causes hard stutter.",
+     "when": {
+      "maxVramGB": 8
+     },
+     "issue": "stutter"
+    },
+    {
+     "type": "tip",
+     "title": "Cap the frame rate",
+     "help": "Set a frame-rate cap a little under your monitor refresh rate: the game stays smoother and the GPU runs cooler in town.",
+     "issue": "display"
+    }
+   ],
+   "demand": {
+    "g": 1.8,
+    "c": 1.5
+   },
+   "engine": "Blizzard"
+  },
+  {
+   "id": "acbfr",
+   "name": "Assassin's Creed Black Flag Resynced",
+   "match": [
+    "Assassin's Creed Black Flag",
+    "Assassin's Creed® Black Flag"
+   ],
+   "heavy": true,
+   "fixes": [
+    {
+     "type": "tip",
+     "title": "First minutes stutter while shaders build",
+     "help": "After installing, updating the game or a new GPU driver, the first minutes stutter while shaders are compiled. Let any \"compiling shaders\" step finish before playing; it settles by itself. Do not clear the shader cache unless something is broken.",
+     "issue": "stutter"
+    },
+    {
+     "type": "tip",
+     "title": "Use the upscaler on this card",
+     "help": "Turn on FSR (or DLSS/XeSS) Quality or Balanced, and Frame Generation if offered: the biggest FPS gain with little visual loss. Lower shadows, volumetric fog and ray tracing first.",
+     "when": {
+      "gpuTier": [
+       "Entry",
+       "Mid"
+      ]
+     },
+     "issue": "stutter"
+    },
+    {
+     "type": "tip",
+     "title": "Keep textures within your video memory",
+     "help": "With 8 GB of VRAM or less, use High (not Ultra/Epic) textures and keep ray tracing off: running out of video memory causes hard stutter.",
+     "when": {
+      "maxVramGB": 8
+     },
+     "issue": "stutter"
+    }
+   ],
+   "demand": {
+    "g": 0.8,
+    "c": 1.0
+   },
+   "engine": "Anvil"
+  },
+  {
+   "id": "halo_ce",
+   "name": "Halo: Campaign Evolved",
+   "match": [
+    "Halo: Campaign Evolved"
+   ],
+   "heavy": true,
+   "fixes": [
+    {
+     "type": "tip",
+     "title": "First minutes stutter while shaders build",
+     "help": "After installing, updating the game or a new GPU driver, the first minutes stutter while shaders are compiled. Let any \"compiling shaders\" step finish before playing; it settles by itself. Do not clear the shader cache unless something is broken.",
+     "issue": "stutter"
+    },
+    {
+     "type": "tip",
+     "title": "Use the upscaler on this card",
+     "help": "Turn on FSR (or DLSS/XeSS) Quality or Balanced, and Frame Generation if offered: the biggest FPS gain with little visual loss. Lower shadows, volumetric fog and ray tracing first.",
+     "when": {
+      "gpuTier": [
+       "Entry",
+       "Mid"
+      ]
+     },
+     "issue": "stutter"
+    }
+   ],
+   "demand": {
+    "g": 0.9,
+    "c": 1.2
+   }
+  },
+  {
+   "id": "gears_eday",
+   "name": "Gears of War: E-Day",
+   "match": [
+    "Gears of War: E-Day",
+    "Gears of War E-Day"
+   ],
+   "heavy": true,
+   "fixes": [
+    {
+     "type": "tip",
+     "title": "First minutes stutter while shaders build",
+     "help": "After installing, updating the game or a new GPU driver, the first minutes stutter while shaders are compiled. Let any \"compiling shaders\" step finish before playing; it settles by itself. Do not clear the shader cache unless something is broken.",
+     "issue": "stutter"
+    },
+    {
+     "type": "tip",
+     "title": "Use the upscaler on this card",
+     "help": "Turn on FSR (or DLSS/XeSS) Quality or Balanced, and Frame Generation if offered: the biggest FPS gain with little visual loss. Lower shadows, volumetric fog and ray tracing first.",
+     "when": {
+      "gpuTier": [
+       "Entry",
+       "Mid"
+      ]
+     },
+     "issue": "stutter"
+    },
+    {
+     "type": "tip",
+     "title": "Keep textures within your video memory",
+     "help": "With 8 GB of VRAM or less, use High (not Ultra/Epic) textures and keep ray tracing off: running out of video memory causes hard stutter.",
+     "when": {
+      "maxVramGB": 8
+     },
+     "issue": "stutter"
+    }
+   ],
+   "demand": {
+    "g": 0.7,
+    "c": 1.0
+   },
+   "engine": "UE5"
+  },
+  {
+   "id": "control2",
+   "name": "Control Resonant",
+   "match": [
+    "Control Resonant",
+    "CONTROL Resonant"
+   ],
+   "heavy": true,
+   "fixes": [
+    {
+     "type": "tip",
+     "title": "Use the upscaler on this card",
+     "help": "Turn on FSR (or DLSS/XeSS) Quality or Balanced, and Frame Generation if offered: the biggest FPS gain with little visual loss. Lower shadows, volumetric fog and ray tracing first.",
+     "when": {
+      "gpuTier": [
+       "Entry",
+       "Mid"
+      ]
+     },
+     "issue": "stutter"
+    },
+    {
+     "type": "tip",
+     "title": "Ray tracing costs the most",
+     "help": "Keep ray tracing off on this card, or use only one RT effect with the upscaler on.",
+     "when": {
+      "gpuTier": [
+       "Entry",
+       "Mid"
+      ]
+     }
+    }
+   ],
+   "demand": {
+    "g": 0.65,
+    "c": 1.0
+   }
+  },
+  {
+   "id": "pbz",
+   "name": "Phantom Blade Zero",
+   "match": [
+    "Phantom Blade Zero",
+    "Phantom Blade 0"
+   ],
+   "heavy": true,
+   "fixes": [
+    {
+     "type": "tip",
+     "title": "First minutes stutter while shaders build",
+     "help": "After installing, updating the game or a new GPU driver, the first minutes stutter while shaders are compiled. Let any \"compiling shaders\" step finish before playing; it settles by itself. Do not clear the shader cache unless something is broken.",
+     "issue": "stutter"
+    },
+    {
+     "type": "tip",
+     "title": "Use the upscaler on this card",
+     "help": "Turn on FSR (or DLSS/XeSS) Quality or Balanced, and Frame Generation if offered: the biggest FPS gain with little visual loss. Lower shadows, volumetric fog and ray tracing first.",
+     "when": {
+      "gpuTier": [
+       "Entry",
+       "Mid"
+      ]
+     },
+     "issue": "stutter"
+    },
+    {
+     "type": "tip",
+     "issue": "display",
+     "title": "Visual corruption on AMD (Adrenalin 26.10.2)",
+     "summary": "AMD known issue: wrong colours or broken textures in some scenes.",
+     "steps": [
+      "Update to the next Adrenalin release when it ships.",
+      "Meanwhile, try lowering post-processing or switching the upscaler."
+     ],
+     "help": "AMD lists visual corruption in Phantom Blade Zero as an open issue in 26.10.2.",
+     "when": {
+      "vendor": "AMD"
+     },
+     "src": "https://www.amd.com/en/resources/support-articles/release-notes/RN-RAD-WIN-26-10-2.html",
+     "srcName": "AMD",
+     "checked": "2026-11-11"
+    }
+   ],
+   "demand": {
+    "g": 0.8,
+    "c": 1.0
+   }
+  },
+  {
+   "id": "nioh3",
+   "name": "Nioh 3",
+   "match": [
+    "Nioh 3"
+   ],
+   "heavy": true,
+   "fixes": [
+    {
+     "type": "tip",
+     "title": "Cap the frame rate",
+     "help": "Set a frame-rate cap your PC can hold all the time: fast action games feel smoother at a steady 60/120 than at an uneven higher number.",
+     "issue": "stutter"
+    },
+    {
+     "type": "tip",
+     "title": "Use the upscaler on this card",
+     "help": "Turn on FSR (or DLSS/XeSS) Quality or Balanced, and Frame Generation if offered: the biggest FPS gain with little visual loss. Lower shadows, volumetric fog and ray tracing first.",
+     "when": {
+      "gpuTier": [
+       "Entry",
+       "Mid"
+      ]
+     },
+     "issue": "stutter"
+    }
+   ],
+   "demand": {
+    "g": 1.0,
+    "c": 1.0
+   }
+  },
+  {
+   "id": "enshrouded",
+   "name": "Enshrouded",
+   "steam": [
+    1203620
+   ],
+   "match": [
+    "Enshrouded"
+   ],
+   "heavy": true,
+   "fixes": [
+    {
+     "type": "tip",
+     "title": "Use the upscaler on this card",
+     "help": "Turn on FSR (or DLSS/XeSS) Quality or Balanced, and Frame Generation if offered: the biggest FPS gain with little visual loss. Lower shadows, volumetric fog and ray tracing first.",
+     "when": {
+      "gpuTier": [
+       "Entry",
+       "Mid"
+      ]
+     },
+     "issue": "stutter"
+    },
+    {
+     "type": "tip",
+     "title": "Big bases and voxel terrain are CPU work",
+     "help": "Large builds lower FPS on this PC: keep bases compact and use Frame Generation if offered.",
+     "when": {
+      "cpuTier": [
+       "Entry",
+       "Mid"
+      ]
+     },
+     "issue": "stutter"
+    }
+   ],
+   "demand": {
+    "g": 0.9,
+    "c": 0.9
+   }
+  },
+  {
+   "id": "terraria",
+   "name": "Terraria",
+   "steam": [
+    105600
+   ],
+   "match": [
+    "Terraria"
+   ],
+   "fixes": [
+    {
+     "type": "tip",
+     "title": "Frame Skip setting",
+     "help": "If the game runs too fast or stutters, try Settings > Video > Frame Skip = Subtle or Off.",
+     "issue": "stutter"
+    }
+   ],
+   "demand": {
+    "g": 8,
+    "c": 2
+   },
+   "engine": "XNA"
+  },
+  {
+   "id": "slaythespire2",
+   "name": "Slay the Spire 2",
+   "match": [
+    "Slay the Spire 2"
+   ],
+   "fixes": [
+    {
+     "type": "tip",
+     "title": "Light game: nothing to tune",
+     "help": "This game runs well on almost any PC. If it stutters, cap the frame rate at your refresh rate and turn on V-Sync.",
+     "issue": "display"
+    }
+   ],
+   "demand": {
+    "g": 8,
+    "c": 3
+   }
+  },
+  {
+   "id": "marathon",
+   "name": "Marathon",
+   "match": [
+    "Marathon"
+   ],
+   "fixes": [
+    {
+     "type": "tip",
+     "title": "Use the upscaler on this card",
+     "help": "Turn on FSR (or DLSS/XeSS) Quality or Balanced, and Frame Generation if offered: the biggest FPS gain with little visual loss. Lower shadows, volumetric fog and ray tracing first.",
+     "when": {
+      "gpuTier": [
+       "Entry",
+       "Mid"
+      ]
+     },
+     "issue": "stutter"
+    },
+    {
+     "type": "tip",
+     "title": "NVIDIA Reflex",
+     "help": "Turn on NVIDIA Reflex in the video settings for lower input lag.",
+     "when": {
+      "vendor": "NVIDIA"
+     },
+     "issue": "input"
+    }
+   ],
+   "demand": {
+    "g": 1.3,
+    "c": 1.2
+   }
+  },
+  {
+   "id": "stalker2",
+   "name": "S.T.A.L.K.E.R. 2: Heart of Chornobyl",
+   "steam": [
+    1643320
+   ],
+   "match": [
+    "S.T.A.L.K.E.R. 2: Heart of Chornobyl"
+   ],
+   "engine": "UE5",
+   "fixes": [
+    {
+     "type": "tip",
+     "title": "Very CPU-heavy in settlements",
+     "help": "FPS drops in towns are a processor limit: lower crowd/NPC-related settings and view distance there; graphics settings barely change it. Frame generation helps smoothness on strong GPUs.",
+     "issue": "stutter"
+    }
+   ],
+   "demand": {
+    "g": 2.4,
+    "c": 1.6
+   },
+   "heavy": true
+  },
+  {
+   "id": "sh2r",
+   "name": "SILENT HILL 2",
+   "steam": [
+    2124490
+   ],
+   "match": [
+    "SILENT HILL 2"
+   ],
+   "engine": "UE5",
+   "fixes": [
+    {
+     "type": "tip",
+     "title": "Stutter when entering new areas",
+     "help": "Known traversal and shader stutter in this release. Install the latest game patch and driver, let it compile shaders, and cap the FPS (e.g. 60) for a steadier picture.",
+     "issue": "stutter"
+    }
+   ],
+   "demand": {
+    "g": 2.4,
+    "c": 1.3
+   },
+   "heavy": true
+  },
+  {
+   "id": "dd2",
+   "name": "Dragon's Dogma 2",
+   "steam": [
+    2054970
+   ],
+   "match": [
+    "Dragon's Dogma 2"
+   ],
+   "engine": "REEngine",
+   "fixes": [
+    {
+     "type": "tip",
+     "title": "Low FPS in cities is a processor limit",
+     "help": "The city areas are limited by the processor, not the graphics card. Lowering graphics barely helps there; frame generation smooths it on supported cards.",
+     "issue": "stutter"
+    }
+   ],
+   "demand": {
+    "g": 2.0,
+    "c": 1.8
+   },
+   "heavy": true
+  },
+  {
+   "id": "ghostoftsushima",
+   "name": "Ghost of Tsushima DIRECTOR'S CUT",
+   "steam": [
+    2215430
+   ],
+   "match": [
+    "Ghost of Tsushima DIRECTOR'S CUT"
+   ],
+   "engine": "Sony",
+   "fixes": [],
+   "demand": {
+    "g": 1.7,
+    "c": 1.1
+   },
+   "heavy": true
+  },
+  {
+   "id": "gowr",
+   "name": "God of War Ragnarök",
+   "steam": [
+    2322010
+   ],
+   "match": [
+    "God of War Ragnarök"
+   ],
+   "engine": "Sony",
+   "fixes": [],
+   "demand": {
+    "g": 2.0,
+    "c": 1.1
+   },
+   "heavy": true
+  },
+  {
+   "id": "hfw",
+   "name": "Horizon Forbidden West Complete Edition",
+   "steam": [
+    2420110
+   ],
+   "match": [
+    "Horizon Forbidden West Complete Edition"
+   ],
+   "engine": "Decima",
+   "fixes": [],
+   "demand": {
+    "g": 2.2,
+    "c": 1.3
+   },
+   "heavy": true
+  },
+  {
+   "id": "spiderman2",
+   "name": "Marvel's Spider-Man 2",
+   "steam": [
+    2651280
+   ],
+   "match": [
+    "Marvel's Spider-Man 2"
+   ],
+   "engine": "Insomniac",
+   "fixes": [
+    {
+     "type": "tip",
+     "title": "Keep video memory in check",
+     "help": "High texture settings and ray tracing need lots of video memory; on 8 GB cards use High textures and ray tracing off to avoid stutter and crashes.",
+     "issue": "stutter",
+     "when": {
+      "maxVramGB": 8
+     }
+    }
+   ],
+   "demand": {
+    "g": 2.4,
+    "c": 1.5
+   },
+   "heavy": true
+  },
+  {
+   "id": "indianajones",
+   "name": "Indiana Jones and the Great Circle",
+   "steam": [
+    2677660
+   ],
+   "match": [
+    "Indiana Jones and the Great Circle"
+   ],
+   "engine": "idTech",
+   "fixes": [
+    {
+     "type": "tip",
+     "title": "Needs a ray-tracing capable graphics card",
+     "help": "The game requires hardware ray tracing (RTX 20 / RX 6000 / Arc or newer). Lower the 'Texture Pool Size' setting first if you see stutter or crashes on 8 GB cards.",
+     "issue": "crash"
+    }
+   ],
+   "demand": {
+    "g": 2.5,
+    "c": 1.2
+   },
+   "heavy": true
+  },
+  {
+   "id": "doomtda",
+   "name": "DOOM: The Dark Ages",
+   "steam": [
+    3017860
+   ],
+   "match": [
+    "DOOM: The Dark Ages"
+   ],
+   "engine": "idTech",
+   "fixes": [
+    {
+     "type": "tip",
+     "title": "Needs a ray-tracing capable graphics card",
+     "help": "Hardware ray tracing is required (RTX 20 / RX 6000 / Arc or newer). Lower texture pool size on 8 GB cards.",
+     "issue": "crash"
+    }
+   ],
+   "demand": {
+    "g": 2.4,
+    "c": 1.2
+   },
+   "heavy": true
+  },
+  {
+   "id": "poe1",
+   "name": "Path of Exile",
+   "steam": [
+    238960
+   ],
+   "match": [
+    "Path of Exile"
+   ],
+   "engine": "PoE",
+   "fixes": [
+    {
+     "type": "tip",
+     "title": "Turn on 'Engine Multithreading'",
+     "help": "In Options > Graphics, Engine Multithreading spreads the load over more cores and smooths big fights.",
+     "issue": "stutter"
+    }
+   ],
+   "demand": {
+    "g": 1.0,
+    "c": 1.3
+   }
+  },
+  {
+   "id": "ffxiv",
+   "name": "FINAL FANTASY XIV Online",
+   "steam": [
+    39210
+   ],
+   "match": [
+    "FINAL FANTASY XIV Online"
+   ],
+   "engine": "Square",
+   "fixes": [],
+   "demand": {
+    "g": 1.2,
+    "c": 1.2
+   }
+  },
+  {
+   "id": "ff7rebirth",
+   "name": "FINAL FANTASY VII REBIRTH",
+   "steam": [
+    2909400
+   ],
+   "match": [
+    "FINAL FANTASY VII REBIRTH"
+   ],
+   "engine": "UE4",
+   "fixes": [],
+   "demand": {
+    "g": 2.2,
+    "c": 1.3
+   },
+   "heavy": true
+  },
+  {
+   "id": "sotf",
+   "name": "Sons Of The Forest",
+   "steam": [
+    1326470
+   ],
+   "match": [
+    "Sons Of The Forest"
+   ],
+   "engine": "Unity",
+   "fixes": [],
+   "demand": {
+    "g": 1.8,
+    "c": 1.4
+   },
+   "heavy": true
+  },
+  {
+   "id": "asa",
+   "name": "ARK: Survival Ascended",
+   "steam": [
+    2399830
+   ],
+   "match": [
+    "ARK: Survival Ascended"
+   ],
+   "engine": "UE5",
+   "fixes": [
+    {
+     "type": "tip",
+     "title": "One of the heaviest games: use upscaling",
+     "help": "Even strong cards need DLSS / FSR here. Start with the Medium preset and Quality upscaling, then raise settings.",
+     "issue": "stutter"
+    }
+   ],
+   "demand": {
+    "g": 2.8,
+    "c": 1.5
+   },
+   "heavy": true,
+   "anticheat": "BattlEye"
+  },
+  {
+   "id": "hunt",
+   "name": "Hunt: Showdown 1896",
+   "steam": [
+    594650
+   ],
+   "match": [
+    "Hunt: Showdown 1896"
+   ],
+   "engine": "CryEngine",
+   "fixes": [],
+   "demand": {
+    "g": 1.9,
+    "c": 1.3
+   },
+   "heavy": true,
+   "anticheat": "Easy Anti-Cheat"
+  },
+  {
+   "id": "lethalcompany",
+   "name": "Lethal Company",
+   "steam": [
+    1966720
+   ],
+   "match": [
+    "Lethal Company"
+   ],
+   "engine": "Unity",
+   "fixes": [],
+   "demand": {
+    "g": 0.6,
+    "c": 0.8
+   }
+  },
+  {
+   "id": "phasmophobia",
+   "name": "Phasmophobia",
+   "steam": [
+    739630
+   ],
+   "match": [
+    "Phasmophobia"
+   ],
+   "engine": "Unity",
+   "fixes": [],
+   "demand": {
+    "g": 1.0,
+    "c": 0.9
+   }
+  },
+  {
+   "id": "dbd",
+   "name": "Dead by Daylight",
+   "steam": [
+    381210
+   ],
+   "match": [
+    "Dead by Daylight"
+   ],
+   "engine": "UE4",
+   "fixes": [],
+   "demand": {
+    "g": 1.0,
+    "c": 0.9
+   },
+   "anticheat": "Easy Anti-Cheat"
+  },
+  {
+   "id": "sot",
+   "name": "Sea of Thieves",
+   "steam": [
+    1172620
+   ],
+   "match": [
+    "Sea of Thieves"
+   ],
+   "engine": "UE4",
+   "fixes": [],
+   "demand": {
+    "g": 1.1,
+    "c": 0.9
+   },
+   "anticheat": "Easy Anti-Cheat"
+  },
+  {
+   "id": "acc",
+   "name": "Assetto Corsa Competizione",
+   "steam": [
+    805550
+   ],
+   "match": [
+    "Assetto Corsa Competizione"
+   ],
+   "engine": "UE4",
+   "fixes": [
+    {
+     "type": "tip",
+     "title": "Rain and full grids are the heaviest moments",
+     "help": "Test your settings in the rain with a full grid at night: if it runs well there, it runs well everywhere.",
+     "issue": "stutter"
+    }
+   ],
+   "demand": {
+    "g": 1.6,
+    "c": 1.3
+   },
+   "heavy": true
+  },
+  {
+   "id": "msfs2024",
+   "name": "Microsoft Flight Simulator 2024",
+   "steam": [
+    2537590
+   ],
+   "match": [
+    "Microsoft Flight Simulator 2024"
+   ],
+   "engine": "Asobo",
+   "fixes": [
+    {
+     "type": "tip",
+     "title": "Set the 'Rolling cache' on an SSD",
+     "help": "Put the rolling cache and install on an SSD; large city areas stream lots of data and stutter from hard disks.",
+     "issue": "stutter"
+    }
+   ],
+   "demand": {
+    "g": 2.5,
+    "c": 2.0
+   },
+   "heavy": true
+  },
+  {
+   "id": "cs2_cities",
+   "name": "Cities: Skylines II",
+   "steam": [
+    949230
+   ],
+   "match": [
+    "Cities: Skylines II"
+   ],
+   "engine": "Unity",
+   "fixes": [
+    {
+     "type": "tip",
+     "title": "Turn off Depth of Field and lower Global Illumination",
+     "help": "These two settings cost the most FPS in this game with little visual difference while playing.",
+     "issue": "stutter"
+    }
+   ],
+   "demand": {
+    "g": 2.4,
+    "c": 2.0
+   },
+   "heavy": true
+  },
+  {
+   "id": "manorlords",
+   "name": "Manor Lords",
+   "steam": [
+    1363080
+   ],
+   "match": [
+    "Manor Lords"
+   ],
+   "engine": "UE5",
+   "fixes": [],
+   "demand": {
+    "g": 1.8,
+    "c": 1.3
+   },
+   "heavy": true
+  },
+  {
+   "id": "deadlock",
+   "name": "Deadlock",
+   "steam": [
+    1422450
+   ],
+   "match": [
+    "Deadlock"
+   ],
+   "engine": "Source2",
+   "fixes": [],
+   "demand": {
+    "g": 1.0,
+    "c": 1.2
+   }
+  },
+  {
+   "id": "readyornot",
+   "name": "Ready or Not",
+   "steam": [
+    1144200
+   ],
+   "match": [
+    "Ready or Not"
+   ],
+   "engine": "UE5",
+   "fixes": [],
+   "demand": {
+    "g": 1.8,
+    "c": 1.2
+   },
+   "heavy": true
+  },
+  {
+   "id": "satisfactory",
+   "name": "Satisfactory",
+   "steam": [
+    526870
+   ],
+   "match": [
+    "Satisfactory"
+   ],
+   "engine": "UE5",
+   "fixes": [
+    {
+     "type": "tip",
+     "title": "Big factories are a processor limit",
+     "help": "Late-game FPS drops come from simulation on the processor. Lower 'Network quality' and view distance; graphics settings help little there.",
+     "issue": "stutter"
+    }
+   ],
+   "demand": {
+    "g": 1.8,
+    "c": 1.5
+   },
+   "heavy": true
+  },
+  {
+   "id": "liesofp",
+   "name": "Lies of P",
+   "steam": [
+    1627720
+   ],
+   "match": [
+    "Lies of P"
+   ],
+   "engine": "UE4",
+   "fixes": [],
+   "demand": {
+    "g": 1.4,
+    "c": 1.0
+   },
+   "heavy": true
+  },
+  {
+   "id": "bl4",
+   "name": "Borderlands 4",
+   "steam": [
+    1285190
+   ],
+   "match": [
+    "Borderlands 4"
+   ],
+   "engine": "UE5",
+   "fixes": [
+    {
+     "type": "tip",
+     "issue": "stutter",
+     "title": "Stutter: raise the shader cache size",
+     "summary": "The most repeatable fix: let the driver keep far more compiled shaders.",
+     "steps": [
+      "NVIDIA Control Panel > Manage 3D settings > Shader Cache Size: 100 GB (or Unlimited).",
+      "Restart the game and play one session: stutter fades as shaders are stored."
+     ],
+     "help": "PC Gamer confirmed that a 100 GB NVIDIA shader cache fixed Borderlands 4 stuttering; Gearbox says stutter eases as shaders recompile.",
+     "when": {
+      "vendor": "NVIDIA"
+     },
+     "src": "https://allthings.how/fix-borderlands-4-pc-stuttering-after-the-latest-patch/",
+     "srcName": "AllThings.How",
+     "checked": "2026-11-11"
+    },
+    {
+     "type": "tip",
+     "issue": "stutter",
+     "title": "Stutter: keep the AMD shader cache",
+     "summary": "Let the driver keep more compiled shaders so they are not rebuilt every session.",
+     "steps": [
+      "AMD Software > Gaming > Graphics > Shader Cache: On; do not reset it.",
+      "Play one session to rebuild shaders after each driver update."
+     ],
+     "help": "Same cause as on NVIDIA: shaders are rebuilt while you play. Keeping the cache stops repeat stutter.",
+     "when": {
+      "vendor": "AMD"
+     }
+    },
+    {
+     "type": "tip",
+     "issue": "crash",
+     "title": "Crashes: overlays, old drivers or an unstable CPU",
+     "summary": "Gearbox lists outdated drivers, a broken shader cache, overlays and CPU instability as the usual causes.",
+     "steps": [
+      "Update the graphics driver.",
+      "Close overlays you do not need.",
+      "Verify game files in your launcher.",
+      "Undo CPU and GPU overclocks while testing."
+     ],
+     "help": "Crash causes collected from Gearbox support guidance.",
+     "src": "https://tier1settings.com/borderlands-4-crashing-fix/",
+     "srcName": "Tier1Settings",
+     "checked": "2026-11-11"
+    },
+    {
+     "type": "tip",
+     "issue": "stutter",
+     "title": "8 GB of video memory: keep textures at Medium",
+     "summary": "This game stutters hard when video memory runs out.",
+     "steps": [
+      "Set Texture Quality to Medium.",
+      "Use DLSS / FSR / XeSS in Quality mode."
+     ],
+     "help": "The 8 GB VRAM limit is one of the most reported Borderlands 4 problems.",
+     "when": {
+      "maxVramGB": 8
+     }
+    }
+   ],
+   "demand": {
+    "g": 0.8,
+    "c": 1.0
+   },
+   "heavy": true
+  }
+ ],
+ "common": [
+  {
+   "type": "tip",
+   "issue": "launch",
+   "title": "Game won't start or closes right away",
+   "help": "Most often a missing Microsoft runtime. Install the latest Visual C++ Redistributable, both x64 and x86 (Microsoft's page below), restart, then use your launcher's 'Verify / Repair game files'. Also check that your antivirus did not quarantine a game file.",
+   "src": "https://learn.microsoft.com/en-us/cpp/windows/latest-supported-vc-redist",
+   "srcName": "Microsoft",
+   "checked": "2026-11-08"
+  },
+  {
+   "type": "tip",
+   "issue": "launch",
+   "title": "Error: MSVCP140.dll / VCRUNTIME140.dll not found, or 0xc000007b",
+   "help": "These mean a Visual C++ runtime is missing or broken. Install (or 'Repair') the Visual C++ 2015-2022 Redistributable, x64 AND x86, from Microsoft, then restart the PC.",
+   "src": "https://learn.microsoft.com/en-us/cpp/windows/latest-supported-vc-redist",
+   "srcName": "Microsoft",
+   "checked": "2026-11-08"
+  },
+  {
+   "type": "tip",
+   "issue": "launch",
+   "engine": [
+    "DX9",
+    "Source",
+    "UE3"
+   ],
+   "title": "Error: d3dx9_43.dll / xinput1_3.dll missing (older games)",
+   "help": "Older DirectX 9 games need the legacy DirectX End-User Runtime, which Windows 10/11 does not include. Install it from Microsoft (link below); it only adds the old files and changes nothing else.",
+   "src": "https://www.microsoft.com/en-us/download/details.aspx?id=35",
+   "srcName": "Microsoft",
+   "checked": "2026-11-08"
+  },
+  {
+   "type": "tip",
+   "issue": "crash",
+   "engine": [
+    "UE4",
+    "UE5"
+   ],
+   "when": {
+    "cpu": "i[579]-1[34]\\d{3}K?F?S?"
+   },
+   "title": "'Out of video memory' or random crashes on a 13th/14th gen Intel CPU",
+   "help": "Unreal Engine games were the first to expose the known 13th/14th gen Intel instability. Update the motherboard BIOS to the latest version (it contains Intel's microcode fix) and use the BIOS's 'Intel Default Settings' power profile. Then test again before blaming the game."
+  },
+  {
+   "type": "tip",
+   "issue": "crash",
+   "engine": [
+    "UE4",
+    "UE5"
+   ],
+   "title": "Crash: 'D3D device lost' / 'GPU crashed or D3D device removed'",
+   "help": "Usually the graphics card is not stable at its current settings in this engine. Undo any GPU overclock or undervolt (or raise the undervolt by +25 mV), update the graphics driver with a clean install, and close overlays you do not need. If it stays, lower ray tracing and texture quality one step."
+  },
+  {
+   "type": "tip",
+   "issue": "stutter",
+   "engine": [
+    "UE4",
+    "UE5"
+   ],
+   "title": "Stutter the first time you see new areas (shader compilation)",
+   "help": "Unreal Engine games build shaders while you play. Let the game finish any 'compiling shaders' step, give it a session to settle, and set your driver's shader cache size to 'Unlimited' or 10 GB+ (NVIDIA Control Panel > Shader Cache Size; AMD Adrenalin > Graphics > Shader Cache). Don't delete the shader cache: that brings the stutter back."
+  },
+  {
+   "type": "tip",
+   "issue": "display",
+   "engine": [
+    "Unity"
+   ],
+   "title": "Black screen or wrong resolution at start (Unity games)",
+   "help": "Unity games keep their screen settings in the registry. Force a safe start once with these launch options (Steam: right-click the game > Properties > Launch options): -screen-fullscreen 0 -screen-width 1920 -screen-height 1080 . Fix the settings in game, then remove the options."
+  },
+  {
+   "type": "tip",
+   "issue": "display",
+   "title": "Black screen or 'input not supported' after changing resolution",
+   "help": "The game saved a mode your monitor cannot show. Use 'Reset this game's settings file' below when it is offered, or start the game in windowed mode (often Alt+Enter) and pick your monitor's native resolution and refresh rate."
+  },
+  {
+   "type": "tip",
+   "issue": "display",
+   "title": "Game opens on the wrong monitor",
+   "help": "Games open on the main display. Set it in Windows Settings > System > Display > 'Make this my main display', or move a borderless game with Win+Shift+Left/Right Arrow."
+  },
+  {
+   "type": "tip",
+   "issue": "display",
+   "title": "Black screen or long freeze when you Alt+Tab",
+   "help": "Exclusive fullscreen has to switch display modes. Choose Borderless / Windowed fullscreen in the game's display settings: alt-tab becomes instant and modern Windows gives the same input lag."
+  },
+  {
+   "type": "tip",
+   "issue": "display",
+   "when": {
+    "ultrawide": true
+   },
+   "title": "Black bars or a stretched picture on your ultrawide monitor",
+   "help": "Not every game supports 21:9 or 32:9. Check the game's aspect ratio option first; PCGamingWiki lists which games support ultrawide and the known community fixes for those that don't.",
+   "src": "https://www.pcgamingwiki.com/wiki/Glossary:Ultra-widescreen",
+   "srcName": "PCGamingWiki",
+   "checked": "2026-11-08"
+  },
+  {
+   "type": "tip",
+   "issue": "stutter",
+   "when": {
+    "minHeight": 2100,
+    "maxVramGB": 8
+   },
+   "title": "4K with 8 GB of video memory",
+   "help": "At 4K the textures alone can fill 8 GB. Use DLSS / FSR / XeSS in Quality or Balanced mode and keep texture quality at High rather than Ultra: running out of video memory causes hard stutter, not just lower FPS."
+  },
+  {
+   "type": "tip",
+   "issue": "display",
+   "title": "Flicker or black flashes in borderless/windowed mode",
+   "help": "Often caused by Multi-Plane Overlay with some driver and monitor combinations (multi-monitor setups, mixed refresh rates). Fixes & tips has a reversible 'Multi-Plane Overlay off' fix; test, and undo it if nothing changes."
+  },
+  {
+   "type": "tip",
+   "issue": "audio",
+   "title": "No sound, crackling or sound cutting out in game",
+   "help": "Set the output device to 48000 Hz, 24-bit (Sound settings > device > Properties > Advanced), turn off audio enhancements and spatial sound for a test, and update the audio driver from your motherboard or headset maker. Crackling together with stutter points at a driver holding the CPU (see Learn > DPC latency)."
+  },
+  {
+   "type": "tip",
+   "issue": "input",
+   "title": "Mouse feels floaty or delayed",
+   "help": "Turn off V-Sync in the game, cap the FPS 3 below your refresh rate with G-Sync/FreeSync on, and enable NVIDIA Reflex or AMD Anti-Lag when the game offers it. Also turn off mouse acceleration (Windows mouse settings > 'Enhance pointer precision')."
+  },
+  {
+   "type": "tip",
+   "issue": "input",
+   "title": "Controller not detected or buttons are wrong",
+   "help": "For Steam games: right-click the game > Properties > Controller and try 'Enable Steam Input' or 'Disable Steam Input' (some games need it off). Unplug other controllers and virtual controller drivers you no longer use."
+  },
+  {
+   "type": "tip",
+   "issue": "online",
+   "title": "High ping or packet loss in this game",
+   "help": "Pick the nearest server region in the game (Network > Game regions shows which is closest to you), close downloads and cloud sync while playing, and use a cable instead of Wi-Fi. A VPN usually adds ping unless it fixes a bad route."
+  },
+  {
+   "type": "tip",
+   "issue": "stutter",
+   "when": {
+    "gpu": "Arc"
+   },
+   "engine": [
+    "DX9",
+    "DX11",
+    "Source",
+    "UE3"
+   ],
+   "title": "Older DirectX 9/11 game runs poorly on Intel Arc",
+   "help": "Make sure the latest Arc driver is installed and Resizable BAR is on. For older DirectX 9/10/11 games that still run badly, the free DXVK translation layer (placed in the game folder) often helps a lot; never use it in games with anti-cheat.",
+   "link": "https://github.com/doitsujin/dxvk/releases"
+  },
+  {
+   "type": "tip",
+   "issue": "crash",
+   "engine": [
+    "REEngine"
+   ],
+   "when": {
+    "maxVramGB": 8
+   },
+   "title": "RE Engine crash with 'D3D fatal error'",
+   "help": "RE Engine games crash when they run out of video memory instead of just stuttering. Watch the game's own VRAM meter in the graphics menu: keep it below your card's memory by lowering texture quality and turning ray tracing off."
+  },
+  {
+   "type": "tip",
+   "issue": "display",
+   "title": "Black screen or freeze while a video plays (RTX 50)",
+   "summary": "NVIDIA driver 621.01 broke video playback on some RTX 50 cards; 621.12 or newer fixes it.",
+   "steps": [
+    "Check your driver version on the Specs > Graphics tab.",
+    "If it is 621.01, install 621.14 WHQL (or newer) from NVIDIA.",
+    "Still happening on a newer driver? Then it has another cause: see the Troubleshoot tab."
+   ],
+   "help": "Driver 621.01 made videos in Chrome, Edge and VLC freeze and could blank the screen for several seconds on some RTX 50 cards. NVIDIA fixed it in hotfix 621.12 and in 621.14 WHQL.",
+   "when": {
+    "vendor": "NVIDIA",
+    "gpu": "RTX 50[5-9]0"
+   },
+   "src": "https://videocardz.com/newz/nvidia-releases-geforce-621-12-hotfix-driver-to-fix-rtx-50-video-freezes-and-black-screens",
+   "srcName": "VideoCardz",
+   "checked": "2026-11-11"
+  },
+  {
+   "type": "tip",
+   "issue": "display",
+   "title": "3-second black screen on alt-tab (NVIDIA, Windows 11 24H2)",
+   "summary": "A known issue in NVIDIA driver 621.14. Borderless fullscreen avoids it until a fix ships.",
+   "steps": [
+    "Set the game to Borderless / Windowed fullscreen.",
+    "On RTX 4080 / 4090 / 5080 / 5090, open Fixes & tips: GearShift checks the exact cause on your PC."
+   ],
+   "help": "NVIDIA lists a 3-second black screen when alt-tabbing from a game to the desktop on Windows 11 24H2 as an open issue in driver 621.14.",
+   "when": {
+    "vendor": "NVIDIA",
+    "win11": true
+   },
+   "src": "https://www.techspot.com/downloads/drivers/essentials/nvidia-geforce/",
+   "srcName": "TechSpot",
+   "checked": "2026-11-11"
+  },
+  {
+   "type": "tip",
+   "issue": "crash",
+   "title": "Power connector safety (RTX 4090 / 5090)",
+   "summary": "The 12V-2x6 power plug can overheat on these cards. Seat it fully and use the PSU maker's cable.",
+   "steps": [
+    "Push the plug in until it clicks and no gap is visible.",
+    "Use the cable that came with your power supply, not an adapter or extension.",
+    "Keep the cable straight for 3-4 cm before any bend.",
+    "Smell burning plastic or the PC shuts off under load? Turn it off and check the plug."
+   ],
+   "help": "Melted 12VHPWR / 12V-2x6 connectors are still reported in 2026, even with a lower power limit. Careful seating and the original cable are the main things you can do; undervolting alone does not prevent it.",
+   "when": {
+    "vendor": "NVIDIA",
+    "gpu": "RTX (4090|5090)"
+   },
+   "src": "https://www.guru3d.com/story/geforce-rtx-5090-12v2x6-connector-melts-even-under-a-500w-cap/",
+   "srcName": "Guru3D",
+   "checked": "2026-11-11"
+  },
+  {
+   "type": "tip",
+   "issue": "crash",
+   "title": "Crash or hang when alt-tabbing with FSR Frame Generation (RX 9000)",
+   "summary": "AMD known issue in Adrenalin 26.10: turn on V-Sync in the game as the workaround.",
+   "steps": [
+    "In the game's graphics settings, turn V-Sync on while FSR Frame Generation is on.",
+    "Or turn Frame Generation off in games where you switch apps often."
+   ],
+   "help": "AMD lists intermittent system crashes or hangs when switching apps or toggling overlays in games with FSR Frame Generation on Radeon RX 9000 cards. AMD's workaround is enabling V-Sync.",
+   "when": {
+    "vendor": "AMD",
+    "gpu": "RX 90[67]0"
+   },
+   "src": "https://www.amd.com/en/resources/support-articles/release-notes/RN-RAD-WIN-26-10-1.html",
+   "srcName": "AMD",
+   "checked": "2026-11-11"
+  },
+  {
+   "type": "tip",
+   "issue": "crash",
+   "title": "Crashes when overlays open with AMD's metrics overlay on",
+   "summary": "AMD known issue in Adrenalin 26.10.2: keep only one overlay running.",
+   "steps": [
+    "Turn off the Adrenalin Performance Metrics overlay (Ctrl+Shift+O), or",
+    "close other overlays (Discord, Steam, recording tools) while it is on."
+   ],
+   "help": "Some games crash or hang when another overlay opens or closes while the Adrenalin Performance Metrics overlay is enabled.",
+   "when": {
+    "vendor": "AMD"
+   },
+   "src": "https://www.amd.com/en/resources/support-articles/release-notes/RN-RAD-WIN-26-10-2.html",
+   "srcName": "AMD",
+   "checked": "2026-11-11"
+  },
+  {
+   "type": "tip",
+   "issue": "stutter",
+   "title": "Smart Access Memory switched itself off (Windows 10)",
+   "summary": "After installing Adrenalin 26.10.2 on Windows 10, SAM may turn off and cost FPS.",
+   "steps": [
+    "Open AMD Software > Performance > Tuning.",
+    "Turn AMD Smart Access Memory back on, then restart the game."
+   ],
+   "help": "AMD lists Smart Access Memory turning off after driver installation on Windows 10 as a known issue.",
+   "when": {
+    "vendor": "AMD",
+    "win11": false
+   },
+   "src": "https://www.amd.com/en/resources/support-articles/release-notes/RN-RAD-WIN-26-10-2.html",
+   "srcName": "AMD",
+   "checked": "2026-11-11"
+  },
+  {
+   "type": "tip",
+   "issue": "crash",
+   "title": "Driver timeouts or black screens on an RX 9070 / 9070 XT",
+   "summary": "Owners report most timeouts go away after a clean driver install.",
+   "steps": [
+    "Download the latest Adrenalin driver first.",
+    "Run the AMD Cleanup Utility (it restarts the PC), then install the driver.",
+    "At 144 Hz or more, try another DisplayPort cable: bad cables cause black screens.",
+    "Undo any GPU overclock or undervolt while testing."
+   ],
+   "help": "RX 9070-series driver timeouts have many causes. A clean install, a known-good cable and stock clocks fix most reported cases. These are owner reports, not an AMD statement.",
+   "when": {
+    "vendor": "AMD",
+    "gpu": "RX 9070"
+   }
+  },
+  {
+   "type": "tip",
+   "issue": "stutter",
+   "title": "Turn on Resizable BAR for your Intel Arc card",
+   "summary": "Arc cards lose a lot of speed without Resizable BAR; Intel requires it.",
+   "steps": [
+    "Restart into the BIOS (press Del or F2 at start).",
+    "Turn on \"Above 4G Decoding\" and \"Re-Size BAR Support\" (sometimes under PCIe settings).",
+    "Save and restart. Specs > Graphics shows whether it is on."
+   ],
+   "help": "Intel recommends Resizable BAR for all Arc A- and B-series cards. Without it, many games stutter and run far slower. Very old boards may not offer the option.",
+   "when": {
+    "vendor": "Intel",
+    "gpu": "Arc"
+   },
+   "src": "https://www.intel.com/content/www/us/en/products/sku/241598/intel-arc-b580-graphics/support.html",
+   "srcName": "Intel",
+   "checked": "2026-11-11"
+  },
+  {
+   "type": "tip",
+   "issue": "stutter",
+   "title": "Intel Arc with an older processor: lower FPS than reviews",
+   "summary": "Arc drivers need more CPU time; older processors lose up to about 20-30% in some games.",
+   "steps": [
+    "Keep the Arc driver up to date: Intel keeps adding per-game fixes.",
+    "Use the game's upscaler less aggressively: it shifts work to the processor.",
+    "Run a Bottleneck check on the Games tab to see if the processor limits you."
+   ],
+   "help": "Intel improved the driver overhead in 2025-2026, but a July 2026 retest still found around 20% loss with a Ryzen 5 2600 and more in some games.",
+   "when": {
+    "vendor": "Intel",
+    "gpu": "Arc",
+    "cpu": "Ryzen [3579] [123]\\d{3}|i[3579]-([4-9]|10)\\d{3}"
+   },
+   "src": "https://www.pcgamer.com/hardware/graphics-cards/intels-quietly-buffed-its-gpu-drivers-to-fix-gaming-frame-rate-issues-with-some-older-processors",
+   "srcName": "PC Gamer",
+   "checked": "2026-11-11"
+  },
+  {
+   "type": "tip",
+   "issue": "crash",
+   "title": "Windows freezes at start-up after an Arc driver update (B580)",
+   "summary": "Owners report freezes with driver 32.0.101.8860 and newer; 8826 WHQL was stable for them.",
+   "steps": [
+    "If it started after a driver update, roll back: Device Manager > Display adapters > Arc > Properties > Driver > Roll Back Driver.",
+    "Or install 32.0.101.8826 from Intel's driver archive, then try newer releases as they ship."
+   ],
+   "help": "Community reports, not confirmed by Intel. The freezes appear after several restarts on B580 systems.",
+   "when": {
+    "vendor": "Intel",
+    "gpu": "B580"
+   },
+   "src": "https://community.intel.com/t5/Intel-Arc-Discrete-Graphics/Intel-Arc-B580-Windows-Freezes-on-Startup-with-Recent-Drivers/m-p/1758368",
+   "srcName": "Intel Community",
+   "checked": "2026-11-11"
+  }
+ ]
+}

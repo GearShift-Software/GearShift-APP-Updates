@@ -1,0 +1,1366 @@
+{
+ "schema": 1,
+ "version": 20261104,
+ "updated": "2026-11-04",
+ "kind": "perf",
+ "about": "Relative gaming performance. GPU: percent of the fastest card at Ultra in a typical modern AAA test suite at 1080p/1440p/4K. CPU: percent of the fastest gaming CPU at 1080p with a top GPU (how many frames the CPU can prepare). Estimates, not promises: single games differ.",
+ "suiteFps": {
+  "1080": 203.8,
+  "1440": 167.3,
+  "2160": 110.8
+ },
+ "cpuFps100": 240,
+ "sources": {
+  "toms-gpu-2026": {
+   "name": "Tom's Hardware GPU benchmarks hierarchy (2026 suite, June 2026 update)",
+   "url": "https://www.tomshardware.com/reviews/gpu-hierarchy,4388.html",
+   "checked": "2026-11-03"
+  },
+  "toms-gpu-2020-scaled": {
+   "name": "Tom's Hardware 2020-2021 hierarchy (overall score), scaled to the 2026 suite through cards in both lists (RX 6600 XT, RTX 3060, RX 6800 XT); 11 GB+ cards keep more at 4K",
+   "url": "https://www.tomshardware.com/reviews/gpu-hierarchy,4388-3.html",
+   "checked": "2026-11-03"
+  },
+  "intel-b580-derived": {
+   "name": "Arc B580 result, scaled by Intel's and Tom's Hardware's B580 vs A770/A750 gaps",
+   "url": "https://www.tomshardware.com/pc-components/gpus/intel-arc-b580-review-the-new-usd249-gpu-champion-has-arrived/4",
+   "checked": "2026-11-03"
+  },
+  "toms-cpu-2026": {
+   "name": "Tom's Hardware CPU benchmarks hierarchy (1080p, RTX 5090, October 2026 update)",
+   "url": "https://www.tomshardware.com/reviews/cpu-hierarchy,4312.html",
+   "checked": "2026-11-03"
+  },
+  "meta-derived": {
+   "name": "3DCenter meta review of 19 launch reviews (5700X3D/5800X3D vs 7800X3D), scaled to the Tom's Hardware list",
+   "url": "https://www.3dcenter.org/",
+   "checked": "2026-11-03"
+  },
+  "estimate": {
+   "name": "GearShift estimate from the closest listed sibling and published reviews (same architecture, clock, cache and memory difference)",
+   "url": "",
+   "checked": "2026-11-03"
+  }
+ },
+ "families": [],
+ "models": [
+  {
+   "id": "rx9070xt",
+   "type": "gpu",
+   "p": [
+    76.9,
+    69.7,
+    59.4
+   ],
+   "src": "toms-gpu-2026"
+  },
+  {
+   "id": "rx9070",
+   "type": "gpu",
+   "p": [
+    69.1,
+    62.1,
+    52.1
+   ],
+   "src": "toms-gpu-2026"
+  },
+  {
+   "id": "rx9060xt",
+   "type": "gpu",
+   "p": [
+    48.2,
+    40.2,
+    31.7
+   ],
+   "src": "toms-gpu-2026"
+  },
+  {
+   "id": "rx7900xtx",
+   "type": "gpu",
+   "p": [
+    79.3,
+    73.1,
+    63.7
+   ],
+   "src": "toms-gpu-2026"
+  },
+  {
+   "id": "rx7900xt",
+   "type": "gpu",
+   "p": [
+    71.3,
+    64.6,
+    54.0
+   ],
+   "src": "toms-gpu-2026"
+  },
+  {
+   "id": "rx7800xt",
+   "type": "gpu",
+   "p": [
+    58.1,
+    50.7,
+    40.7
+   ],
+   "src": "toms-gpu-2026"
+  },
+  {
+   "id": "rx7700xt",
+   "type": "gpu",
+   "p": [
+    50.5,
+    43.4,
+    34.3
+   ],
+   "src": "toms-gpu-2026"
+  },
+  {
+   "id": "rx7600",
+   "type": "gpu",
+   "p": [
+    34.3,
+    27.2,
+    16.6
+   ],
+   "src": "toms-gpu-2026"
+  },
+  {
+   "id": "rx6950xt",
+   "type": "gpu",
+   "p": [
+    60.5,
+    53.5,
+    43.6
+   ],
+   "src": "toms-gpu-2026"
+  },
+  {
+   "id": "rx6900xt",
+   "type": "gpu",
+   "p": [
+    57.4,
+    50.2,
+    40.5
+   ],
+   "src": "toms-gpu-2026"
+  },
+  {
+   "id": "rx6800xt",
+   "type": "gpu",
+   "p": [
+    54.9,
+    47.6,
+    38.1
+   ],
+   "src": "toms-gpu-2026"
+  },
+  {
+   "id": "rx6800",
+   "type": "gpu",
+   "p": [
+    50.3,
+    43.6,
+    34.9
+   ],
+   "src": "toms-gpu-2020-scaled"
+  },
+  {
+   "id": "rx6750xt",
+   "type": "gpu",
+   "p": [
+    40.8,
+    34.4,
+    26.7
+   ],
+   "src": "toms-gpu-2026"
+  },
+  {
+   "id": "rx6700xt",
+   "type": "gpu",
+   "p": [
+    38.9,
+    32.5,
+    25.3
+   ],
+   "src": "toms-gpu-2026"
+  },
+  {
+   "id": "rx6600xt",
+   "type": "gpu",
+   "p": [
+    30.8,
+    24.3,
+    15.6
+   ],
+   "src": "toms-gpu-2026"
+  },
+  {
+   "id": "rx6600",
+   "type": "gpu",
+   "p": [
+    25.5,
+    20.2,
+    13.1
+   ],
+   "src": "toms-gpu-2026"
+  },
+  {
+   "id": "rx5700xt",
+   "type": "gpu",
+   "p": [
+    30.4,
+    24.0,
+    15.4
+   ],
+   "src": "toms-gpu-2020-scaled"
+  },
+  {
+   "id": "rtx5090",
+   "type": "gpu",
+   "p": [
+    100,
+    100,
+    100
+   ],
+   "src": "toms-gpu-2026"
+  },
+  {
+   "id": "rtx5080",
+   "type": "gpu",
+   "p": [
+    81.9,
+    76.7,
+    69.8
+   ],
+   "src": "toms-gpu-2026"
+  },
+  {
+   "id": "rtx5070ti",
+   "type": "gpu",
+   "p": [
+    76.2,
+    69.8,
+    61.9
+   ],
+   "src": "toms-gpu-2026"
+  },
+  {
+   "id": "rtx5070",
+   "type": "gpu",
+   "p": [
+    65.1,
+    57.6,
+    49.0
+   ],
+   "src": "toms-gpu-2026"
+  },
+  {
+   "id": "rtx4090",
+   "type": "gpu",
+   "p": [
+    90.1,
+    85.7,
+    80.4
+   ],
+   "src": "toms-gpu-2026"
+  },
+  {
+   "id": "rtx4080s",
+   "type": "gpu",
+   "p": [
+    78.0,
+    70.9,
+    62.6
+   ],
+   "src": "toms-gpu-2026"
+  },
+  {
+   "id": "rtx4080",
+   "type": "gpu",
+   "p": [
+    77.2,
+    70.3,
+    60.9
+   ],
+   "src": "toms-gpu-2026"
+  },
+  {
+   "id": "rtx4070tis",
+   "type": "gpu",
+   "p": [
+    69.3,
+    62.1,
+    52.8
+   ],
+   "src": "toms-gpu-2026"
+  },
+  {
+   "id": "rtx4070ti",
+   "type": "gpu",
+   "p": [
+    66.3,
+    58.6,
+    48.6
+   ],
+   "src": "toms-gpu-2026"
+  },
+  {
+   "id": "rtx4070s",
+   "type": "gpu",
+   "p": [
+    62.2,
+    54.5,
+    44.4
+   ],
+   "src": "toms-gpu-2026"
+  },
+  {
+   "id": "rtx4070",
+   "type": "gpu",
+   "p": [
+    54.7,
+    46.5,
+    37.2
+   ],
+   "src": "toms-gpu-2026"
+  },
+  {
+   "id": "rtx4060ti",
+   "type": "gpu",
+   "p": [
+    43.2,
+    35.2,
+    21.5
+   ],
+   "src": "toms-gpu-2026"
+  },
+  {
+   "id": "rtx4060",
+   "type": "gpu",
+   "p": [
+    35.1,
+    28.4,
+    15.7
+   ],
+   "src": "toms-gpu-2026"
+  },
+  {
+   "id": "rtx3090ti",
+   "type": "gpu",
+   "p": [
+    64.7,
+    59.7,
+    53.5
+   ],
+   "src": "toms-gpu-2026"
+  },
+  {
+   "id": "rtx3090",
+   "type": "gpu",
+   "p": [
+    60.3,
+    54.7,
+    47.9
+   ],
+   "src": "toms-gpu-2026"
+  },
+  {
+   "id": "rtx3080ti",
+   "type": "gpu",
+   "p": [
+    58.7,
+    53.3,
+    46.0
+   ],
+   "src": "toms-gpu-2026"
+  },
+  {
+   "id": "rtx3080",
+   "type": "gpu",
+   "p": [
+    54.8,
+    49.0,
+    39.6
+   ],
+   "src": "toms-gpu-2026"
+  },
+  {
+   "id": "rtx3070ti",
+   "type": "gpu",
+   "p": [
+    46.4,
+    40.0,
+    23.5
+   ],
+   "src": "toms-gpu-2026"
+  },
+  {
+   "id": "rtx3070",
+   "type": "gpu",
+   "p": [
+    42.8,
+    34.8,
+    23.6
+   ],
+   "src": "toms-gpu-2026"
+  },
+  {
+   "id": "rtx3060ti",
+   "type": "gpu",
+   "p": [
+    36.4,
+    30.5,
+    17.5
+   ],
+   "src": "toms-gpu-2026"
+  },
+  {
+   "id": "rtx3060",
+   "type": "gpu",
+   "p": [
+    30.2,
+    25.0,
+    20.0
+   ],
+   "src": "toms-gpu-2026"
+  },
+  {
+   "id": "rtx2070s",
+   "type": "gpu",
+   "p": [
+    31.8,
+    25.1,
+    16.1
+   ],
+   "src": "toms-gpu-2020-scaled"
+  },
+  {
+   "id": "rtx2060",
+   "type": "gpu",
+   "p": [
+    24.0,
+    18.9,
+    12.1
+   ],
+   "src": "toms-gpu-2020-scaled"
+  },
+  {
+   "id": "gtx1660s",
+   "type": "gpu",
+   "p": [
+    20.2,
+    16.0,
+    10.2
+   ],
+   "src": "toms-gpu-2020-scaled"
+  },
+  {
+   "id": "gtx1650",
+   "type": "gpu",
+   "p": [
+    11.2,
+    8.8,
+    5.6
+   ],
+   "src": "toms-gpu-2020-scaled"
+  },
+  {
+   "id": "gtx1080ti",
+   "type": "gpu",
+   "p": [
+    31.9,
+    26.4,
+    21.1
+   ],
+   "src": "toms-gpu-2020-scaled"
+  },
+  {
+   "id": "gtx1080",
+   "type": "gpu",
+   "p": [
+    24.1,
+    19.0,
+    12.2
+   ],
+   "src": "toms-gpu-2020-scaled"
+  },
+  {
+   "id": "gtx1060",
+   "type": "gpu",
+   "p": [
+    14.1,
+    11.2,
+    7.2
+   ],
+   "src": "toms-gpu-2020-scaled"
+  },
+  {
+   "id": "arcb580",
+   "type": "gpu",
+   "p": [
+    35.1,
+    30.3,
+    24.9
+   ],
+   "src": "toms-gpu-2026"
+  },
+  {
+   "id": "arcb570",
+   "type": "gpu",
+   "p": [
+    31.1,
+    26.5,
+    17.7
+   ],
+   "src": "toms-gpu-2026"
+  },
+  {
+   "id": "arca770",
+   "type": "gpu",
+   "p": [
+    30.5,
+    26.3,
+    21.7
+   ],
+   "src": "intel-b580-derived"
+  },
+  {
+   "id": "arca750",
+   "type": "gpu",
+   "p": [
+    28.1,
+    24.2,
+    19.9
+   ],
+   "src": "intel-b580-derived"
+  },
+  {
+   "id": "i9-14900k",
+   "type": "cpu",
+   "s": 78.2,
+   "src": "toms-cpu-2026"
+  },
+  {
+   "id": "i9-13900k",
+   "type": "cpu",
+   "s": 76.8,
+   "src": "toms-cpu-2026"
+  },
+  {
+   "id": "i7-14700k",
+   "type": "cpu",
+   "s": 76.4,
+   "src": "toms-cpu-2026"
+  },
+  {
+   "id": "i7-13700k",
+   "type": "cpu",
+   "s": 75.8,
+   "src": "toms-cpu-2026"
+  },
+  {
+   "id": "i5-14600k",
+   "type": "cpu",
+   "s": 72.8,
+   "src": "toms-cpu-2026"
+  },
+  {
+   "id": "i5-13600k",
+   "type": "cpu",
+   "s": 70.9,
+   "src": "toms-cpu-2026"
+  },
+  {
+   "id": "i5-13400",
+   "type": "cpu",
+   "s": 56.3,
+   "src": "estimate"
+  },
+  {
+   "id": "i9-12900k",
+   "type": "cpu",
+   "s": 67.8,
+   "src": "estimate"
+  },
+  {
+   "id": "i7-12700k",
+   "type": "cpu",
+   "s": 65.8,
+   "src": "toms-cpu-2026"
+  },
+  {
+   "id": "i5-12600k",
+   "type": "cpu",
+   "s": 60.8,
+   "src": "toms-cpu-2026"
+  },
+  {
+   "id": "i5-12400",
+   "type": "cpu",
+   "s": 53.5,
+   "src": "estimate"
+  },
+  {
+   "id": "u9-285k",
+   "type": "cpu",
+   "s": 71.8,
+   "src": "toms-cpu-2026"
+  },
+  {
+   "id": "u7-265k",
+   "type": "cpu",
+   "s": 70.3,
+   "src": "toms-cpu-2026"
+  },
+  {
+   "id": "u5-245k",
+   "type": "cpu",
+   "s": 67.1,
+   "src": "toms-cpu-2026"
+  },
+  {
+   "id": "r9-9950x3d",
+   "type": "cpu",
+   "s": 95.7,
+   "src": "toms-cpu-2026"
+  },
+  {
+   "id": "r9-9900x3d",
+   "type": "cpu",
+   "s": 86.9,
+   "src": "toms-cpu-2026"
+  },
+  {
+   "id": "r7-9800x3d",
+   "type": "cpu",
+   "s": 97.0,
+   "src": "toms-cpu-2026"
+  },
+  {
+   "id": "r9-9950x",
+   "type": "cpu",
+   "s": 76.9,
+   "src": "toms-cpu-2026"
+  },
+  {
+   "id": "r9-9900x",
+   "type": "cpu",
+   "s": 73.9,
+   "src": "toms-cpu-2026"
+  },
+  {
+   "id": "r7-9700x",
+   "type": "cpu",
+   "s": 73.5,
+   "src": "estimate"
+  },
+  {
+   "id": "r5-9600x",
+   "type": "cpu",
+   "s": 72.6,
+   "src": "toms-cpu-2026"
+  },
+  {
+   "id": "r9-7950x3d",
+   "type": "cpu",
+   "s": 83.9,
+   "src": "toms-cpu-2026"
+  },
+  {
+   "id": "r9-7900x3d",
+   "type": "cpu",
+   "s": 77.1,
+   "src": "toms-cpu-2026"
+  },
+  {
+   "id": "r7-7800x3d",
+   "type": "cpu",
+   "s": 85.6,
+   "src": "toms-cpu-2026"
+  },
+  {
+   "id": "r9-7950x",
+   "type": "cpu",
+   "s": 71.0,
+   "src": "toms-cpu-2026"
+  },
+  {
+   "id": "r9-7900x",
+   "type": "cpu",
+   "s": 69.2,
+   "src": "toms-cpu-2026"
+  },
+  {
+   "id": "r7-7700x",
+   "type": "cpu",
+   "s": 70.6,
+   "src": "toms-cpu-2026"
+  },
+  {
+   "id": "r5-7600x",
+   "type": "cpu",
+   "s": 67.3,
+   "src": "toms-cpu-2026"
+  },
+  {
+   "id": "r5-7600",
+   "type": "cpu",
+   "s": 65.3,
+   "src": "estimate"
+  },
+  {
+   "id": "r7-5800x3d",
+   "type": "cpu",
+   "s": 72.1,
+   "src": "meta-derived"
+  },
+  {
+   "id": "r7-5700x3d",
+   "type": "cpu",
+   "s": 66.3,
+   "src": "meta-derived"
+  },
+  {
+   "id": "r9-5950x",
+   "type": "cpu",
+   "s": 62.5,
+   "src": "estimate"
+  },
+  {
+   "id": "r9-5900x",
+   "type": "cpu",
+   "s": 62.5,
+   "src": "estimate"
+  },
+  {
+   "id": "r7-5800x",
+   "type": "cpu",
+   "s": 62.7,
+   "src": "estimate"
+  },
+  {
+   "id": "r7-5700x",
+   "type": "cpu",
+   "s": 60.5,
+   "src": "estimate"
+  },
+  {
+   "id": "r5-5600x",
+   "type": "cpu",
+   "s": 60.0,
+   "src": "estimate"
+  },
+  {
+   "id": "r5-5600",
+   "type": "cpu",
+   "s": 58.0,
+   "src": "estimate"
+  },
+  {
+   "id": "r5-3600",
+   "type": "cpu",
+   "s": 49.0,
+   "src": "estimate"
+  },
+  {
+   "id": "gtx970",
+   "type": "gpu",
+   "p": [
+    11.8,
+    9.3,
+    6.0
+   ],
+   "src": "toms-gpu-2020-scaled"
+  },
+  {
+   "id": "gtx980",
+   "type": "gpu",
+   "p": [
+    14.1,
+    11.1,
+    7.1
+   ],
+   "src": "toms-gpu-2020-scaled"
+  },
+  {
+   "id": "gtx980ti",
+   "type": "gpu",
+   "p": [
+    17.5,
+    13.9,
+    8.9
+   ],
+   "src": "toms-gpu-2020-scaled"
+  },
+  {
+   "id": "gtx1050",
+   "type": "gpu",
+   "p": [
+    6.5,
+    5.1,
+    3.3
+   ],
+   "src": "toms-gpu-2020-scaled"
+  },
+  {
+   "id": "gtx1050ti",
+   "type": "gpu",
+   "p": [
+    8.6,
+    6.8,
+    4.3
+   ],
+   "src": "toms-gpu-2020-scaled"
+  },
+  {
+   "id": "gtx1060-3gb",
+   "type": "gpu",
+   "p": [
+    11.9,
+    9.4,
+    6.0
+   ],
+   "src": "toms-gpu-2020-scaled"
+  },
+  {
+   "id": "gtx1070",
+   "type": "gpu",
+   "p": [
+    19.6,
+    15.5,
+    9.9
+   ],
+   "src": "toms-gpu-2020-scaled"
+  },
+  {
+   "id": "gtx1070ti",
+   "type": "gpu",
+   "p": [
+    22.3,
+    17.6,
+    11.3
+   ],
+   "src": "toms-gpu-2020-scaled"
+  },
+  {
+   "id": "gtx1650s",
+   "type": "gpu",
+   "p": [
+    15.2,
+    12.0,
+    7.7
+   ],
+   "src": "toms-gpu-2020-scaled"
+  },
+  {
+   "id": "gtx1660",
+   "type": "gpu",
+   "p": [
+    17.5,
+    13.8,
+    8.9
+   ],
+   "src": "toms-gpu-2020-scaled"
+  },
+  {
+   "id": "gtx1660ti",
+   "type": "gpu",
+   "p": [
+    20.1,
+    15.9,
+    10.2
+   ],
+   "src": "toms-gpu-2020-scaled"
+  },
+  {
+   "id": "rtx2060s",
+   "type": "gpu",
+   "p": [
+    27.0,
+    21.3,
+    13.7
+   ],
+   "src": "toms-gpu-2020-scaled"
+  },
+  {
+   "id": "rtx2070",
+   "type": "gpu",
+   "p": [
+    28.3,
+    22.4,
+    14.3
+   ],
+   "src": "toms-gpu-2020-scaled"
+  },
+  {
+   "id": "rtx2080",
+   "type": "gpu",
+   "p": [
+    33.3,
+    26.3,
+    16.9
+   ],
+   "src": "toms-gpu-2020-scaled"
+  },
+  {
+   "id": "rtx2080s",
+   "type": "gpu",
+   "p": [
+    35.6,
+    28.1,
+    18.0
+   ],
+   "src": "toms-gpu-2020-scaled"
+  },
+  {
+   "id": "rtx2080ti",
+   "type": "gpu",
+   "p": [
+    42.7,
+    35.4,
+    28.3
+   ],
+   "src": "toms-gpu-2020-scaled"
+  },
+  {
+   "id": "rtx3050",
+   "type": "gpu",
+   "p": [
+    21.9,
+    17.8,
+    11.4
+   ],
+   "src": "toms-gpu-2026"
+  },
+  {
+   "id": "rtx5060ti",
+   "type": "gpu",
+   "p": [
+    51.6,
+    43.9,
+    36.3
+   ],
+   "src": "toms-gpu-2026"
+  },
+  {
+   "id": "rtx5060",
+   "type": "gpu",
+   "p": [
+    43.4,
+    35.8,
+    19.6
+   ],
+   "src": "toms-gpu-2026"
+  },
+  {
+   "id": "rtx5050",
+   "type": "gpu",
+   "p": [
+    34.0,
+    27.1,
+    15.4
+   ],
+   "src": "toms-gpu-2026"
+  },
+  {
+   "id": "rx470",
+   "type": "gpu",
+   "p": [
+    12.6,
+    10.0,
+    6.4
+   ],
+   "src": "estimate"
+  },
+  {
+   "id": "rx480",
+   "type": "gpu",
+   "p": [
+    15.3,
+    12.1,
+    7.7
+   ],
+   "src": "estimate"
+  },
+  {
+   "id": "rx570",
+   "type": "gpu",
+   "p": [
+    13.4,
+    10.6,
+    6.8
+   ],
+   "src": "toms-gpu-2020-scaled"
+  },
+  {
+   "id": "rx580",
+   "type": "gpu",
+   "p": [
+    16.5,
+    13.0,
+    8.3
+   ],
+   "src": "toms-gpu-2020-scaled"
+  },
+  {
+   "id": "rx590",
+   "type": "gpu",
+   "p": [
+    17.3,
+    13.6,
+    8.7
+   ],
+   "src": "toms-gpu-2020-scaled"
+  },
+  {
+   "id": "vega56",
+   "type": "gpu",
+   "p": [
+    22.8,
+    18.0,
+    11.5
+   ],
+   "src": "toms-gpu-2020-scaled"
+  },
+  {
+   "id": "vega64",
+   "type": "gpu",
+   "p": [
+    25.8,
+    20.4,
+    13.1
+   ],
+   "src": "toms-gpu-2020-scaled"
+  },
+  {
+   "id": "radeonvii",
+   "type": "gpu",
+   "p": [
+    32.5,
+    26.9,
+    21.5
+   ],
+   "src": "toms-gpu-2020-scaled"
+  },
+  {
+   "id": "rx5500xt",
+   "type": "gpu",
+   "p": [
+    16.9,
+    13.4,
+    8.6
+   ],
+   "src": "toms-gpu-2020-scaled"
+  },
+  {
+   "id": "rx5600xt",
+   "type": "gpu",
+   "p": [
+    24.8,
+    19.6,
+    12.6
+   ],
+   "src": "toms-gpu-2020-scaled"
+  },
+  {
+   "id": "rx5700",
+   "type": "gpu",
+   "p": [
+    27.4,
+    21.6,
+    13.9
+   ],
+   "src": "toms-gpu-2020-scaled"
+  },
+  {
+   "id": "rx6400",
+   "type": "gpu",
+   "p": [
+    11.1,
+    8.8,
+    5.6
+   ],
+   "src": "estimate"
+  },
+  {
+   "id": "rx6500xt",
+   "type": "gpu",
+   "p": [
+    14.8,
+    11.7,
+    7.5
+   ],
+   "src": "toms-gpu-2020-scaled"
+  },
+  {
+   "id": "rx6650xt",
+   "type": "gpu",
+   "p": [
+    31.5,
+    22.7,
+    17.1
+   ],
+   "src": "toms-gpu-2026"
+  },
+  {
+   "id": "rx6700",
+   "type": "gpu",
+   "p": [
+    35.5,
+    29.0,
+    21.5
+   ],
+   "src": "estimate"
+  },
+  {
+   "id": "rx7600xt",
+   "type": "gpu",
+   "p": [
+    37.6,
+    30.0,
+    23.1
+   ],
+   "src": "estimate"
+  },
+  {
+   "id": "rx7900gre",
+   "type": "gpu",
+   "p": [
+    62.0,
+    55.0,
+    44.5
+   ],
+   "src": "estimate"
+  },
+  {
+   "id": "arca580",
+   "type": "gpu",
+   "p": [
+    25.3,
+    21.8,
+    17.9
+   ],
+   "src": "estimate"
+  },
+  {
+   "id": "arca380",
+   "type": "gpu",
+   "p": [
+    11.0,
+    8.6,
+    5.5
+   ],
+   "src": "estimate"
+  },
+  {
+   "id": "i5-6600k",
+   "type": "cpu",
+   "s": 33.0,
+   "src": "estimate"
+  },
+  {
+   "id": "i7-6700k",
+   "type": "cpu",
+   "s": 37.0,
+   "src": "estimate"
+  },
+  {
+   "id": "i5-7600k",
+   "type": "cpu",
+   "s": 36.0,
+   "src": "estimate"
+  },
+  {
+   "id": "i7-7700k",
+   "type": "cpu",
+   "s": 40.0,
+   "src": "estimate"
+  },
+  {
+   "id": "i5-8400",
+   "type": "cpu",
+   "s": 42.0,
+   "src": "estimate"
+  },
+  {
+   "id": "i5-8600k",
+   "type": "cpu",
+   "s": 45.0,
+   "src": "estimate"
+  },
+  {
+   "id": "i7-8700k",
+   "type": "cpu",
+   "s": 49.0,
+   "src": "estimate"
+  },
+  {
+   "id": "i5-9400",
+   "type": "cpu",
+   "s": 43.0,
+   "src": "estimate"
+  },
+  {
+   "id": "i5-9600k",
+   "type": "cpu",
+   "s": 46.0,
+   "src": "estimate"
+  },
+  {
+   "id": "i7-9700k",
+   "type": "cpu",
+   "s": 51.0,
+   "src": "estimate"
+  },
+  {
+   "id": "i9-9900k",
+   "type": "cpu",
+   "s": 53.5,
+   "src": "estimate"
+  },
+  {
+   "id": "i3-10100",
+   "type": "cpu",
+   "s": 38.0,
+   "src": "estimate"
+  },
+  {
+   "id": "i5-10400",
+   "type": "cpu",
+   "s": 45.0,
+   "src": "estimate"
+  },
+  {
+   "id": "i5-10600k",
+   "type": "cpu",
+   "s": 49.5,
+   "src": "estimate"
+  },
+  {
+   "id": "i7-10700k",
+   "type": "cpu",
+   "s": 54.0,
+   "src": "estimate"
+  },
+  {
+   "id": "i9-10900k",
+   "type": "cpu",
+   "s": 56.0,
+   "src": "estimate"
+  },
+  {
+   "id": "i5-11400",
+   "type": "cpu",
+   "s": 50.0,
+   "src": "estimate"
+  },
+  {
+   "id": "i5-11600k",
+   "type": "cpu",
+   "s": 53.0,
+   "src": "estimate"
+  },
+  {
+   "id": "i7-11700k",
+   "type": "cpu",
+   "s": 55.0,
+   "src": "estimate"
+  },
+  {
+   "id": "i9-11900k",
+   "type": "cpu",
+   "s": 57.0,
+   "src": "estimate"
+  },
+  {
+   "id": "i3-12100",
+   "type": "cpu",
+   "s": 48.0,
+   "src": "estimate"
+  },
+  {
+   "id": "i5-14400",
+   "type": "cpu",
+   "s": 57.5,
+   "src": "estimate"
+  },
+  {
+   "id": "r5-1600",
+   "type": "cpu",
+   "s": 33.0,
+   "src": "estimate"
+  },
+  {
+   "id": "r7-1700",
+   "type": "cpu",
+   "s": 34.0,
+   "src": "estimate"
+  },
+  {
+   "id": "r5-2600",
+   "type": "cpu",
+   "s": 37.0,
+   "src": "estimate"
+  },
+  {
+   "id": "r7-2700x",
+   "type": "cpu",
+   "s": 40.0,
+   "src": "estimate"
+  },
+  {
+   "id": "r5-3600x",
+   "type": "cpu",
+   "s": 50.0,
+   "src": "estimate"
+  },
+  {
+   "id": "r7-3700x",
+   "type": "cpu",
+   "s": 51.0,
+   "src": "estimate"
+  },
+  {
+   "id": "r9-3900x",
+   "type": "cpu",
+   "s": 52.0,
+   "src": "estimate"
+  },
+  {
+   "id": "r5-5500",
+   "type": "cpu",
+   "s": 52.0,
+   "src": "estimate"
+  },
+  {
+   "id": "r5-5600g",
+   "type": "cpu",
+   "s": 50.0,
+   "src": "estimate"
+  },
+  {
+   "id": "r7-5700g",
+   "type": "cpu",
+   "s": 53.0,
+   "src": "estimate"
+  },
+  {
+   "id": "r5-7500f",
+   "type": "cpu",
+   "s": 64.5,
+   "src": "estimate"
+  },
+  {
+   "id": "r5-8600g",
+   "type": "cpu",
+   "s": 55.0,
+   "src": "estimate"
+  },
+  {
+   "id": "r7-8700g",
+   "type": "cpu",
+   "s": 57.0,
+   "src": "estimate"
+  }
+ ]
+}

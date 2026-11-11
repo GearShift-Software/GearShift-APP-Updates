@@ -1,0 +1,509 @@
+{
+ "schema": 1,
+ "version": 20261102,
+ "updated": "2026-11-02",
+ "kind": "cpu",
+ "about": "CPU database: families are the fallback for a generation, models override one chip. match = regexes tested against the Windows CPU name.",
+ "families": [
+  {
+   "id": "zen5x3d",
+   "name": "Ryzen 9000 X3D (Zen 5 3D V-Cache)",
+   "vendor": "AMD",
+   "match": [
+    "Ryzen\\s+\\d\\s+9\\d{2}0X3D"
+   ],
+   "ram": "DDR5-6000 CL30 with EXPO, 2 sticks (1:1 memory controller).",
+   "tune": "PBO + Curve Optimizer (BIOS): all-core -15, then -20/-30 if stable. Zen 5 X3D also allows normal PBO overclocking.",
+   "tips": [
+    "Enable EXPO, then Curve Optimizer -15 all-core; test with CoreCycler before going further.",
+    "Keep chipset driver and BIOS current: AMD's newest AGESA improves X3D scheduling and memory."
+   ],
+   "issues": [
+    "Keep SoC voltage at or below 1.3 V (BIOS default on current firmware)."
+   ],
+   "src": [
+    {
+     "T": "Most Zen 4 and Zen 5 chips sustain -20, even -30 Curve Optimizer steps (each step about 3-5 mV).",
+     "S": "TechPowerUp forum",
+     "U": "https://techpowerup.com/forums/threads/msi-tomahawk-x870-9800x3d.332644/post-5457195"
+    },
+    {
+     "T": "CoreCycler tests Curve Optimizer stability one core at a time.",
+     "S": "CoreCycler (GitHub)",
+     "U": "https://github.com/sp00n/corecycler"
+    }
+   ],
+   "checked": "2026-11-02"
+  },
+  {
+   "id": "zen5",
+   "name": "Ryzen 9000 (Zen 5)",
+   "vendor": "AMD",
+   "match": [
+    "Ryzen\\s+\\d\\s+9\\d{2}0(X|XT|F)?\\b"
+   ],
+   "ram": "DDR5-6000 CL30 with EXPO, 2 sticks.",
+   "tune": "PBO + Curve Optimizer -15 to -30 (BIOS); Eco Mode for a cool, quiet chip.",
+   "tips": [
+    "Curve Optimizer lowers voltage per boost step: cooler and often faster under load.",
+    "Eco Mode (BIOS or Ryzen Master) trades a little multi-core speed for much less heat."
+   ],
+   "issues": [],
+   "src": [
+    {
+     "T": "Most Zen 4 and Zen 5 chips sustain -20 to -30 Curve Optimizer.",
+     "S": "TechPowerUp forum",
+     "U": "https://techpowerup.com/forums/threads/msi-tomahawk-x870-9800x3d.332644/post-5457195"
+    }
+   ],
+   "checked": "2026-11-02"
+  },
+  {
+   "id": "zen4x3d",
+   "name": "Ryzen 7000 X3D (Zen 4 3D V-Cache)",
+   "vendor": "AMD",
+   "match": [
+    "Ryzen\\s+\\d\\s+7\\d{2}0X3D"
+   ],
+   "ram": "DDR5-6000 CL30 with EXPO is the sweet spot; faster kits add almost nothing.",
+   "tune": "Curve Optimizer -20 to -30 (PBO > Curve Optimizer, or MSI 'Kombo Strike'). No clock overclock on these chips.",
+   "tips": [
+    "Curve Optimizer -20 to -30 lowers temperatures and holds 5.0 GHz boost longer.",
+    "Enable EXPO; going past DDR5-6000 gains about 3 FPS at best."
+   ],
+   "issues": [
+    "Update the BIOS: 2023 updates capped SoC voltage at 1.3 V after reports of burned chips."
+   ],
+   "src": [
+    {
+     "T": "Optimal memory for the 7800X3D: 32 GB DDR5-6000 CL30 EXPO.",
+     "S": "Faceofit",
+     "U": "https://www.faceofit.com/ryzen-7-7800x3d-ram-compatibility-guide/"
+    },
+    {
+     "T": "Curve Optimizer -20 gave 5.04 GHz; RAM 6000 -> 6200 only +3 FPS.",
+     "S": "Igor's Lab forum",
+     "U": "https://www.igorslab.de/community/goto/post?id=241326"
+    },
+    {
+     "T": "All boards handle -15 to -20 Curve Optimizer; some chips fail -20.",
+     "S": "Guru3D forum",
+     "U": "https://forums.guru3d.com/goto/post?id=6285792"
+    }
+   ],
+   "checked": "2026-11-02"
+  },
+  {
+   "id": "zen4",
+   "name": "Ryzen 7000 (Zen 4)",
+   "vendor": "AMD",
+   "match": [
+    "Ryzen\\s+\\d\\s+7\\d{2}0(X|XT|F)?\\b"
+   ],
+   "ram": "DDR5-6000 CL30 with EXPO, 2 sticks.",
+   "tune": "PBO + Curve Optimizer -15 to -30; Eco Mode 105 W for quiet systems.",
+   "tips": [
+    "Zen 4 is designed to run up to 95 C under heavy load: that is normal, not a fault.",
+    "Curve Optimizer -20 typically lowers temperatures and keeps clocks higher."
+   ],
+   "issues": [
+    "Update the BIOS (SoC voltage cap, memory compatibility)."
+   ],
+   "src": [
+    {
+     "T": "Most Zen 4 chips sustain -20 to -30 Curve Optimizer.",
+     "S": "TechPowerUp forum",
+     "U": "https://techpowerup.com/forums/threads/msi-tomahawk-x870-9800x3d.332644/post-5457195"
+    }
+   ],
+   "checked": "2026-11-02"
+  },
+  {
+   "id": "zen3x3d",
+   "name": "Ryzen 5000 X3D (Zen 3 3D V-Cache)",
+   "vendor": "AMD",
+   "match": [
+    "Ryzen\\s+\\d\\s+5\\d{2}0X3D"
+   ],
+   "ram": "DDR4-3600 CL16 (FCLK 1800, 1:1), 2 sticks.",
+   "tune": "Curve Optimizer only: BIOS (AGESA 1.2.0.8+), MSI 'Kombo Strike', or the free PBO2 Tuner. Leave the power limits alone.",
+   "tips": [
+    "Curve Optimizer -20 to -30 cuts temperatures from the high 80s to the low/mid 70s on many chips.",
+    "PBO2 Tuner settings reset at reboot: run it from a startup task if your BIOS has no Curve Optimizer."
+   ],
+   "issues": [],
+   "src": [
+    {
+     "T": "On the 5800X3D only Curve Optimizer is worth touching; Kombo Strike = -10/-20/-30.",
+     "S": "TechPowerUp forum",
+     "U": "https://techpowerup.com/forums/goto/post?id=5004981"
+    },
+    {
+     "T": "Step-by-step PBO2 Tuner undervolt guide.",
+     "S": "GitHub (PrimeO7)",
+     "U": "https://github.com/PrimeO7/How-to-undervolt-AMD-RYZEN-5800X3D-Guide-with-PBO2-Tuner"
+    }
+   ],
+   "checked": "2026-11-02"
+  },
+  {
+   "id": "zen3",
+   "name": "Ryzen 5000 (Zen 3)",
+   "vendor": "AMD",
+   "match": [
+    "Ryzen\\s+\\d\\s+5\\d{2}0(X|XT)?\\b"
+   ],
+   "ram": "DDR4-3600 CL16 with FCLK 1800 (1:1); 2 sticks or 2 dual-rank.",
+   "tune": "PBO + per-core Curve Optimizer (-10 to -30); test with CoreCycler.",
+   "tips": [
+    "Per-core Curve Optimizer: best cores get smaller offsets (-5 to -15), the rest -20 to -30.",
+    "Keep FCLK at half the RAM speed (1800 for DDR4-3600) for the lowest latency."
+   ],
+   "issues": [],
+   "src": [
+    {
+     "T": "Per-core Curve Optimizer guide for Ryzen 5000.",
+     "S": "r/overclocking",
+     "U": "https://cal1.lr.ggtyler.dev/r/overclocking/comments/103glvs/undervolting_ryzen_5000_effectively_guide_by_a"
+    },
+    {
+     "T": "CoreCycler tests one core at a time.",
+     "S": "CoreCycler (GitHub)",
+     "U": "https://github.com/sp00n/corecycler"
+    }
+   ],
+   "checked": "2026-11-02"
+  },
+  {
+   "id": "apu",
+   "name": "Ryzen APU (G / Phoenix / Cezanne)",
+   "vendor": "AMD",
+   "match": [
+    "Ryzen\\s+\\d\\s+[4-8]\\d{2}0G"
+   ],
+   "ram": "Fastest RAM the board takes: DDR4-3600-4000 (5000G) or DDR5-6000+ (8000G). The graphics live on it.",
+   "tune": "Curve Optimizer -15 to -30 on supported boards; raise UMA frame buffer for games.",
+   "tips": [
+    "Dual-channel, fast RAM is the single biggest upgrade for the integrated graphics."
+   ],
+   "issues": [],
+   "src": [],
+   "checked": "2026-11-02"
+  },
+  {
+   "id": "zen2",
+   "name": "Ryzen 3000 (Zen 2)",
+   "vendor": "AMD",
+   "match": [
+    "Ryzen\\s+\\d\\s+3\\d{2}0(X|XT)?\\b"
+   ],
+   "ram": "DDR4-3600 CL16, FCLK 1800 (1:1).",
+   "tune": "Little to gain from PBO; a manual all-core overclock costs single-core boost.",
+   "tips": [
+    "Fast RAM with matched FCLK matters more than CPU tuning on Zen 2."
+   ],
+   "issues": [],
+   "src": [],
+   "checked": "2026-11-02"
+  },
+  {
+   "id": "zen1",
+   "name": "Ryzen 1000 / 2000 (Zen / Zen+)",
+   "vendor": "AMD",
+   "match": [
+    "Ryzen\\s+\\d\\s+[12]\\d{2}0(X)?\\b"
+   ],
+   "ram": "DDR4-3000 to 3200 (Zen+ up to ~3466).",
+   "tune": "Precision Boost 2 (2000 series) already boosts well; keep stock or a mild all-core OC on 1000 series.",
+   "tips": [
+    "A BIOS update often improves RAM compatibility on these older boards."
+   ],
+   "issues": [],
+   "src": [],
+   "checked": "2026-11-02"
+  },
+  {
+   "id": "arrowlake",
+   "name": "Core Ultra 200S (Arrow Lake)",
+   "vendor": "Intel",
+   "match": [
+    "Core\\(TM\\)\\s*Ultra\\s*\\d\\s*2\\d{2}",
+    "Core Ultra \\d 2\\d{2}"
+   ],
+   "ram": "DDR5-7200 is the price/performance sweet spot; up to DDR5-8000 with 200S Boost.",
+   "tune": "K chips on Z890: Intel 200S Boost profile in the BIOS (fabric + memory OC, keeps the warranty).",
+   "tips": [
+    "Update the BIOS (0x114 microcode or newer improves gaming performance).",
+    "200S Boost: most of the gain comes from the faster memory, not the fabric clocks."
+   ],
+   "issues": [],
+   "src": [
+    {
+     "T": "200S Boost raised fabric and die-to-die clocks and allows DDR5-8000; about 7.5% higher 1080p gaming, mostly from memory.",
+     "S": "Tom's Hardware",
+     "U": "https://www.tomshardware.com/pc-components/cpus/we-tested-intels-unreleased-200s-boost-feature-7-percent-higher-gaming-performance-thanks-to-memory-overclocking-now-covered-by-the-warranty"
+    },
+    {
+     "T": "Official 200S Boost profile: supported CPUs and how to enable it.",
+     "S": "Intel",
+     "U": "https://game.intel.com/stories/200s-boost-overclocking-profile/"
+    }
+   ],
+   "checked": "2026-11-02"
+  },
+  {
+   "id": "raptor",
+   "name": "Core 13th / 14th gen (Raptor Lake)",
+   "vendor": "Intel",
+   "match": [
+    "i\\d-1[34]\\d{3}"
+   ],
+   "ram": "DDR5-6000 to 7200 (2 sticks) or DDR4-3600 CL16 (Gear 1).",
+   "tune": "First: BIOS with microcode 0x12B or newer and the 'Intel Default Settings' profile. Optional: a small negative voltage offset / lower AC load line.",
+   "tips": [
+    "Update the BIOS to microcode 0x12B or newer: it stops the voltage that degrades these chips.",
+    "Pick 'Intel Default Settings' (i9: 'Performance' profile) in the BIOS instead of unlimited board defaults.",
+    "Never raise CPU voltage on these chips."
+   ],
+   "issues": [
+    "Vmin shift instability: the BIOS fix prevents it but cannot repair a chip that already crashes at stock; contact Intel if it does."
+   ],
+   "src": [
+    {
+     "T": "Root cause and the 0x12B microcode mitigation for 13th/14th gen desktop CPUs.",
+     "S": "Intel",
+     "U": "https://community.intel.com/t5/Blogs/Tech-Innovation/Client/Intel-Core-13th-and-14th-Gen-Desktop-Instability-Root-Cause/post/1678185"
+    },
+    {
+     "T": "Intel confirmed 0x12B as the final mitigation, delivered via BIOS updates.",
+     "S": "WePC",
+     "U": "https://www.wepc.com/news/intel-confirms-0x12b-as-the-final-patch-for-13th-and-14th-gen-instability-issues"
+    }
+   ],
+   "checked": "2026-11-02"
+  },
+  {
+   "id": "alder",
+   "name": "Core 12th gen (Alder Lake)",
+   "vendor": "Intel",
+   "match": [
+    "i\\d-12\\d{3}"
+   ],
+   "ram": "DDR5-6000 or DDR4-3600 CL16 in Gear 1.",
+   "tune": "K chips on Z690/Z790: mild all-core OC or power limits; non-K: keep stock, enable XMP.",
+   "tips": [
+    "Keep E-cores enabled on Windows 11: Thread Director schedules games on P-cores.",
+    "On B660/B760 boards XMP works; CPU ratio overclocking needs Z-series."
+   ],
+   "issues": [],
+   "src": [],
+   "checked": "2026-11-02"
+  },
+  {
+   "id": "coffee",
+   "name": "Core 8th-11th gen",
+   "vendor": "Intel",
+   "match": [
+    "i\\d-(8|9|10|11)\\d{3}"
+   ],
+   "ram": "DDR4-3200 to 3600 (11th gen: Gear 1 up to ~3600).",
+   "tune": "K chips on Z boards: all-core OC or MCE; most BIOS updates lock CPU undervolting (Plundervolt fix).",
+   "tips": [
+    "Enable XMP: many of these PCs run RAM at 2133-2666 by default."
+   ],
+   "issues": [],
+   "src": [],
+   "checked": "2026-11-02"
+  },
+  {
+   "id": "skylake",
+   "name": "Core 6th-7th gen",
+   "vendor": "Intel",
+   "match": [
+    "i\\d-[67]\\d{3}"
+   ],
+   "ram": "DDR4-2400 to 3000.",
+   "tune": "K chips on Z170/Z270: classic all-core overclock.",
+   "tips": [
+    "Windows 11 does not officially support these CPUs."
+   ],
+   "issues": [],
+   "src": [],
+   "checked": "2026-11-02"
+  },
+  {
+   "id": "intel_other",
+   "name": "Other Intel CPU",
+   "vendor": "Intel",
+   "match": [
+    "Intel"
+   ],
+   "ram": "Enable XMP if the board allows it.",
+   "tune": "Keep stock.",
+   "tips": [],
+   "issues": [],
+   "src": [],
+   "checked": "2026-11-02"
+  },
+  {
+   "id": "amd_other",
+   "name": "Other AMD CPU",
+   "vendor": "AMD",
+   "match": [
+    "AMD"
+   ],
+   "ram": "Enable EXPO/XMP/DOCP if the board allows it.",
+   "tune": "Keep stock.",
+   "tips": [],
+   "issues": [],
+   "src": [],
+   "checked": "2026-11-02"
+  }
+ ],
+ "models": [
+  {
+   "id": "9800x3d",
+   "name": "Ryzen 7 9800X3D",
+   "family": "zen5x3d",
+   "match": [
+    "9800X3D"
+   ],
+   "notes": [
+    "120 W TDP; unlike the 7800X3D it supports full PBO overclocking."
+   ],
+   "checked": "2026-11-02"
+  },
+  {
+   "id": "9950x3d",
+   "name": "Ryzen 9 9950X3D / 9900X3D",
+   "family": "zen5x3d",
+   "match": [
+    "99[05]0X3D"
+   ],
+   "notes": [
+    "Two chiplets, one with V-Cache: keep the AMD chipset driver and Game Mode on so games use the cache cores."
+   ],
+   "checked": "2026-11-02"
+  },
+  {
+   "id": "7800x3d",
+   "name": "Ryzen 7 7800X3D",
+   "family": "zen4x3d",
+   "match": [
+    "7800X3D"
+   ],
+   "notes": [
+    "Boosts to 5.0 GHz; Curve Optimizer -20 reached 5.04 GHz (PCGH via Igor's Lab)."
+   ],
+   "checked": "2026-11-02"
+  },
+  {
+   "id": "79x0x3d",
+   "name": "Ryzen 9 7900X3D / 7950X3D",
+   "family": "zen4x3d",
+   "match": [
+    "79[05]0X3D"
+   ],
+   "notes": [
+    "Keep the chipset driver and Game Bar current so games stay on the V-Cache chiplet."
+   ],
+   "checked": "2026-11-02"
+  },
+  {
+   "id": "5800x3d",
+   "name": "Ryzen 7 5800X3D",
+   "family": "zen3x3d",
+   "match": [
+    "5800X3D"
+   ],
+   "notes": [
+    "Max boost 4.55 GHz; Curve Optimizer is the only tuning that matters."
+   ],
+   "checked": "2026-11-02"
+  },
+  {
+   "id": "5700x3d",
+   "name": "Ryzen 7 5700X3D",
+   "family": "zen3x3d",
+   "match": [
+    "5700X3D"
+   ],
+   "notes": [
+    "Same tuning as the 5800X3D: Curve Optimizer -20 to -30."
+   ],
+   "checked": "2026-11-02"
+  },
+  {
+   "id": "i9raptor",
+   "name": "Core i9-13900K/KF/KS, 14900K/KF/KS",
+   "family": "raptor",
+   "match": [
+    "i9-1[34]900"
+   ],
+   "notes": [
+    "Most affected by Vmin shift: BIOS 0x12B+ and the Intel 'Performance' profile are a must."
+   ],
+   "checked": "2026-11-02"
+  },
+  {
+   "id": "i7raptor",
+   "name": "Core i7-13700K / 14700K",
+   "family": "raptor",
+   "match": [
+    "i7-1[34]700"
+   ],
+   "notes": [
+    "Update the BIOS (0x12B+) and use Intel Default Settings."
+   ],
+   "checked": "2026-11-02"
+  },
+  {
+   "id": "i5raptor",
+   "name": "Core i5-13600K / 14600K (and KF)",
+   "family": "raptor",
+   "match": [
+    "i5-1[34]600K"
+   ],
+   "notes": [
+    "6 P-cores + 8 E-cores; Intel Default Settings, 0x12B+ BIOS. A small undervolt lowers heat."
+   ],
+   "checked": "2026-11-02"
+  },
+  {
+   "id": "12400",
+   "name": "Core i5-12400 / 12400F",
+   "family": "alder",
+   "match": [
+    "i5-12400"
+   ],
+   "notes": [
+    "P-cores only; locked: XMP and good airflow are the free wins."
+   ],
+   "checked": "2026-11-02"
+  },
+  {
+   "id": "285k",
+   "name": "Core Ultra 9 285K / Ultra 7 265K / Ultra 5 245K",
+   "family": "arrowlake",
+   "match": [
+    "Ultra\\s*\\d\\s*2[4-8]5K"
+   ],
+   "notes": [
+    "Supported by Intel 200S Boost on Z890 boards."
+   ],
+   "checked": "2026-11-02"
+  },
+  {
+   "id": "5600x",
+   "name": "Ryzen 5 5600X / 5600",
+   "family": "zen3",
+   "match": [
+    "5600X?(?!3D)\\b"
+   ],
+   "notes": [
+    "Per-core Curve Optimizer + PBO typically adds 100-200 MHz of sustained boost."
+   ],
+   "checked": "2026-11-02"
+  }
+ ]
+}
